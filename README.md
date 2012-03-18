@@ -17,6 +17,9 @@ Usually you will only want the *bin/HumboldtJSLibrary.swc*,
 You can safely ignore the rest of this repository. The rest is only needed
 if you want to fix bugs in the standard library or expand the functionality.
 
+Unless you want to do these things you are probably better off starting with
+the HumboldJSEmpty project, so check that out first.
+
 ## How to build it?
 
 After cloning this repository you can import the folder as an existing project
