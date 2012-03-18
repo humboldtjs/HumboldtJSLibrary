@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><apiPackage id="dom"><apiName>dom</apiName><apiDetail/><apiValue id="globalValue:dom:document"><apiName>document</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="dom.domobjects:Document"/></apiValueDef></apiValueDetail></apiValue><apiValue id="globalValue:dom:navigator"><apiName>navigator</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="dom.domobjects:Navigator"/></apiValueDef></apiValueDetail></apiValue><apiValue id="globalValue:dom:screen"><apiName>screen</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="dom.domobjects:Screen"/></apiValueDef></apiValueDetail></apiValue><apiValue id="globalValue:dom:window"><apiName>window</apiName><shortdesc>
+	 The globally accessible window object provides access to global functions and
+	 objects which are part of the browser.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="dom.domobjects:Window"/></apiValueDef><apiDesc>
+	 The globally accessible window object provides access to global functions and
+	 objects which are part of the browser.
+	 
+	 </apiDesc></apiValueDetail><related-links><link href="" invalidHref="dom.domobjects.Window.xml"><linktext>dom.domobjects.Window</linktext></link></related-links></apiValue></apiPackage>

@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<project name="HumboldtJSLibrary" default="main" basedir="..">
+	<description>Compiles the SWC containing the core library of HumboldtJS.</description>
+
+	<property name="FLEX_HOME" location="/Applications/Adobe Flash Builder 4.5/sdks/4.5.0"/>
+		
+	<target name="main" depends="clean, compile, doc" description="Clean build of HumboldtJSLibrary.swc">
+	</target>
+
+	<target name="clean" depends="clean-temp-docs">
+		<echo>${FLEX_HOME}</echo>
+		<delete failonerror="false">
+			<fileset dir="${basedir}/bin">
+				<include name="${ant.project.name}.swc"/>
+			</fileset>
+		</delete>
+	</target>
+
+	<target name="compile" depends="" description="Compile HumboldtJSLibrary.swc">
+		
+		<echo message="Compiling ${ant.project.name}.swc"/>
+		
+		<compc fork="true" output="${basedir}/bin/${ant.project.name}.swc">
+		    <source-path path-element="${basedir}/src"/>
+		    <include-sources dir="${basedir}/dom" includes="**/*.as **/*.mxml"/>
+		    <include-sources dir="${basedir}/src" includes="**/*.as **/*.mxml"/>
+			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
+				<include name="player/10.0/playerglobal.swc"/>
+			</external-library-path>
+			<external-library-path dir="${basedir}/lib">
+				<include name="HumboldtJSDOM.swc"/>
+			</external-library-path>
+		</compc>
+    	<zip destfile="${basedir}/bin/${ant.project.name}.swc"
+    		basedir="${basedir}/src"
+    		includes="**/*.as"
+    		update="true"/>
+		
+	</target>
+
+	<target name="doc" depends="clean-temp-docs, compile" description="Updates HumboldtJSLibrary.swc with ASDoc XML">
+
+		<echo message="Compiling ASDoc for ${ant.project.name}.swc"/>
+		
+		<!-- Call asdoc to generate dita xml files -->
+		<asdoc output="${basedir}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
+		    <compiler.source-path path-element="${basedir}/src"/>
+			<doc-sources path-element="${basedir}/src"/>
+		    <doc-sources path-element="${basedir}/dom"/>
+			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
+				<include name="player/10.0/playerglobal.swc"/>
+			</external-library-path>
+			<external-library-path dir="${basedir}/lib">
+				<include name="HumboldtJSDOM.swc"/>
+			</external-library-path>
+		</asdoc>
+		
+		<!-- updates HumboldtJSLibrary.swc with asdoc xml -->
+		<zip destfile="${basedir}/bin/${ant.project.name}.swc" update="true">
+		    <zipfileset dir="${basedir}/tempDoc/tempdita" prefix="docs">
+			    <include name="*.*"/>
+				<exclude name="ASDoc_Config.xml"/>
+				<exclude name="overviews.xml"/>
+		    </zipfileset>
+		</zip>
+	</target>
+
+	<target name="clean-temp-docs">
+		<delete dir="${basedir}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
+	</target>
+
+</project>

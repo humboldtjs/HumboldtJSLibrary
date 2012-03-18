@@ -1,0 +1,2162 @@
+<asdoc>
+
+<field name='document' fullname='dom:document' type='dom.domobjects:Document' isStatic='false' isConst='false' >
+</field>
+<field name='navigator' fullname='dom:navigator' type='dom.domobjects:Navigator' isStatic='false' isConst='false' >
+</field>
+<field name='screen' fullname='dom:screen' type='dom.domobjects:Screen' isStatic='false' isConst='false' >
+</field>
+<field name='window' fullname='dom:window' type='dom.domobjects:Window' isStatic='false' isConst='false' >
+<description><![CDATA[
+	 The globally accessible window object provides access to global functions and
+	 objects which are part of the browser.
+	 
+	 ]]></description>
+<see><![CDATA[dom.domobjects.Window
+	 ]]></see>
+</field>
+<classRec name='HJSXML' fullname='com.humboldtjs.xml:HJSXML' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/xml/HJSXML.as' namespace='com.humboldtjs.xml' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 An HumboldtJS type XML object. You can create these XML variants by
+	 using the xmlpconverter.jar program in your ant build script. This processes
+	 an XML into a JSONP format that can be loaded using the XMLPLoader and
+	 processed using this HJSXML class.
+	 
+	 Using an HJSXML object is very similar to the XML class in Flash, however
+	 with the notable exception of a lack of E4X support.
+	 
+	 This was created mainly to combat the inconsistencies between browsers
+	 when using the native XML support, and the extreme slowness of the native
+	 support under some browsers.
+	 ]]></description>
+</classRec>
+<method name='HJSXML' fullname='com.humboldtjs.xml:HJSXML/HJSXML' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<method name='getAttributeValue' fullname='com.humboldtjs.xml:HJSXML/getAttributeValue' isStatic='false' isFinal='false' isOverride='false'  param_names='aName' param_types='String' param_defaults='undefined' result_type='String'>
+<description><![CDATA[
+		 Returns an attribute's value for the given name if it exists. If no
+		 attribute with that name exists it will return null.
+		 
+		 ]]></description>
+<param><![CDATA[aName The attribute's name
+		 ]]></param>
+<return><![CDATA[The value if the XMLAttribute for the given name
+		 ]]></return>
+</method>
+<method name='getAttribute' fullname='com.humboldtjs.xml:HJSXML/getAttribute' isStatic='false' isFinal='false' isOverride='false'  param_names='aName' param_types='String' param_defaults='undefined' result_type='com.humboldtjs.xml:XMLAttribute'>
+<description><![CDATA[
+		 Returns an attribute with the given name if it exists. If no attribute
+		 with that name exists it will return null.
+		 
+		 ]]></description>
+<param><![CDATA[aName The attribute's name
+		 ]]></param>
+<return><![CDATA[An XMLAttribute for the give name
+		 ]]></return>
+</method>
+<method name='getAttributes' fullname='com.humboldtjs.xml:HJSXML/getAttributes' isStatic='false' isFinal='false' isOverride='false'  result_type='Vector$com.humboldtjs.xml:XMLAttribute'>
+<description><![CDATA[
+		 A list of attributes of this node
+		 ]]></description>
+</method>
+<method name='getChild' fullname='com.humboldtjs.xml:HJSXML/getChild' isStatic='false' isFinal='false' isOverride='false'  param_names='aName' param_types='String' param_defaults='undefined' result_type='Vector$com.humboldtjs.xml:HJSXML'>
+<description><![CDATA[
+		 Return all children with the given name that are listed directly
+		 under this node (does not work recursively).
+		 
+		 If none are found it will return an empty list.
+		 
+		 ]]></description>
+<param><![CDATA[aName The name of the node
+		 
+		 ]]></param>
+<return><![CDATA[An array of HJSXML nodes
+		 ]]></return>
+</method>
+<method name='getChildren' fullname='com.humboldtjs.xml:HJSXML/getChildren' isStatic='false' isFinal='false' isOverride='false'  result_type='Vector$com.humboldtjs.xml:HJSXML'>
+<description><![CDATA[
+		 A list of children of this node
+		 ]]></description>
+</method>
+<method name='getHasSimpleContent' fullname='com.humboldtjs.xml:HJSXML/getHasSimpleContent' isStatic='false' isFinal='false' isOverride='false'  result_type='Boolean'>
+<description><![CDATA[
+		 Whether the XML node has simple content or complex content. It has
+		 simple content it has only one child that is a string (a XMLSimple
+		 node).
+		 ]]></description>
+</method>
+<method name='getName' fullname='com.humboldtjs.xml:HJSXML/getName' isStatic='false' isFinal='false' isOverride='false'  result_type='String'>
+<description><![CDATA[
+		 The node name
+		 ]]></description>
+</method>
+<method name='getSimpleContent' fullname='com.humboldtjs.xml:HJSXML/getSimpleContent' isStatic='false' isFinal='false' isOverride='false'  result_type='String'>
+<description><![CDATA[
+		 If the node has simple content then return that simple content's
+		 string value. If it does not have simple content, then returns null.
+		 ]]></description>
+</method>
+<method name='processXML' fullname='com.humboldtjs.xml:HJSXML/processXML' isStatic='true' isFinal='false' isOverride='false'  param_names='aData' param_types='*' param_defaults='undefined' result_type='com.humboldtjs.xml:HJSXML'>
+<description><![CDATA[
+		 Process a piece of JSON (formatted using xmlpconverter.jar) into an
+		 HJSXML node structure.
+		 ]]></description>
+</method>
+<classRec name='XMLAttribute' fullname='com.humboldtjs.xml:XMLAttribute' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/xml/XMLAttribute.as' namespace='com.humboldtjs.xml' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 Represents an attribute on an XML node
+	 ]]></description>
+</classRec>
+<method name='XMLAttribute' fullname='com.humboldtjs.xml:XMLAttribute/XMLAttribute' isStatic='false' isFinal='false' isOverride='false'  param_names='aName;aValue' param_types='String;String' param_defaults='undefined;undefined' result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<method name='getName' fullname='com.humboldtjs.xml:XMLAttribute/getName' isStatic='false' isFinal='false' isOverride='false'  result_type='String'>
+<description><![CDATA[
+		 The attribute's name
+		 ]]></description>
+</method>
+<method name='getValue' fullname='com.humboldtjs.xml:XMLAttribute/getValue' isStatic='false' isFinal='false' isOverride='false'  result_type='String'>
+<description><![CDATA[
+		 The attribute's value
+		 ]]></description>
+</method>
+<field name='mName' fullname='com.humboldtjs.xml:XMLAttribute/protected:mName' type='String' isStatic='false' isConst='false' >
+</field>
+<field name='mValue' fullname='com.humboldtjs.xml:XMLAttribute/protected:mValue' type='String' isStatic='false' isConst='false' >
+</field>
+<classRec name='XMLComment' fullname='com.humboldtjs.xml:XMLComment' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/xml/XMLComment.as' namespace='com.humboldtjs.xml' access='public' baseclass='com.humboldtjs.xml:HJSXML' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 Represents a Comment in an XML node.
+	 ]]></description>
+</classRec>
+<method name='XMLComment' fullname='com.humboldtjs.xml:XMLComment/XMLComment' isStatic='false' isFinal='false' isOverride='false'  param_names='aComment' param_types='String' param_defaults='undefined' result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<method name='getComment' fullname='com.humboldtjs.xml:XMLComment/getComment' isStatic='false' isFinal='false' isOverride='false'  result_type='String'>
+<description><![CDATA[
+		 The string content of the comment
+		 ]]></description>
+</method>
+<field name='mComment' fullname='com.humboldtjs.xml:XMLComment/protected:mComment' type='String' isStatic='false' isConst='false' defaultValue='' >
+</field>
+<classRec name='XMLSimple' fullname='com.humboldtjs.xml:XMLSimple' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/xml/XMLSimple.as' namespace='com.humboldtjs.xml' access='public' baseclass='com.humboldtjs.xml:HJSXML' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 Represents Simple content in an XML node.
+	 ]]></description>
+</classRec>
+<method name='XMLSimple' fullname='com.humboldtjs.xml:XMLSimple/XMLSimple' isStatic='false' isFinal='false' isOverride='false'  param_names='aData' param_types='String' param_defaults='undefined' result_type='*'>
+</method>
+<method name='getValue' fullname='com.humboldtjs.xml:XMLSimple/getValue' isStatic='false' isFinal='false' isOverride='false'  result_type='String'>
+</method>
+<field name='mValue' fullname='com.humboldtjs.xml:XMLSimple/protected:mValue' type='String' isStatic='false' isConst='false' defaultValue='' >
+</field>
+<classRec name='XMLComplex' fullname='com.humboldtjs.xml:XMLComplex' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/xml/XMLComplex.as' namespace='com.humboldtjs.xml' access='public' baseclass='com.humboldtjs.xml:HJSXML' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 Represents an XML node with Complex content. This content can have
+	 children, attributes. Each of those children can be either Simple content
+	 (just a string) or another node with Complex content.	
+	 ]]></description>
+</classRec>
+<method name='XMLComplex' fullname='com.humboldtjs.xml:XMLComplex/XMLComplex' isStatic='false' isFinal='false' isOverride='false'  param_names='aName;aAt;aValue' param_types='String;Vector$com.humboldtjs.xml:XMLAttribute;Vector$com.humboldtjs.xml:HJSXML' param_defaults=';null;null' result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<method name='getAttributes' fullname='com.humboldtjs.xml:XMLComplex/getAttributes' isStatic='false' isFinal='false' isOverride='true'  result_type='Vector$com.humboldtjs.xml:XMLAttribute'>
+<description><![CDATA[
+		 A list of attributes of this node
+		 ]]></description>
+</method>
+<method name='getChildren' fullname='com.humboldtjs.xml:XMLComplex/getChildren' isStatic='false' isFinal='false' isOverride='true'  result_type='Vector$com.humboldtjs.xml:HJSXML'>
+<description><![CDATA[
+		 A list of children of this node
+		 ]]></description>
+</method>
+<method name='getName' fullname='com.humboldtjs.xml:XMLComplex/getName' isStatic='false' isFinal='false' isOverride='true'  result_type='String'>
+<description><![CDATA[
+		 The node name
+		 ]]></description>
+</method>
+<field name='mAt' fullname='com.humboldtjs.xml:XMLComplex/protected:mAt' type='Vector$com.humboldtjs.xml:XMLAttribute' isStatic='false' isConst='false' >
+</field>
+<field name='mName' fullname='com.humboldtjs.xml:XMLComplex/protected:mName' type='String' isStatic='false' isConst='false' >
+</field>
+<field name='mValue' fullname='com.humboldtjs.xml:XMLComplex/protected:mValue' type='Vector$com.humboldtjs.xml:HJSXML' isStatic='false' isConst='false' >
+</field>
+<classRec name='Capabilities' fullname='com.humboldtjs.system:Capabilities' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/system/Capabilities.as' namespace='com.humboldtjs.system' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 Utility class to detect environment capabilities.
+	 ]]></description>
+</classRec>
+<method name='getHasAudio' fullname='com.humboldtjs.system:Capabilities/getHasAudio' isStatic='true' isFinal='false' isOverride='false'  result_type='Boolean'>
+<description><![CDATA[
+		 Whether the Audio tag is supported. Note that this doesn't tell
+		 you whether a certain codec is supported or if there are any
+		 platform specific quirks you still have to deal with.
+		 ]]></description>
+</method>
+<method name='getHasCanvasSupport' fullname='com.humboldtjs.system:Capabilities/getHasCanvasSupport' isStatic='true' isFinal='false' isOverride='false'  result_type='Boolean'>
+<description><![CDATA[
+		 Does the browser have Canvas support? You should use this method
+		 to detect this before using the Canvas class.
+		 ]]></description>
+</method>
+<method name='getHasFullScreen' fullname='com.humboldtjs.system:Capabilities/getHasFullScreen' isStatic='true' isFinal='false' isOverride='false'  result_type='Boolean'>
+<description><![CDATA[
+		 Does the browser support fullscreen mode? You should use this method
+		 to detect this before setting fullscreen on an Application instance.
+		 ]]></description>
+</method>
+<method name='getHasMp4' fullname='com.humboldtjs.system:Capabilities/getHasMp4' isStatic='true' isFinal='false' isOverride='false'  result_type='Boolean'>
+<description><![CDATA[
+		 Whether video with the mimetype video/mp4 can be decoded by the
+		 browser. This requires Video tag support to be available.
+		 ]]></description>
+</method>
+<method name='getHasTouchscreen' fullname='com.humboldtjs.system:Capabilities/getHasTouchscreen' isStatic='true' isFinal='false' isOverride='false'  result_type='Boolean'>
+<description><![CDATA[
+		 Whether the device is a touch-based device.
+		 ]]></description>
+</method>
+<method name='getHasVideo' fullname='com.humboldtjs.system:Capabilities/getHasVideo' isStatic='true' isFinal='false' isOverride='false'  result_type='Boolean'>
+<description><![CDATA[
+		 Whether the Video tag is supported. Note that this doesn't tell
+		 you whether a certain codec is supported or if there are any
+		 platform specific quirks you still have to deal with.
+		 ]]></description>
+</method>
+<method name='getHasWebm' fullname='com.humboldtjs.system:Capabilities/getHasWebm' isStatic='true' isFinal='false' isOverride='false'  result_type='Boolean'>
+<description><![CDATA[
+		 Whether video with the mimetype video/webm can be decoded by the
+		 browser. This requires Video tag support to be available.
+		 ]]></description>
+</method>
+<method name='getLanguage' fullname='com.humboldtjs.system:Capabilities/getLanguage' isStatic='true' isFinal='false' isOverride='false'  result_type='String'>
+<description><![CDATA[
+		 Get a user's prefered language. This should normally be the same
+		 language as the browser or OS. If this language could not be
+		 determined will return a default of "en-us". 
+		 ]]></description>
+</method>
+<method name='getManufacturer' fullname='com.humboldtjs.system:Capabilities/getManufacturer' isStatic='true' isFinal='false' isOverride='false'  result_type='String'>
+<description><![CDATA[
+		 Get a manufacturer ID. This is provided purely for compatibility with
+		 flash (which would return the OS prepended with "Flash ").
+		 ]]></description>
+</method>
+<method name='getOs' fullname='com.humboldtjs.system:Capabilities/getOs' isStatic='true' isFinal='false' isOverride='false'  result_type='String'>
+<description><![CDATA[
+		 Returns the Operating System a user is using. Valid return values
+		 are:
+		 
+		 iOS
+		 Android
+		 Windows
+		 Macintosh
+		 Linux
+		 UNIX
+		 ]]></description>
+</method>
+<method name='getPixelAspectRatio' fullname='com.humboldtjs.system:Capabilities/getPixelAspectRatio' isStatic='true' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The pixel-aspect-ratio. This should be 1.0 if a pixel is square.
+		 There is a known case when using a resolution of 1280x1024 where
+		 pixels are non-square. This can be used to adjust for that.
+		 ]]></description>
+</method>
+<method name='getScreenAvailableX' fullname='com.humboldtjs.system:Capabilities/getScreenAvailableX' isStatic='true' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The available screen width, without taskbars, menus, etc.
+		 ]]></description>
+</method>
+<method name='getScreenAvailableY' fullname='com.humboldtjs.system:Capabilities/getScreenAvailableY' isStatic='true' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The available screen height, without taskbars, menus, etc.
+		 ]]></description>
+</method>
+<method name='getScreenResolutionX' fullname='com.humboldtjs.system:Capabilities/getScreenResolutionX' isStatic='true' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The total screen width.
+		 ]]></description>
+</method>
+<method name='getScreenResolutionY' fullname='com.humboldtjs.system:Capabilities/getScreenResolutionY' isStatic='true' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The total screen height.
+		 ]]></description>
+</method>
+<method name='getVersion' fullname='com.humboldtjs.system:Capabilities/getVersion' isStatic='true' isFinal='false' isOverride='false'  result_type='String'>
+<description><![CDATA[
+		 Returns the version of HumboldtJS used to compile the application.
+		 ]]></description>
+</method>
+<method name='videoMimeSupported' fullname='com.humboldtjs.system:Capabilities/videoMimeSupported' isStatic='true' isFinal='false' isOverride='false'  param_names='aMime' param_types='String' param_defaults='undefined' result_type='Boolean'>
+<description><![CDATA[
+		 Detect whether video with a certain mime type is supported. Is used
+		 to detect mp4 or webm support, but can also be used for other
+		 formats.
+		 
+		 ]]></description>
+<param><![CDATA[aMime The mime-type to check for 
+		 ]]></param>
+</method>
+<classRec name='InternalId' fullname='com.humboldtjs.system:InternalId' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/system/InternalId.as' namespace='com.humboldtjs.system' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 Utility class that can generate unique IDs.
+	 ]]></description>
+</classRec>
+<method name='InternalId' fullname='com.humboldtjs.system:InternalId/InternalId' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+</method>
+<method name='generateInternalId' fullname='com.humboldtjs.system:InternalId/generateInternalId' isStatic='true' isFinal='false' isOverride='false'  param_names='aPrefix' param_types='String' param_defaults='undefined' result_type='String'>
+<description><![CDATA[
+		 Generate a unique ID with the given prefix.
+		 
+		 ]]></description>
+<param><![CDATA[aPrefix The string to place in front of the unique ID. Usually the classname for the object you are generating an ID for.
+		 ]]></param>
+</method>
+<field name='mInternalCounter' fullname='com.humboldtjs.system:InternalId/protected:mInternalCounter' type='int' isStatic='true' isConst='false' defaultValue='0' >
+</field>
+<classRec name='StringEx' fullname='com.humboldtjs.system:StringEx' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/system/StringEx.as' namespace='com.humboldtjs.system' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 A utility class which adds some missing string parsing functionality
+	 ]]></description>
+</classRec>
+<method name='StringEx' fullname='com.humboldtjs.system:StringEx/StringEx' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+</method>
+<method name='trim' fullname='com.humboldtjs.system:StringEx/trim' isStatic='true' isFinal='false' isOverride='false'  param_names='aValue' param_types='String' param_defaults='undefined' result_type='String'>
+<description><![CDATA[
+		 Trim a string of leading and trailing whitespace.
+		 
+		 ]]></description>
+<param><![CDATA[aValue The string to parse
+		 ]]></param>
+</method>
+<classRec name='Convert' fullname='com.humboldtjs.system:Convert' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/system/Convert.as' namespace='com.humboldtjs.system' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 A converter utility class to reliably parse strings into other
+	 types.
+	 ]]></description>
+</classRec>
+<method name='Convert' fullname='com.humboldtjs.system:Convert/Convert' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+</method>
+<method name='stripLeadingZeros' fullname='com.humboldtjs.system:Convert/protected:stripLeadingZeros' isStatic='true' isFinal='false' isOverride='false'  param_names='aValue' param_types='String' param_defaults='undefined' result_type='String'>
+<description><![CDATA[
+		 Strip a numerical string of its leading zeros.
+		 This method does not handle different locales and different decimal
+		 separators.
+		 
+		 ]]></description>
+<param><![CDATA[aValue The numerical string to parse
+		 ]]></param>
+</method>
+<method name='stripTrailingZeros' fullname='com.humboldtjs.system:Convert/protected:stripTrailingZeros' isStatic='true' isFinal='false' isOverride='false'  param_names='aValue' param_types='String' param_defaults='undefined' result_type='String'>
+<description><![CDATA[
+		 Strip a numerical string of its trailing zeros (after the decimal point).
+		 This method does not handle different locales and different decimal
+		 separators.
+		 
+		 ]]></description>
+<param><![CDATA[aValue The numerical string to parse
+		 ]]></param>
+</method>
+<method name='toArray' fullname='com.humboldtjs.system:Convert/toArray' isStatic='true' isFinal='false' isOverride='false'  param_names='aValue' param_types='String' param_defaults='undefined' result_type='Array'>
+<description><![CDATA[
+		 Convert the input to an array. Assumes an unquoted comma delimited
+		 string.
+		 ]]></description>
+</method>
+<method name='toBoolean' fullname='com.humboldtjs.system:Convert/toBoolean' isStatic='true' isFinal='false' isOverride='false'  param_names='aValue' param_types='String' param_defaults='undefined' result_type='Boolean'>
+<description><![CDATA[
+		 Conver the input to a boolean. Valid values for "true" are "true", "yes"
+		 and "1", anything else returns false.
+		 ]]></description>
+</method>
+<method name='toEulerAngles3D' fullname='com.humboldtjs.system:Convert/toEulerAngles3D' isStatic='true' isFinal='false' isOverride='false'  param_names='aValue' param_types='String' param_defaults='undefined' result_type='com.humboldtjs.geom:Vector3D'>
+<description><![CDATA[
+		 Convert the input to a Vector3D. This assumes the input is comma
+		 delimited and used Euler angles in its notation.
+		 ]]></description>
+</method>
+<method name='toInt' fullname='com.humboldtjs.system:Convert/toInt' isStatic='true' isFinal='false' isOverride='false'  param_names='aValue' param_types='String' param_defaults='undefined' result_type='int'>
+<description><![CDATA[
+		 Convert the input to a whole number integer
+		 ]]></description>
+</method>
+<method name='toNumber' fullname='com.humboldtjs.system:Convert/toNumber' isStatic='true' isFinal='false' isOverride='false'  param_names='aValue' param_types='String' param_defaults='undefined' result_type='Number'>
+<description><![CDATA[
+		 Convert the input to a floating point number.
+		 ]]></description>
+</method>
+<method name='toRectangle' fullname='com.humboldtjs.system:Convert/toRectangle' isStatic='true' isFinal='false' isOverride='false'  param_names='aValue' param_types='String' param_defaults='undefined' result_type='com.humboldtjs.geom:Rectangle'>
+<description><![CDATA[
+		 Convert the input to a Rectangle. Assumes a comma delimited list of
+		 four values, x, y, width, height
+		 ]]></description>
+</method>
+<method name='toStr' fullname='com.humboldtjs.system:Convert/toStr' isStatic='true' isFinal='false' isOverride='false'  param_names='aValue' param_types='String' param_defaults='undefined' result_type='String'>
+<description><![CDATA[
+		 Convert the input to a string. If the input is null returns an
+		 empty string.
+		 ]]></description>
+</method>
+<method name='toUnTyped' fullname='com.humboldtjs.system:Convert/toUnTyped' isStatic='true' isFinal='false' isOverride='false'  param_names='aValue' param_types='*' param_defaults='undefined' result_type='*'>
+<description><![CDATA[
+		 Return an untyped value.
+		 ]]></description>
+</method>
+<method name='toVector3D' fullname='com.humboldtjs.system:Convert/toVector3D' isStatic='true' isFinal='false' isOverride='false'  param_names='aValue' param_types='String' param_defaults='undefined' result_type='com.humboldtjs.geom:Vector3D'>
+<description><![CDATA[
+		 Convert the input to a Vector3D. This assumes the input is comma
+		 delimited and used radian angles in its notation.
+		 ]]></description>
+</method>
+<method name='toXML' fullname='com.humboldtjs.system:Convert/toXML' isStatic='true' isFinal='false' isOverride='false'  param_names='aValue' param_types='String' param_defaults='undefined' result_type='dom.domobjects:HTMLElement'>
+<description><![CDATA[
+		 Parse a string to an HTMLElement XML document
+		 ]]></description>
+</method>
+<classRec name='Logger' fullname='com.humboldtjs.system:Logger' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/system/Logger.as' namespace='com.humboldtjs.system' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 Allows logging to the default browser console. Basically does the same
+	 thing as trace, but also allows to log warnings and errors.
+	 ]]></description>
+</classRec>
+<method name='Logger' fullname='com.humboldtjs.system:Logger/Logger' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+</method>
+<method name='error' fullname='com.humboldtjs.system:Logger/error' isStatic='true' isFinal='false' isOverride='false'  param_names='aMessage' param_types='*' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Write a message or object to the console as an error
+		 
+		 ]]></description>
+<param><![CDATA[aMessage The message or object to write
+		 ]]></param>
+</method>
+<method name='log' fullname='com.humboldtjs.system:Logger/log' isStatic='true' isFinal='false' isOverride='false'  param_names='aMessage' param_types='*' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Write a message or object to the console.
+		 
+		 ]]></description>
+<param><![CDATA[aMessage The message or object to write
+		 ]]></param>
+</method>
+<method name='warn' fullname='com.humboldtjs.system:Logger/warn' isStatic='true' isFinal='false' isOverride='false'  param_names='aMessage' param_types='*' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Write a message or object to the console as a warning.
+		 
+		 ]]></description>
+<param><![CDATA[aMessage The message or object to write
+		 ]]></param>
+</method>
+<classRec name='HtmlUtils' fullname='com.humboldtjs.system:HtmlUtils' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/system/HtmlUtils.as' namespace='com.humboldtjs.system' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 Some utility methods that help with dealing with HTML elements and their
+	 browser and device differences.
+	 
+	 Mainly deals with the abstraction of differences between HTML events.
+	 ]]></description>
+</classRec>
+<method name='addHtmlEventListener' fullname='com.humboldtjs.system:HtmlUtils/addHtmlEventListener' isStatic='true' isFinal='false' isOverride='false'  param_names='aElement;aType;aFunction' param_types='Object;String;dom.domobjects:EventFunction' param_defaults='undefined;undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 Start listening to an HTML DOM event. When the event is triggered
+		 the EventFunction will be called with the dom Event that
+		 was triggered. This will automatically handle the different methods
+		 of event listening between different browsers.
+		 
+		 ]]></description>
+<param><![CDATA[aElement The HTML element to bind the event to
+		 ]]></param>
+<param><![CDATA[aType The string name of the event to listen for
+		 ]]></param>
+<param><![CDATA[aFunction The EventFunction that should be called when the event is triggered
+		 ]]></param>
+</method>
+<method name='bindMove' fullname='com.humboldtjs.system:HtmlUtils/bindMove' isStatic='true' isFinal='false' isOverride='false'  param_names='aElement;aFunction' param_types='Object;dom.domobjects:EventFunction' param_defaults='undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 Listen to when an HTML element gets a mousemove or touchmove. This
+		 allows you to capture the move during a drag action regardless of whether
+		 the user is on a touchscreen or using a mouse.
+		 
+		 ]]></description>
+<param><![CDATA[aElement The HTML element to bind the event on
+		 ]]></param>
+<param><![CDATA[aFunction The EventFunction to call when the move happens
+		 ]]></param>
+</method>
+<method name='bindPress' fullname='com.humboldtjs.system:HtmlUtils/bindPress' isStatic='true' isFinal='false' isOverride='false'  param_names='aElement;aFunction' param_types='Object;dom.domobjects:EventFunction' param_defaults='undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 Listen to when an HTML element gets a mousedown or touchstart. This
+		 allows you to capture the start of a drag action regardless of whether
+		 the user is on a touchscreen or using a mouse.
+		 
+		 ]]></description>
+<param><![CDATA[aElement The HTML element to bind the event on
+		 ]]></param>
+<param><![CDATA[aFunction The EventFunction to call when the press happens
+		 ]]></param>
+</method>
+<method name='bindUnPress' fullname='com.humboldtjs.system:HtmlUtils/bindUnPress' isStatic='true' isFinal='false' isOverride='false'  param_names='aElement;aFunction' param_types='Object;dom.domobjects:EventFunction' param_defaults='undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 Listen to when an HTML element gets a mouseup, touchend or touchcancel. This
+		 allows you to capture the end of a drag action regardless of whether
+		 the user is on a touchscreen or using a mouse.
+		 
+		 ]]></description>
+<param><![CDATA[aElement The HTML element to bind the event on
+		 ]]></param>
+<param><![CDATA[aFunction The EventFunction to call when the unpress happens
+		 ]]></param>
+</method>
+<method name='getHtmlElementById' fullname='com.humboldtjs.system:HtmlUtils/getHtmlElementById' isStatic='true' isFinal='false' isOverride='false'  param_names='aId;aParentObject' param_types='String;dom.domobjects:HTMLElement' param_defaults='undefined;undefined' result_type='dom.domobjects:HTMLElement'>
+<description><![CDATA[
+		 Recursively search a given HTML element for a child with the requested
+		 ID.
+		 
+		 ]]></description>
+<param><![CDATA[aId The ID to search for
+		 ]]></param>
+<param><![CDATA[aParentObject The parent HTML element to search through
+		 ]]></param>
+</method>
+<method name='hasHtmlEventListener' fullname='com.humboldtjs.system:HtmlUtils/hasHtmlEventListener' isStatic='true' isFinal='false' isOverride='false'  param_names='aElement;aType' param_types='Object;String' param_defaults='undefined;undefined' result_type='Boolean'>
+<description><![CDATA[
+		 Check whether an HTML element has any event listeners bound to it.
+		 This only takes into account events that have been bound using the
+		 HtmlUtils class.
+		 
+		 ]]></description>
+<param><![CDATA[aElement The HTML element to check for listeners
+		 ]]></param>
+<param><![CDATA[aType The string name of the event to check for
+		 ]]></param>
+</method>
+<method name='removeHtmlEventListener' fullname='com.humboldtjs.system:HtmlUtils/removeHtmlEventListener' isStatic='true' isFinal='false' isOverride='false'  param_names='aElement;aType;aFunction' param_types='Object;String;dom.domobjects:EventFunction' param_defaults='undefined;undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 Stop listening to an HTML DOM event. You can unregister even with a
+		 different EventFunction as long as the instance and method are the
+		 same.
+		 
+		 ]]></description>
+<param><![CDATA[aElement The HTML element to unbind the event from
+		 ]]></param>
+<param><![CDATA[aType The string name of the event to unbind
+		 ]]></param>
+<param><![CDATA[aFunction The EventFunction that references the instance and method that the event was bound to
+		 ]]></param>
+</method>
+<method name='unbindMove' fullname='com.humboldtjs.system:HtmlUtils/unbindMove' isStatic='true' isFinal='false' isOverride='false'  param_names='aElement;aFunction' param_types='Object;dom.domobjects:EventFunction' param_defaults='undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 Stop listening to the Move events.
+		 
+		 ]]></description>
+<param><![CDATA[aElement The HTML element that the the event was bound to
+		 ]]></param>
+<param><![CDATA[aFunction The EventFunction that the move was bound to
+		 ]]></param>
+</method>
+<method name='unbindPress' fullname='com.humboldtjs.system:HtmlUtils/unbindPress' isStatic='true' isFinal='false' isOverride='false'  param_names='aElement;aFunction' param_types='Object;dom.domobjects:EventFunction' param_defaults='undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 Stop listening to the Press events.
+		 
+		 ]]></description>
+<param><![CDATA[aElement The HTML element that the the event was bound to
+		 ]]></param>
+<param><![CDATA[aFunction The EventFunction that the press was bound to
+		 ]]></param>
+</method>
+<method name='unbindUnPress' fullname='com.humboldtjs.system:HtmlUtils/unbindUnPress' isStatic='true' isFinal='false' isOverride='false'  param_names='aElement;aFunction' param_types='Object;dom.domobjects:EventFunction' param_defaults='undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 Stop listening to the UnPress events.
+		 
+		 ]]></description>
+<param><![CDATA[aElement The HTML element that the the event was bound to
+		 ]]></param>
+<param><![CDATA[aFunction The EventFunction that the unpress was bound to
+		 ]]></param>
+</method>
+<field name='mListeners' fullname='com.humboldtjs.system:HtmlUtils/protected:mListeners' type='Array' isStatic='true' isConst='false' defaultValue='null' >
+</field>
+<classRec name='OperatingSystem' fullname='com.humboldtjs.system:OperatingSystem' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/system/OperatingSystem.as' namespace='com.humboldtjs.system' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+</classRec>
+<method name='OperatingSystem' fullname='com.humboldtjs.system:OperatingSystem/OperatingSystem' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+</method>
+<field name='ANDROID' fullname='com.humboldtjs.system:OperatingSystem/ANDROID' type='String' isStatic='true' isConst='true' defaultValue='Android' >
+</field>
+<field name='IOS' fullname='com.humboldtjs.system:OperatingSystem/IOS' type='String' isStatic='true' isConst='true' defaultValue='iOS' >
+</field>
+<field name='LINUX' fullname='com.humboldtjs.system:OperatingSystem/LINUX' type='String' isStatic='true' isConst='true' defaultValue='Linux' >
+</field>
+<field name='MAC' fullname='com.humboldtjs.system:OperatingSystem/MAC' type='String' isStatic='true' isConst='true' defaultValue='Macintosh' >
+</field>
+<field name='UNKNOWN_UNIX' fullname='com.humboldtjs.system:OperatingSystem/UNKNOWN_UNIX' type='String' isStatic='true' isConst='true' defaultValue='UNIX' >
+</field>
+<field name='UNKNOWN' fullname='com.humboldtjs.system:OperatingSystem/UNKNOWN' type='String' isStatic='true' isConst='true' defaultValue='Unknown OS' >
+</field>
+<field name='WINDOWS' fullname='com.humboldtjs.system:OperatingSystem/WINDOWS' type='String' isStatic='true' isConst='true' defaultValue='Windows' >
+</field>
+<classRec name='Application' fullname='com.humboldtjs.system:Application' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/system/Application.as' namespace='com.humboldtjs.system' access='public' baseclass='com.humboldtjs.display:DisplayObject' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 The root of any HumboldtJS application. This class manages adding the
+	 app to the DOM
+	 ]]></description>
+</classRec>
+<method name='Application' fullname='com.humboldtjs.system:Application/Application' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<method name='_initialize' fullname='com.humboldtjs.system:Application/protected:_initialize' isStatic='false' isFinal='false' isOverride='false'  param_names='aEvent' param_types='dom.domobjects:Event' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 DOM is accessible, so now we can continue setting up our application
+		 ]]></description>
+</method>
+<method name='getFullScreen' fullname='com.humboldtjs.system:Application/getFullScreen' isStatic='false' isFinal='false' isOverride='false'  result_type='Boolean'>
+<description><![CDATA[
+		 Whether the application should run fullscreen or not. Does not work
+		 in all browsers. Use Capabilities.getHasFullScreen() to test whether
+		 it is supported first
+		 
+		 ]]></description>
+<see><![CDATA[com.humboldtjs.system.Capabilities
+		 ]]></see>
+</method>
+<method name='getStage' fullname='com.humboldtjs.system:Application/getStage' isStatic='false' isFinal='false' isOverride='true'  result_type='com.humboldtjs.display:Stage'>
+<description><![CDATA[
+		 Returns a reference to the stage object.
+		 
+		 ]]></description>
+<see><![CDATA[com.humboldtjs.display.Stage
+		 ]]></see>
+</method>
+<method name='initialize' fullname='com.humboldtjs.system:Application/protected:initialize' isStatic='false' isFinal='false' isOverride='false'  result_type='void'>
+<description><![CDATA[
+		 Initialize the application and add it to the DOM. This is the typical
+		 entry point your application should override to provide its own
+		 functionality.
+		 ]]></description>
+</method>
+<method name='onFullScreenChange' fullname='com.humboldtjs.system:Application/protected:onFullScreenChange' isStatic='false' isFinal='false' isOverride='false'  param_names='aEvent' param_types='dom.domobjects:Event' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 When we return from fullscreen mode this method takes care of
+		 cleanup. It also triggers a window resize event because this does
+		 not happen automatically even though the size DOES change.
+		 ]]></description>
+</method>
+<method name='onResize' fullname='com.humboldtjs.system:Application/protected:onResize' isStatic='false' isFinal='false' isOverride='false'  param_names='aEvent' param_types='dom.domobjects:Event' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 On mobile devices whenever the screen resizes we make sure we hide
+		 the browser chrome again
+		 ]]></description>
+</method>
+<method name='setFullScreen' fullname='com.humboldtjs.system:Application/setFullScreen' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Boolean' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Whether the application should run fullscreen or not. Does not work
+		 in all browsers. Use Capabilities.getHasFullScreen() to test whether
+		 it is supported first
+		 
+		 ]]></description>
+<see><![CDATA[com.humboldtjs.system.Capabilities
+		 ]]></see>
+</method>
+<field name='mApplicationRoot' fullname='com.humboldtjs.system:Application/protected:mApplicationRoot' type='dom.domobjects:HTMLElement' isStatic='false' isConst='false' >
+</field>
+<field name='mFullScreen' fullname='com.humboldtjs.system:Application/protected:mFullScreen' type='Boolean' isStatic='false' isConst='false' defaultValue='false' >
+</field>
+<field name='mStage' fullname='com.humboldtjs.system:Application/protected:mStage' type='com.humboldtjs.display:Stage' isStatic='false' isConst='false' >
+</field>
+<classRec name='Vector3D' fullname='com.humboldtjs.geom:Vector3D' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/geom/Vector3D.as' namespace='com.humboldtjs.geom' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 A Vector3D class. Can be used to represent a 3D point or 3D rotation.
+	 ]]></description>
+</classRec>
+<method name='Vector3D' fullname='com.humboldtjs.geom:Vector3D/Vector3D' isStatic='false' isFinal='false' isOverride='false'  param_names='x;y;z;w' param_types='Number;Number;Number;Number' param_defaults='0;0;0;0' result_type='*'>
+</method>
+<method name='assignFromVector3D' fullname='com.humboldtjs.geom:Vector3D/assignFromVector3D' isStatic='false' isFinal='false' isOverride='false'  param_names='aVector3D' param_types='com.humboldtjs.geom:Vector3D' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Set the values of this Vector3D to those of another Vector3D
+		 ]]></description>
+</method>
+<method name='calculateDistanceTo' fullname='com.humboldtjs.geom:Vector3D/calculateDistanceTo' isStatic='false' isFinal='false' isOverride='false'  param_names='aVector' param_types='com.humboldtjs.geom:Vector3D' param_defaults='undefined' result_type='Number'>
+<description><![CDATA[
+		 Calculates the distance of the Vector3D to another Vector3D
+		 ]]></description>
+</method>
+<method name='clone' fullname='com.humboldtjs.geom:Vector3D/clone' isStatic='false' isFinal='false' isOverride='false'  result_type='com.humboldtjs.geom:Vector3D'>
+</method>
+<method name='crossProduct' fullname='com.humboldtjs.geom:Vector3D/crossProduct' isStatic='true' isFinal='false' isOverride='false'  param_names='aVector1;aVector2' param_types='com.humboldtjs.geom:Vector3D;com.humboldtjs.geom:Vector3D' param_defaults='undefined;undefined' result_type='com.humboldtjs.geom:Vector3D'>
+<description><![CDATA[
+		 Return the cross-product of two Vector3D's
+		 ]]></description>
+</method>
+<method name='getW' fullname='com.humboldtjs.geom:Vector3D/getW' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+</method>
+<method name='getX' fullname='com.humboldtjs.geom:Vector3D/getX' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+</method>
+<method name='getY' fullname='com.humboldtjs.geom:Vector3D/getY' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+</method>
+<method name='getZ' fullname='com.humboldtjs.geom:Vector3D/getZ' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+</method>
+<method name='inverseRotate' fullname='com.humboldtjs.geom:Vector3D/inverseRotate' isStatic='false' isFinal='false' isOverride='false'  param_names='aX;aY;aZ' param_types='Number;Number;Number' param_defaults='undefined;undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 Do a inverse rotation over the three axis using radian angles.
+		 ]]></description>
+</method>
+<method name='length' fullname='com.humboldtjs.geom:Vector3D/length' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The magnitude of the vector (distance to 0, 0, 0)
+		 ]]></description>
+</method>
+<method name='rotateByVector' fullname='com.humboldtjs.geom:Vector3D/rotateByVector' isStatic='false' isFinal='false' isOverride='false'  param_names='aVector' param_types='com.humboldtjs.geom:Vector3D' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Rotate the current Vector3D over another Vector3D. Using the other
+		 Vector3D's x, y and z as rotations over those axis.
+		 ]]></description>
+</method>
+<method name='rotate' fullname='com.humboldtjs.geom:Vector3D/rotate' isStatic='false' isFinal='false' isOverride='false'  param_names='aX;aY;aZ' param_types='Number;Number;Number' param_defaults='undefined;undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 Rotate the Vector3D over the three axis. Uses angles in radians.
+		 ]]></description>
+</method>
+<method name='scaleByVector' fullname='com.humboldtjs.geom:Vector3D/scaleByVector' isStatic='false' isFinal='false' isOverride='false'  param_names='aVector' param_types='com.humboldtjs.geom:Vector3D' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Multiply the Vector3D by another Vector3D
+		 ]]></description>
+</method>
+<method name='scaleBy' fullname='com.humboldtjs.geom:Vector3D/scaleBy' isStatic='false' isFinal='false' isOverride='false'  param_names='aScale' param_types='Number' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Scale the Vector3D by a single value
+		 ]]></description>
+</method>
+<method name='scale' fullname='com.humboldtjs.geom:Vector3D/scale' isStatic='false' isFinal='false' isOverride='false'  param_names='aX;aY;aZ' param_types='Number;Number;Number' param_defaults='undefined;undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 Scale the Vector3D
+		 ]]></description>
+</method>
+<method name='setW' fullname='com.humboldtjs.geom:Vector3D/setW' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+</method>
+<method name='setX' fullname='com.humboldtjs.geom:Vector3D/setX' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+</method>
+<method name='setY' fullname='com.humboldtjs.geom:Vector3D/setY' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+</method>
+<method name='setZ' fullname='com.humboldtjs.geom:Vector3D/setZ' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+</method>
+<method name='toString' fullname='com.humboldtjs.geom:Vector3D/toString' isStatic='false' isFinal='false' isOverride='false'  result_type='String'>
+</method>
+<method name='translateByVector' fullname='com.humboldtjs.geom:Vector3D/translateByVector' isStatic='false' isFinal='false' isOverride='false'  param_names='aVector' param_types='com.humboldtjs.geom:Vector3D' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Add another Vector3D to the Vector3D 
+		 ]]></description>
+</method>
+<method name='translate' fullname='com.humboldtjs.geom:Vector3D/translate' isStatic='false' isFinal='false' isOverride='false'  param_names='aX;aY;aZ' param_types='Number;Number;Number' param_defaults='undefined;undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 Translate the Vector3D
+		 ]]></description>
+</method>
+<method name='vector' fullname='com.humboldtjs.geom:Vector3D/vector' isStatic='true' isFinal='false' isOverride='false'  param_names='aVector1;aVector2' param_types='com.humboldtjs.geom:Vector3D;com.humboldtjs.geom:Vector3D' param_defaults='undefined;undefined' result_type='com.humboldtjs.geom:Vector3D'>
+<description><![CDATA[
+		 Return the Vector between two Vector3D's
+		 ]]></description>
+</method>
+<field name='DEGREES_TO_RADIANS' fullname='com.humboldtjs.geom:Vector3D/DEGREES_TO_RADIANS' type='Number' isStatic='true' isConst='true' defaultValue='0.017453292519943295' >
+</field>
+<field name='mW' fullname='com.humboldtjs.geom:Vector3D/private:mW' type='Number' isStatic='false' isConst='false' >
+</field>
+<field name='mX' fullname='com.humboldtjs.geom:Vector3D/private:mX' type='Number' isStatic='false' isConst='false' >
+</field>
+<field name='mY' fullname='com.humboldtjs.geom:Vector3D/private:mY' type='Number' isStatic='false' isConst='false' >
+</field>
+<field name='mZ' fullname='com.humboldtjs.geom:Vector3D/private:mZ' type='Number' isStatic='false' isConst='false' >
+</field>
+<classRec name='Rectangle' fullname='com.humboldtjs.geom:Rectangle' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/geom/Rectangle.as' namespace='com.humboldtjs.geom' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+
+	 An object representing a Rectangle
+
+	 ]]></description>
+</classRec>
+<method name='Rectangle' fullname='com.humboldtjs.geom:Rectangle/Rectangle' isStatic='false' isFinal='false' isOverride='false'  param_names='aX;aY;aWidth;aHeight' param_types='Number;Number;Number;Number' param_defaults='undefined;undefined;undefined;undefined' result_type='*'>
+</method>
+<method name='clone' fullname='com.humboldtjs.geom:Rectangle/clone' isStatic='false' isFinal='false' isOverride='false'  result_type='com.humboldtjs.geom:Rectangle'>
+</method>
+<method name='getHeight' fullname='com.humboldtjs.geom:Rectangle/getHeight' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+</method>
+<method name='getWidth' fullname='com.humboldtjs.geom:Rectangle/getWidth' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+</method>
+<method name='getX' fullname='com.humboldtjs.geom:Rectangle/getX' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+</method>
+<method name='getY' fullname='com.humboldtjs.geom:Rectangle/getY' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+</method>
+<method name='setHeight' fullname='com.humboldtjs.geom:Rectangle/setHeight' isStatic='false' isFinal='false' isOverride='false'  param_names='aValue' param_types='Number' param_defaults='undefined' result_type='void'>
+</method>
+<method name='setWidth' fullname='com.humboldtjs.geom:Rectangle/setWidth' isStatic='false' isFinal='false' isOverride='false'  param_names='aValue' param_types='Number' param_defaults='undefined' result_type='void'>
+</method>
+<method name='setX' fullname='com.humboldtjs.geom:Rectangle/setX' isStatic='false' isFinal='false' isOverride='false'  param_names='aValue' param_types='Number' param_defaults='undefined' result_type='void'>
+</method>
+<method name='setY' fullname='com.humboldtjs.geom:Rectangle/setY' isStatic='false' isFinal='false' isOverride='false'  param_names='aValue' param_types='Number' param_defaults='undefined' result_type='void'>
+</method>
+<field name='mHeight' fullname='com.humboldtjs.geom:Rectangle/protected:mHeight' type='Number' isStatic='false' isConst='false' >
+</field>
+<field name='mWidth' fullname='com.humboldtjs.geom:Rectangle/protected:mWidth' type='Number' isStatic='false' isConst='false' >
+</field>
+<field name='mX' fullname='com.humboldtjs.geom:Rectangle/protected:mX' type='Number' isStatic='false' isConst='false' >
+</field>
+<field name='mY' fullname='com.humboldtjs.geom:Rectangle/protected:mY' type='Number' isStatic='false' isConst='false' >
+</field>
+<classRec name='Matrix3D' fullname='com.humboldtjs.geom:Matrix3D' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/geom/Matrix3D.as' namespace='com.humboldtjs.geom' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+
+	 A three dimensional coordinate transformation.
+
+	 -- implementation based on glMatrix --
+
+	 ]]></description>
+</classRec>
+<method name='Matrix3D' fullname='com.humboldtjs.geom:Matrix3D/Matrix3D' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+</method>
+<method name='appendRotationByEulerAngles' fullname='com.humboldtjs.geom:Matrix3D/appendRotationByEulerAngles' isStatic='false' isFinal='false' isOverride='false'  param_names='aAngleX;aAngleY;aAngleZ' param_types='Number;Number;Number' param_defaults='undefined;undefined;undefined' result_type='void'>
+<description><![CDATA[
+
+		 Append a rotation by euler angles matrix to the current matrix.
+
+		 ]]></description>
+</method>
+<method name='appendRotation' fullname='com.humboldtjs.geom:Matrix3D/appendRotation' isStatic='false' isFinal='false' isOverride='false'  param_names='aAngle;aAxis' param_types='Number;com.humboldtjs.geom:Vector3D' param_defaults='undefined;undefined' result_type='void'>
+<description><![CDATA[
+
+		 Append a rotation matrix to the current matrix.
+
+		 ]]></description>
+</method>
+<method name='appendScale' fullname='com.humboldtjs.geom:Matrix3D/appendScale' isStatic='false' isFinal='false' isOverride='false'  param_names='aScaleX;aScaleY;aScaleZ;aScaleW' param_types='Number;Number;Number;Number' param_defaults='undefined;undefined;undefined;1' result_type='void'>
+<description><![CDATA[
+
+		 Append a scaling matrix to the current matrix.
+
+		 ]]></description>
+</method>
+<method name='appendTranslation' fullname='com.humboldtjs.geom:Matrix3D/appendTranslation' isStatic='false' isFinal='false' isOverride='false'  param_names='aX;aY;aZ' param_types='Number;Number;Number' param_defaults='undefined;undefined;undefined' result_type='void'>
+<description><![CDATA[
+
+		 Append a translation matrix to the current matrix.
+
+		 ]]></description>
+</method>
+<method name='append' fullname='com.humboldtjs.geom:Matrix3D/append' isStatic='false' isFinal='false' isOverride='false'  param_names='aOtherMatrix' param_types='com.humboldtjs.geom:Matrix3D' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+
+		 Appends the matrix by multiplying another Matrix3D object by the current Matrix3D object.
+
+		 The result combines both matrix transformations. You can multiply a Matrix3D object by
+
+		 many matrixes. The final Matrix3D object contains the result of all the transformations. 
+
+		 ]]></description>
+</method>
+<method name='clone' fullname='com.humboldtjs.geom:Matrix3D/clone' isStatic='false' isFinal='false' isOverride='false'  result_type='com.humboldtjs.geom:Matrix3D'>
+<description><![CDATA[
+
+		 Clone the current Matrix3D instance.
+
+		 ]]></description>
+</method>
+<method name='getRawData' fullname='com.humboldtjs.geom:Matrix3D/getRawData' isStatic='false' isFinal='false' isOverride='false'  result_type='Array'>
+</method>
+<method name='invert' fullname='com.humboldtjs.geom:Matrix3D/invert' isStatic='false' isFinal='false' isOverride='false'  result_type='Boolean'>
+<description><![CDATA[
+
+		 The inverse transformation of the matrix. Note this function is inplace and alters the matrix.
+
+		 ]]></description>
+</method>
+<method name='prependRotationByEulerAngles' fullname='com.humboldtjs.geom:Matrix3D/prependRotationByEulerAngles' isStatic='false' isFinal='false' isOverride='false'  param_names='aAngleX;aAngleY;aAngleZ' param_types='Number;Number;Number' param_defaults='undefined;undefined;undefined' result_type='void'>
+<description><![CDATA[
+
+		 Append a rotation by euler angles matrix to the current matrix.
+
+		 ]]></description>
+</method>
+<method name='prependRotation' fullname='com.humboldtjs.geom:Matrix3D/prependRotation' isStatic='false' isFinal='false' isOverride='false'  param_names='aAngle;aAxis' param_types='Number;com.humboldtjs.geom:Vector3D' param_defaults='undefined;undefined' result_type='void'>
+<description><![CDATA[
+
+		 Prepend a rotation matrix to the current matrix.
+
+		 ]]></description>
+</method>
+<method name='prependScale' fullname='com.humboldtjs.geom:Matrix3D/prependScale' isStatic='false' isFinal='false' isOverride='false'  param_names='aScaleX;aScaleY;aScaleZ;aScaleW' param_types='Number;Number;Number;Number' param_defaults='undefined;undefined;undefined;1' result_type='void'>
+<description><![CDATA[
+
+		 Prepend a scaling matrix to the current matrix.
+
+		 ]]></description>
+</method>
+<method name='prependTranslation' fullname='com.humboldtjs.geom:Matrix3D/prependTranslation' isStatic='false' isFinal='false' isOverride='false'  param_names='aX;aY;aZ' param_types='Number;Number;Number' param_defaults='undefined;undefined;undefined' result_type='void'>
+<description><![CDATA[
+
+		 Prepend a translation matrix to the current matrix.
+
+		 ]]></description>
+</method>
+<method name='prepend' fullname='com.humboldtjs.geom:Matrix3D/prepend' isStatic='false' isFinal='false' isOverride='false'  param_names='aOtherMatrix' param_types='com.humboldtjs.geom:Matrix3D' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+
+		 Prepends a matrix by multiplying the current Matrix3D object by another Matrix3D object. 
+
+		 The result combines both matrix transformations. 
+
+		 ]]></description>
+</method>
+<method name='setRawData' fullname='com.humboldtjs.geom:Matrix3D/setRawData' isStatic='false' isFinal='false' isOverride='false'  param_names='aValue' param_types='Array' param_defaults='undefined' result_type='void'>
+</method>
+<method name='setRotationMatrixByEulerAngles' fullname='com.humboldtjs.geom:Matrix3D/setRotationMatrixByEulerAngles' isStatic='false' isFinal='false' isOverride='false'  param_names='aAngleX;aAngleY;aAngleZ' param_types='Number;Number;Number' param_defaults='undefined;undefined;undefined' result_type='void'>
+<description><![CDATA[
+
+		 Set a rotation matrix via the Euler angles with convention X-Y-Z. Note that all current values
+
+		 are overwritten, to avoid this multiply via append- or prependRotation() instead.
+
+		 
+
+		 ]]></description>
+<param><![CDATA[aAngleX		The Euler angle over the X-axis in radians.
+
+		 ]]></param>
+<param><![CDATA[aAngleY		The Euler angle over the Y-axis in radians.
+
+		 ]]></param>
+<param><![CDATA[aAngleZ		The Euler angle over the Z-axis in radians.
+
+		 ]]></param>
+</method>
+<method name='setRotationMatrix' fullname='com.humboldtjs.geom:Matrix3D/setRotationMatrix' isStatic='false' isFinal='false' isOverride='false'  param_names='aAngle;aAxis' param_types='Number;com.humboldtjs.geom:Vector3D' param_defaults='undefined;undefined' result_type='void'>
+<description><![CDATA[
+
+		 Set a rotation matrix. Note that all current values are overwritten, to avoid this
+
+		 multiply via append- or prependRotation().
+
+		 
+
+		 ]]></description>
+<param><![CDATA[aAngle		The rotation angle in radians.
+
+		 ]]></param>
+<param><![CDATA[aAxis		The axis or direction of rotation. This vector should have a length of one. 
+
+		 ]]></param>
+</method>
+<method name='setScaleMatrix' fullname='com.humboldtjs.geom:Matrix3D/setScaleMatrix' isStatic='false' isFinal='false' isOverride='false'  param_names='aScaleX;aScaleY;aScaleZ;aScaleW' param_types='Number;Number;Number;Number' param_defaults='undefined;undefined;undefined;1' result_type='void'>
+<description><![CDATA[
+
+		 Set a scaling matrix. 
+
+		 Note that all current values are overwritten, to avoid this multiply via append- or prependScale().
+
+		 ]]></description>
+</method>
+<method name='setTranslationMatrix' fullname='com.humboldtjs.geom:Matrix3D/setTranslationMatrix' isStatic='false' isFinal='false' isOverride='false'  param_names='aX;aY;aZ' param_types='Number;Number;Number' param_defaults='undefined;undefined;undefined' result_type='void'>
+<description><![CDATA[
+
+		 Set a translation matrix. Note that all current values are overwritten, to avoid this
+
+		 multiply via append- or prependTranslation().
+
+		 ]]></description>
+</method>
+<method name='transformVector' fullname='com.humboldtjs.geom:Matrix3D/transformVector' isStatic='false' isFinal='false' isOverride='false'  param_names='aVector' param_types='com.humboldtjs.geom:Vector3D' param_defaults='undefined' result_type='com.humboldtjs.geom:Vector3D'>
+<description><![CDATA[
+
+		 Transform a Vector3D using the Matrix
+
+		 ]]></description>
+</method>
+<method name='transpose' fullname='com.humboldtjs.geom:Matrix3D/transpose' isStatic='false' isFinal='false' isOverride='false'  result_type='void'>
+<description><![CDATA[
+
+		 Transposes the current matrix. Note this function is inplace and alters the matrix.
+
+		 ]]></description>
+</method>
+<field name='mRawData' fullname='com.humboldtjs.geom:Matrix3D/protected:mRawData' type='Array' isStatic='false' isConst='false' >
+</field>
+<classRec name='Point' fullname='com.humboldtjs.geom:Point' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/geom/Point.as' namespace='com.humboldtjs.geom' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+
+	 A two dimensional coordinate (x, y) representation.
+
+	 ]]></description>
+</classRec>
+<method name='Point' fullname='com.humboldtjs.geom:Point/Point' isStatic='false' isFinal='false' isOverride='false'  param_names='aX;aY' param_types='Number;Number' param_defaults='undefined;undefined' result_type='*'>
+</method>
+<method name='getX' fullname='com.humboldtjs.geom:Point/getX' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+</method>
+<method name='getY' fullname='com.humboldtjs.geom:Point/getY' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+</method>
+<method name='setX' fullname='com.humboldtjs.geom:Point/setX' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+</method>
+<method name='setY' fullname='com.humboldtjs.geom:Point/setY' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+</method>
+<field name='mX' fullname='com.humboldtjs.geom:Point/private:mX' type='Number' isStatic='false' isConst='false' >
+</field>
+<field name='mY' fullname='com.humboldtjs.geom:Point/private:mY' type='Number' isStatic='false' isConst='false' >
+</field>
+<classRec name='Sine' fullname='com.humboldtjs.utility.easing:Sine' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/utility/easing/Sine.as' namespace='com.humboldtjs.utility.easing' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 A simple Sine easing function based on the standard Robert Penner
+	 easing functions.
+	 ]]></description>
+</classRec>
+<method name='Sine' fullname='com.humboldtjs.utility.easing:Sine/Sine' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+</method>
+<method name='easeIn' fullname='com.humboldtjs.utility.easing:Sine/easeIn' isStatic='true' isFinal='false' isOverride='false'  param_names='fraction' param_types='Number' param_defaults='undefined' result_type='Number'>
+</method>
+<method name='easeOut' fullname='com.humboldtjs.utility.easing:Sine/easeOut' isStatic='true' isFinal='false' isOverride='false'  param_names='fraction' param_types='Number' param_defaults='undefined' result_type='Number'>
+</method>
+<method name='ease' fullname='com.humboldtjs.utility.easing:Sine/ease' isStatic='true' isFinal='false' isOverride='false'  param_names='fraction;easeInFraction' param_types='Number;Number' param_defaults='undefined;undefined' result_type='Number'>
+</method>
+<interfaceRec name='IEventDispatcher' fullname='com.humboldtjs.events:IEventDispatcher' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/events/IEventDispatcher.as' namespace='com.humboldtjs.events' access='public' baseClasses='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 The interface for an EventDispatcher.
+	 ]]></description>
+</interfaceRec>
+<method name='addEventListener' fullname='com.humboldtjs.events:IEventDispatcher/com.humboldtjs.events:IEventDispatcher:addEventListener' isStatic='false' isFinal='false' isOverride='false'  param_names='type;listener' param_types='String;dom.domobjects:EventFunction' param_defaults='undefined;undefined' result_type='void'>
+</method>
+<method name='dispatchEvent' fullname='com.humboldtjs.events:IEventDispatcher/com.humboldtjs.events:IEventDispatcher:dispatchEvent' isStatic='false' isFinal='false' isOverride='false'  param_names='event' param_types='com.humboldtjs.events:HJSEvent' param_defaults='undefined' result_type='void'>
+</method>
+<method name='hasEventListener' fullname='com.humboldtjs.events:IEventDispatcher/com.humboldtjs.events:IEventDispatcher:hasEventListener' isStatic='false' isFinal='false' isOverride='false'  param_names='type' param_types='String' param_defaults='undefined' result_type='Boolean'>
+</method>
+<method name='removeEventListener' fullname='com.humboldtjs.events:IEventDispatcher/com.humboldtjs.events:IEventDispatcher:removeEventListener' isStatic='false' isFinal='false' isOverride='false'  param_names='type;listener' param_types='String;dom.domobjects:EventFunction' param_defaults='undefined;undefined' result_type='void'>
+</method>
+<classRec name='HJSEvent' fullname='com.humboldtjs.events:HJSEvent' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/events/HJSEvent.as' namespace='com.humboldtjs.events' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 The base HumboldtJS event class. Any event that you send (other than
+	 HTML events used in HtmlUtils) should extend HJSEvent.
+	 ]]></description>
+</classRec>
+<method name='HJSEvent' fullname='com.humboldtjs.events:HJSEvent/HJSEvent' isStatic='false' isFinal='false' isOverride='false'  param_names='aType' param_types='String' param_defaults='undefined' result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<method name='getCancelable' fullname='com.humboldtjs.events:HJSEvent/getCancelable' isStatic='false' isFinal='false' isOverride='false'  result_type='Boolean'>
+<description><![CDATA[
+		 Whether the event is cancelable
+		 ]]></description>
+</method>
+<method name='getCurrentTarget' fullname='com.humboldtjs.events:HJSEvent/getCurrentTarget' isStatic='false' isFinal='false' isOverride='false'  result_type='com.humboldtjs.events:EventDispatcher'>
+<description><![CDATA[
+		 The current target from which the event was sent
+		 ]]></description>
+</method>
+<method name='getType' fullname='com.humboldtjs.events:HJSEvent/getType' isStatic='false' isFinal='false' isOverride='false'  result_type='String'>
+<description><![CDATA[
+		 The event type
+		 ]]></description>
+</method>
+<method name='isDefaultPrevented' fullname='com.humboldtjs.events:HJSEvent/isDefaultPrevented' isStatic='false' isFinal='false' isOverride='false'  result_type='Boolean'>
+<description><![CDATA[
+		 Whether preventDefault has been called on this event.
+		 ]]></description>
+</method>
+<method name='preventDefault' fullname='com.humboldtjs.events:HJSEvent/preventDefault' isStatic='false' isFinal='false' isOverride='false'  result_type='void'>
+<description><![CDATA[
+		 Prevent the default processing of the event. Since these events
+		 usually don't have a default, this usually does nothing.
+		 ]]></description>
+</method>
+<method name='setType' fullname='com.humboldtjs.events:HJSEvent/setType' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='String' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The event type
+		 ]]></description>
+</method>
+<method name='stopImmediatePropagation' fullname='com.humboldtjs.events:HJSEvent/stopImmediatePropagation' isStatic='false' isFinal='false' isOverride='false'  result_type='void'>
+<description><![CDATA[
+		 Immediately stops propagating the event. The event handler that
+		 called this function will be the last to get the event, and any
+		 processing afterwards will be aborted.
+		 ]]></description>
+</method>
+<field name='COMPLETE' fullname='com.humboldtjs.events:HJSEvent/COMPLETE' type='String' isStatic='true' isConst='true' defaultValue='complete' >
+</field>
+<field name='ENTER_FRAME' fullname='com.humboldtjs.events:HJSEvent/ENTER_FRAME' type='String' isStatic='true' isConst='true' defaultValue='enterFrame' >
+</field>
+<field name='mCurrentTarget' fullname='com.humboldtjs.events:HJSEvent/protected:mCurrentTarget' type='com.humboldtjs.events:EventDispatcher' isStatic='false' isConst='false' >
+</field>
+<field name='mIsDefaultPrevented' fullname='com.humboldtjs.events:HJSEvent/protected:mIsDefaultPrevented' type='Boolean' isStatic='false' isConst='false' >
+</field>
+<field name='mStopImmediatePropagation' fullname='com.humboldtjs.events:HJSEvent/protected:mStopImmediatePropagation' type='Boolean' isStatic='false' isConst='false' >
+</field>
+<field name='mType' fullname='com.humboldtjs.events:HJSEvent/protected:mType' type='String' isStatic='false' isConst='false' >
+</field>
+<classRec name='EventDispatcher' fullname='com.humboldtjs.events:EventDispatcher' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/events/EventDispatcher.as' namespace='com.humboldtjs.events' access='public' baseclass='Object' interfaces='com.humboldtjs.events:IEventDispatcher' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 An EventDispatcher is an object that can easily send events (HJSEvent).
+	 Any event has a named type, and objects can register and deregister
+	 themselves as listeners for events of a certain type using the
+	 addEventListener and removeEventListener methods. 
+	 ]]></description>
+</classRec>
+<method name='EventDispatcher' fullname='com.humboldtjs.events:EventDispatcher/EventDispatcher' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<method name='addEventListener' fullname='com.humboldtjs.events:EventDispatcher/addEventListener' isStatic='false' isFinal='false' isOverride='false'  param_names='aType;aFunction' param_types='String;dom.domobjects:EventFunction' param_defaults='undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 Add an EventFunction as a listener to events of the given type.
+		 Whenever that type of event is dispatched the Eventfunction will
+		 be called.
+		 
+		 ]]></description>
+<param><![CDATA[aType The type name of the event to listen for
+		 ]]></param>
+<param><![CDATA[aFunction The EventFunction to call when the event is dispatched
+		 ]]></param>
+</method>
+<method name='dispatchEvent' fullname='com.humboldtjs.events:EventDispatcher/dispatchEvent' isStatic='false' isFinal='false' isOverride='false'  param_names='aEvent' param_types='com.humboldtjs.events:HJSEvent' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Dispatch an event. Every event that is dispatched must extend
+		 HJSEvent. The method that receives the event must also accept an
+		 HJSEvent, but ideally would receive an event of the same type that
+		 was dispatched.
+		 
+		 The HJSEvent will contain a currentTarget (getCurrentTarget()) that
+		 points towards the EventDispatcher instance that sent the message.
+		 ]]></description>
+</method>
+<method name='hasEventListener' fullname='com.humboldtjs.events:EventDispatcher/hasEventListener' isStatic='false' isFinal='false' isOverride='false'  param_names='aType' param_types='String' param_defaults='undefined' result_type='Boolean'>
+<description><![CDATA[
+		 Check whether the EventDispatcher has any listeners for the given
+		 type.
+		 
+		 ]]></description>
+<param><![CDATA[aType The string name of the event type to check for
+		 ]]></param>
+</method>
+<method name='removeEventListener' fullname='com.humboldtjs.events:EventDispatcher/removeEventListener' isStatic='false' isFinal='false' isOverride='false'  param_names='aType;aFunction' param_types='String;dom.domobjects:EventFunction' param_defaults='undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 Remove an EventFunction as a listener to events of the given type.
+		 
+		 ]]></description>
+<param><![CDATA[aType The type name of the event to remove from
+		 ]]></param>
+<param><![CDATA[aFunction The EventFunction to remove as listener
+		 ]]></param>
+</method>
+<field name='mListeners' fullname='com.humboldtjs.events:EventDispatcher/protected:mListeners' type='Array' isStatic='false' isConst='false' >
+</field>
+<classRec name='DataEvent' fullname='com.humboldtjs.events:DataEvent' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/events/DataEvent.as' namespace='com.humboldtjs.events' access='public' baseclass='com.humboldtjs.events:HJSEvent' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 A simple HJSEvent that adds a data field
+	 ]]></description>
+</classRec>
+<method name='DataEvent' fullname='com.humboldtjs.events:DataEvent/DataEvent' isStatic='false' isFinal='false' isOverride='false'  param_names='aType;aData' param_types='String;*' param_defaults='undefined;undefined' result_type='*'>
+</method>
+<field name='data' fullname='com.humboldtjs.events:DataEvent/data' type='' isStatic='false' isConst='false' >
+</field>
+<classRec name='MouseEvent' fullname='com.humboldtjs.events:MouseEvent' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/events/MouseEvent.as' namespace='com.humboldtjs.events' access='public' baseclass='com.humboldtjs.events:HJSEvent' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 A mouse event.
+	 
+	 ]]></description>
+<TODO><![CDATA[this class needs to provide info about the current mouse state
+	 ]]></TODO>
+</classRec>
+<method name='MouseEvent' fullname='com.humboldtjs.events:MouseEvent/MouseEvent' isStatic='false' isFinal='false' isOverride='false'  param_names='aType' param_types='String' param_defaults='undefined' result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<field name='CLICK' fullname='com.humboldtjs.events:MouseEvent/CLICK' type='String' isStatic='true' isConst='true' defaultValue='click' >
+</field>
+<classRec name='Animator' fullname='com.humboldtjs.utility:Animator' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/utility/Animator.as' namespace='com.humboldtjs.utility' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 Time based animator. Can take an HTML element and perform simple
+	 linear time based animations. Takes into account things like vendor
+	 prefixes, and some browser differences (e.g. opacity).
+	 
+	 Note that this operates on an HTML element, and will cause desync from its
+	 corresponding DisplayObject.
+	 ]]></description>
+</classRec>
+<method name='Animator' fullname='com.humboldtjs.utility:Animator/Animator' isStatic='false' isFinal='false' isOverride='false'  param_names='aElement' param_types='dom.domobjects:HTMLElement' param_defaults='undefined' result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<method name='animatePropertyTo' fullname='com.humboldtjs.utility:Animator/animatePropertyTo' isStatic='false' isFinal='false' isOverride='false'  param_names='aProperty;aValue;aRoundFactor;aPostFix;aCompleteFunction' param_types='String;Number;Number;String;Function' param_defaults='undefined;undefined;undefined;undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 Animate a property of the HTML element's style over towards a certain
+		 value over time. The value will automatically get rounded using the
+		 following algorithm:
+		 
+		 newValue = Math.round(targetValue aRoundFactor) / aRoundFactor
+		 
+		 So to round to quarters you would enter aRoundFactor = 4.
+		 
+		 When you animate a property you can prepend that property with a "-"
+		 symbol. If you do so the property will get prefixed with all the
+		 standard vender prefixes.
+		 
+		 Note that the properties need to use the Javascript naming style!
+		 This means e.g. "fontSize" instead of "font-size".
+		 
+		 ]]></description>
+<param><![CDATA[aProperty The style property to animate using Javascript notation
+		 ]]></param>
+<param><![CDATA[aValue The numerical value to animate towards
+		 ]]></param>
+<param><![CDATA[aRoundFactor The factor to use when rounding the value
+		 ]]></param>
+<param><![CDATA[aPostFix The string to append to the rounded value. E.g. "px" for style values that require it.
+		 ]]></param>
+<param><![CDATA[aCompleteFunction The EventFunction that needs to be called when the animation is done
+		 ]]></param>
+</method>
+<method name='animationLoop' fullname='com.humboldtjs.utility:Animator/protected:animationLoop' isStatic='false' isFinal='false' isOverride='false'  result_type='void'>
+<description><![CDATA[
+		 The main animation loop. Processes all currently running animations.
+		 ]]></description>
+</method>
+<field name='mAnimationMap' fullname='com.humboldtjs.utility:Animator/protected:mAnimationMap' type='Array' isStatic='false' isConst='false' >
+</field>
+<field name='mElement' fullname='com.humboldtjs.utility:Animator/protected:mElement' type='dom.domobjects:HTMLElement' isStatic='false' isConst='false' >
+</field>
+<field name='mTimer' fullname='com.humboldtjs.utility:Animator/protected:mTimer' type='int' isStatic='false' isConst='false' defaultValue='-1' >
+</field>
+<classRec name='EasyStyler' fullname='com.humboldtjs.utility:EasyStyler' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/utility/EasyStyler.as' namespace='com.humboldtjs.utility' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 A utility class which makes it easy to style HTML elements. You can
+	 register styles using names and then easily apply them to HTML elements
+	 very similarly to CSS. The benefits of having it in code are that if
+	 your application runs in a page over which you have no direct control
+	 managing styles this way is easier.
+	 
+	 In addition it manages dealing with some browser differences and
+	 vendor prefixes.
+	 ]]></description>
+</classRec>
+<method name='EasyStyler' fullname='com.humboldtjs.utility:EasyStyler/EasyStyler' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<method name='applyStyleObject' fullname='com.humboldtjs.utility:EasyStyler/applyStyleObject' isStatic='true' isFinal='false' isOverride='false'  param_names='aElement;aStyleObject' param_types='dom.domobjects:HTMLElement;Object' param_defaults='undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 Apply a set of style properties according to a style object definition.
+		 The style object is an Object where its indices are CSS style
+		 properties using the JavaScript notations. When prefixed with a "-"
+		 vendor prefixes for all major browser vendors are automatically
+		 prefixed. This is useful for easily using experimental CSS3 properties.
+		 
+		 ]]></description>
+<param><![CDATA[aElement The HTML element to apply the style properties to
+		 ]]></param>
+<param><![CDATA[aStyleObject The object containing the style properties to apply
+		 ]]></param>
+</method>
+<method name='applyStyle' fullname='com.humboldtjs.utility:EasyStyler/applyStyle' isStatic='true' isFinal='false' isOverride='false'  param_names='aElement;aStyleName' param_types='dom.domobjects:HTMLElement;String' param_defaults='undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 Apply a previously registered style to an HTML element
+		 
+		 ]]></description>
+<param><![CDATA[aElement The HTML element to apply the style properties to
+		 ]]></param>
+<param><![CDATA[aStyleName The string name of the registered style to apply
+		 ]]></param>
+</method>
+<method name='defineStyle' fullname='com.humboldtjs.utility:EasyStyler/defineStyle' isStatic='true' isFinal='false' isOverride='false'  param_names='aStyleName;aValues' param_types='String;Object' param_defaults='undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 Register a new object style definition under a name. This allows
+		 you to quickly apply stylesets that are used multiple times within
+		 an application similar to CSS.
+		 The style object is an Object where its indices are CSS style
+		 properties using the JavaScript notations. When prefixed with a "-"
+		 vendor prefixes for all major browser vendors are automatically
+		 prefixed. This is useful for easily using experimental CSS3 properties.
+		 
+		 ]]></description>
+<param><![CDATA[aElement The HTML element to apply the style properties to
+		 ]]></param>
+<param><![CDATA[aStyleObject The object containing the style properties to apply
+		 ]]></param>
+</method>
+<method name='getInstance' fullname='com.humboldtjs.utility:EasyStyler/protected:getInstance' isStatic='true' isFinal='false' isOverride='false'  result_type='com.humboldtjs.utility:EasyStyler'>
+<description><![CDATA[
+		 Retrieve the instance of the EasyStyler that maintains the list of
+		 style definitions.
+		 ]]></description>
+</method>
+<field name='mInstance' fullname='com.humboldtjs.utility:EasyStyler/protected:mInstance' type='com.humboldtjs.utility:EasyStyler' isStatic='true' isConst='false' >
+</field>
+<field name='mStyles' fullname='com.humboldtjs.utility:EasyStyler/protected:mStyles' type='Object' isStatic='false' isConst='false' >
+</field>
+<classRec name='DelayedCall' fullname='com.humboldtjs.utility:DelayedCall' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/utility/DelayedCall.as' namespace='com.humboldtjs.utility' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 Utility class to call functions after a time delay.
+	 ]]></description>
+</classRec>
+<method name='DelayedCall' fullname='com.humboldtjs.utility:DelayedCall/DelayedCall' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+</method>
+<method name='call' fullname='com.humboldtjs.utility:DelayedCall/call' isStatic='true' isFinal='false' isOverride='false'  param_names='aFunction;aTime' param_types='dom.domobjects:EventFunction;int' param_defaults='undefined;0' result_type='void'>
+<description><![CDATA[
+		 Call the EventFunction after a certain time.
+		 
+		 ]]></description>
+<param><![CDATA[aFunction The EventFunction to call
+		 ]]></param>
+<param><![CDATA[aTime The time to delay calling the function
+		 ]]></param>
+</method>
+<method name='cancelCall' fullname='com.humboldtjs.utility:DelayedCall/cancelCall' isStatic='true' isFinal='false' isOverride='false'  param_names='aFunction' param_types='dom.domobjects:EventFunction' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Cancel a delayed call to the given EventFunction. If the EventFunction
+		 has previously been set for a delayed call, but that delayed call has
+		 not yet happened. 
+		 
+		 ]]></description>
+<param><![CDATA[aFunction The EventFunction to which the delayed call needs to be cancelled.
+		 ]]></param>
+</method>
+<method name='hasCall' fullname='com.humboldtjs.utility:DelayedCall/hasCall' isStatic='true' isFinal='false' isOverride='false'  param_names='aFunction' param_types='dom.domobjects:EventFunction' param_defaults='undefined' result_type='Boolean'>
+<description><![CDATA[
+		 Whether there is a delayed call planned to the given EventFunction
+		 
+		 ]]></description>
+<param><![CDATA[aFunction The EventFunction to check
+		 ]]></param>
+</method>
+<field name='mTimers' fullname='com.humboldtjs.utility:DelayedCall/protected:mTimers' type='Array' isStatic='true' isConst='false' defaultValue='unknown' >
+</field>
+<classRec name='ScaleUtility' fullname='com.humboldtjs.utility:ScaleUtility' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/utility/ScaleUtility.as' namespace='com.humboldtjs.utility' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 Helper class to help determine the scale of elements based on a
+	 preferred scalestyle, their dimensions, and the available space.
+	 ]]></description>
+</classRec>
+<method name='calculateScaleFor' fullname='com.humboldtjs.utility:ScaleUtility/calculateScaleFor' isStatic='true' isFinal='false' isOverride='false'  param_names='aObjectWidth;aObjectHeight;aTargetWidth;aTargetHeight;aScaleStyle' param_types='Number;Number;Number;Number;int' param_defaults='undefined;undefined;undefined;undefined;undefined' result_type='Number'>
+<description><![CDATA[
+		 Calculate the ideal scale for an element in a certain space
+		 using the given scale style.
+		 		 ]]></description>
+<param><![CDATA[aDisplayObject The element to determine the scale for
+		 ]]></param>
+<param><![CDATA[aWidth The width of the target area
+		 ]]></param>
+<param><![CDATA[aHeight The height of the target area
+		 ]]></param>
+<param><![CDATA[aScaleStyle The scalestyle to use to determine the scale
+		 		 ]]></param>
+<return><![CDATA[The ideal scale
+		 ]]></return>
+</method>
+<field name='SCALE_FILL_ONLY_LARGER' fullname='com.humboldtjs.utility:ScaleUtility/SCALE_FILL_ONLY_LARGER' type='int' isStatic='true' isConst='true' defaultValue='4' >
+<description><![CDATA[ Same as SCALE_FILL however the component will never be smaller than it''s original size. ]]></description>
+</field>
+<field name='SCALE_FILL' fullname='com.humboldtjs.utility:ScaleUtility/SCALE_FILL' type='int' isStatic='true' isConst='true' defaultValue='3' >
+<description><![CDATA[ The component is scaled to always fill the entire ViewDisplay boundaries. ]]></description>
+</field>
+<field name='SCALE_FIT_ONLY_SMALLER' fullname='com.humboldtjs.utility:ScaleUtility/SCALE_FIT_ONLY_SMALLER' type='int' isStatic='true' isConst='true' defaultValue='2' >
+<description><![CDATA[ Same as SCALE_FIT however the component will never be larger than it''s original size. ]]></description>
+</field>
+<field name='SCALE_FIT' fullname='com.humboldtjs.utility:ScaleUtility/SCALE_FIT' type='int' isStatic='true' isConst='true' defaultValue='1' >
+<description><![CDATA[ The component is scaled to always fit but never exceed the ViewDisplay boundaries. ]]></description>
+</field>
+<field name='SCALE_NOSCALE' fullname='com.humboldtjs.utility:ScaleUtility/SCALE_NOSCALE' type='int' isStatic='true' isConst='true' defaultValue='0' >
+<description><![CDATA[ The component is not scaled. ]]></description>
+</field>
+<classRec name='Image' fullname='com.humboldtjs.utility:Image' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/utility/Image.as' namespace='com.humboldtjs.utility' access='public' baseclass='com.humboldtjs.display:DisplayObject' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 An Image display component which scales its content to fit. It uses
+	 a Canvas to cache its contents for performance if Canvas support is
+	 available in the browser.
+	 ]]></description>
+</classRec>
+<method name='Image' fullname='com.humboldtjs.utility:Image/Image' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<method name='getSource' fullname='com.humboldtjs.utility:Image/getSource' isStatic='false' isFinal='false' isOverride='false'  result_type='String'>
+<description><![CDATA[
+		 The source URL of the image to display
+		 ]]></description>
+</method>
+<method name='onLoadComplete' fullname='com.humboldtjs.utility:Image/protected:onLoadComplete' isStatic='false' isFinal='false' isOverride='false'  param_names='aEvent' param_types='com.humboldtjs.events:HJSEvent' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Called when loading is complete
+		 ]]></description>
+</method>
+<method name='onResize' fullname='com.humboldtjs.utility:Image/protected:onResize' isStatic='false' isFinal='false' isOverride='false'  param_names='aEvent' param_types='dom.domobjects:Event' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 When the window resizes, this probably means the element resized as
+		 well. When this happens we'll re-layout our component, and if needed
+		 updated the Canvas cache.
+		 ]]></description>
+</method>
+<method name='setSource' fullname='com.humboldtjs.utility:Image/setSource' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='String' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The source URL of the image to display
+		 ]]></description>
+</method>
+<field name='mBitmapCache' fullname='com.humboldtjs.utility:Image/protected:mBitmapCache' type='com.humboldtjs.display:Canvas' isStatic='false' isConst='false' >
+</field>
+<field name='mContentHeight' fullname='com.humboldtjs.utility:Image/protected:mContentHeight' type='int' isStatic='false' isConst='false' >
+</field>
+<field name='mContentWidth' fullname='com.humboldtjs.utility:Image/protected:mContentWidth' type='int' isStatic='false' isConst='false' >
+</field>
+<field name='mContent' fullname='com.humboldtjs.utility:Image/protected:mContent' type='com.humboldtjs.display:DisplayObject' isStatic='false' isConst='false' >
+</field>
+<field name='mLoader' fullname='com.humboldtjs.utility:Image/protected:mLoader' type='com.humboldtjs.display:Loader' isStatic='false' isConst='false' >
+</field>
+<field name='mSource' fullname='com.humboldtjs.utility:Image/protected:mSource' type='String' isStatic='false' isConst='false' defaultValue='' >
+</field>
+<field name='mTimer' fullname='com.humboldtjs.utility:Image/protected:mTimer' type='int' isStatic='false' isConst='false' defaultValue='-1' >
+</field>
+<interfaceRec name='ISrcDisplayObject' fullname='com.humboldtjs.display:ISrcDisplayObject' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/display/ISrcDisplayObject.as' namespace='com.humboldtjs.display' access='public' baseClasses='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 Interface for any DisplayObject that can have its source set. This is
+	 used by the Loader class to describe its return type
+	 ]]></description>
+</interfaceRec>
+<method name='clone' fullname='com.humboldtjs.display:ISrcDisplayObject/com.humboldtjs.display:ISrcDisplayObject:clone' isStatic='false' isFinal='false' isOverride='false'  result_type='com.humboldtjs.display:ISrcDisplayObject'>
+</method>
+<method name='getSrc' fullname='com.humboldtjs.display:ISrcDisplayObject/com.humboldtjs.display:ISrcDisplayObject:getSrc' isStatic='false' isFinal='false' isOverride='false'  result_type='String'>
+</method>
+<method name='setSrc' fullname='com.humboldtjs.display:ISrcDisplayObject/com.humboldtjs.display:ISrcDisplayObject:setSrc' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='String' param_defaults='undefined' result_type='void'>
+</method>
+<classRec name='DisplayObject' fullname='com.humboldtjs.display:DisplayObject' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/display/DisplayObject.as' namespace='com.humboldtjs.display' access='public' baseclass='com.humboldtjs.events:EventDispatcher' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 The standard DisplayObject. This is modelled after the Flash
+	 DisplayObject and can be used in very similar way. Each DisplayObject
+	 will by default create a corresponding HTML DIV element. When extending
+	 DisplayObject you can change what type of HTML element gets created
+	 by setting the mElementType before calling the super() in the constructor.
+	 ]]></description>
+</classRec>
+<method name='DisplayObject' fullname='com.humboldtjs.display:DisplayObject/DisplayObject' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<method name='addChildAt' fullname='com.humboldtjs.display:DisplayObject/addChildAt' isStatic='false' isFinal='false' isOverride='false'  param_names='aChild;aIndex' param_types='com.humboldtjs.display:DisplayObject;int' param_defaults='undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 Add a DisplayObject as a child to this DisplayObject at a certain
+		 position. If you have not touched the z-index this influences the
+		 draw order. Also automatically sets the child's parent to this.
+		 
+		 ]]></description>
+<param><![CDATA[aChild The child to add
+		 ]]></param>
+<param><![CDATA[aIndex The position to add the child at
+		 ]]></param>
+</method>
+<method name='addChild' fullname='com.humboldtjs.display:DisplayObject/addChild' isStatic='false' isFinal='false' isOverride='false'  param_names='aChild' param_types='com.humboldtjs.display:DisplayObject' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Add a DisplayObject as a child to this DisplayObject. Automatically
+		 sets the child's parent to this.
+		 
+		 ]]></description>
+<param><![CDATA[aChild The child to add
+		 ]]></param>
+</method>
+<method name='getAlpha' fullname='com.humboldtjs.display:DisplayObject/getAlpha' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The opacity
+		 ]]></description>
+</method>
+<method name='getApplication' fullname='com.humboldtjs.display:DisplayObject/getApplication' isStatic='false' isFinal='false' isOverride='false'  result_type='com.humboldtjs.system:Application'>
+<description><![CDATA[
+		 A reference to the root Application object if we can find it. If not
+		 will return null
+		 ]]></description>
+</method>
+<method name='getBottom' fullname='com.humboldtjs.display:DisplayObject/getBottom' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The bottom position
+		 ]]></description>
+</method>
+<method name='getChildAt' fullname='com.humboldtjs.display:DisplayObject/getChildAt' isStatic='false' isFinal='false' isOverride='false'  param_names='aIndex' param_types='int' param_defaults='undefined' result_type='com.humboldtjs.display:DisplayObject'>
+<description><![CDATA[
+		 Return the child at the given index
+		 
+		 ]]></description>
+<param><![CDATA[aIndex The index at which to find the child
+		 ]]></param>
+<return><![CDATA[The DisplayObject at the given index 
+		 ]]></return>
+</method>
+<method name='getHeight' fullname='com.humboldtjs.display:DisplayObject/getHeight' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The height
+		 ]]></description>
+</method>
+<method name='getHtmlElement' fullname='com.humboldtjs.display:DisplayObject/getHtmlElement' isStatic='false' isFinal='false' isOverride='false'  result_type='dom.domobjects:HTMLElement'>
+<description><![CDATA[
+		 The DisplayObject's HTMLElement
+		 ]]></description>
+</method>
+<method name='getNumChildren' fullname='com.humboldtjs.display:DisplayObject/getNumChildren' isStatic='false' isFinal='false' isOverride='false'  result_type='int'>
+<description><![CDATA[
+		 The number of children this DisplayObject has
+		 ]]></description>
+</method>
+<method name='getParent' fullname='com.humboldtjs.display:DisplayObject/getParent' isStatic='false' isFinal='false' isOverride='false'  result_type='com.humboldtjs.display:DisplayObject'>
+<description><![CDATA[
+		 The current instance's parent DisplayObject
+		 ]]></description>
+</method>
+<method name='getPercentHeight' fullname='com.humboldtjs.display:DisplayObject/getPercentHeight' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The height as a percentage
+		 ]]></description>
+</method>
+<method name='getPercentWidth' fullname='com.humboldtjs.display:DisplayObject/getPercentWidth' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The width as a percentage
+		 ]]></description>
+</method>
+<method name='getRight' fullname='com.humboldtjs.display:DisplayObject/getRight' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The right position
+		 ]]></description>
+</method>
+<method name='getScaleX' fullname='com.humboldtjs.display:DisplayObject/getScaleX' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The scaleX. Only provided for compatibility with Flash.
+		 ScaleX will always return 1 and setting it will be ignored.
+		 ]]></description>
+</method>
+<method name='getScaleY' fullname='com.humboldtjs.display:DisplayObject/getScaleY' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The scaleY. Only provided for compatibility with Flash.
+		 ScaleY will always return 1 and setting it will be ignored.
+		 ]]></description>
+</method>
+<method name='getStage' fullname='com.humboldtjs.display:DisplayObject/getStage' isStatic='false' isFinal='false' isOverride='false'  result_type='com.humboldtjs.display:Stage'>
+<description><![CDATA[
+		 A reference to the Stage object if we can find it. If not will return null
+		 ]]></description>
+</method>
+<method name='getUnscaledHeight' fullname='com.humboldtjs.display:DisplayObject/getUnscaledHeight' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The unscaledHeight
+		 ]]></description>
+</method>
+<method name='getUnscaledWidth' fullname='com.humboldtjs.display:DisplayObject/getUnscaledWidth' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The unscaledWidth
+		 ]]></description>
+</method>
+<method name='getVisible' fullname='com.humboldtjs.display:DisplayObject/getVisible' isStatic='false' isFinal='false' isOverride='false'  result_type='Boolean'>
+<description><![CDATA[
+		 The visibility
+		 ]]></description>
+</method>
+<method name='getWidth' fullname='com.humboldtjs.display:DisplayObject/getWidth' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The width
+		 ]]></description>
+</method>
+<method name='getX' fullname='com.humboldtjs.display:DisplayObject/getX' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The x position (left)
+		 ]]></description>
+</method>
+<method name='getY' fullname='com.humboldtjs.display:DisplayObject/getY' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The y position (top)
+		 ]]></description>
+</method>
+<method name='getZIndex' fullname='com.humboldtjs.display:DisplayObject/getZIndex' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The z-index
+		 ]]></description>
+</method>
+<method name='removeChildAt' fullname='com.humboldtjs.display:DisplayObject/removeChildAt' isStatic='false' isFinal='false' isOverride='false'  param_names='aIndex' param_types='int' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Remove a the child DisplayObject at the given index from this DisplayObject
+		 
+		 ]]></description>
+<param><![CDATA[aIndex The index at which to remove the child
+		 ]]></param>
+</method>
+<method name='removeChild' fullname='com.humboldtjs.display:DisplayObject/removeChild' isStatic='false' isFinal='false' isOverride='false'  param_names='aChild' param_types='com.humboldtjs.display:DisplayObject' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Remove a child DisplayObject from this DisplayObject
+		 
+		 ]]></description>
+<param><![CDATA[aChild The DisplayObject to remove
+		 ]]></param>
+</method>
+<method name='setAlpha' fullname='com.humboldtjs.display:DisplayObject/setAlpha' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The opacity
+		 ]]></description>
+</method>
+<method name='setBottom' fullname='com.humboldtjs.display:DisplayObject/setBottom' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The bottom position
+		 ]]></description>
+</method>
+<method name='setHeight' fullname='com.humboldtjs.display:DisplayObject/setHeight' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The height
+		 ]]></description>
+</method>
+<method name='setParent' fullname='com.humboldtjs.display:DisplayObject/protected:setParent' isStatic='false' isFinal='false' isOverride='false'  param_names='aParent' param_types='com.humboldtjs.display:DisplayObject' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Set the parent element. This is called from within addChild.
+		 ]]></description>
+</method>
+<method name='setPercentHeight' fullname='com.humboldtjs.display:DisplayObject/setPercentHeight' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The height as a percentage
+		 ]]></description>
+</method>
+<method name='setPercentWidth' fullname='com.humboldtjs.display:DisplayObject/setPercentWidth' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The width as a percentage
+		 ]]></description>
+</method>
+<method name='setRight' fullname='com.humboldtjs.display:DisplayObject/setRight' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The right position
+		 ]]></description>
+</method>
+<method name='setScaleX' fullname='com.humboldtjs.display:DisplayObject/setScaleX' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The scaleX. Only provided for compatibility with Flash.
+		 ScaleX will always return 1 and setting it will be ignored.
+		 ]]></description>
+</method>
+<method name='setScaleY' fullname='com.humboldtjs.display:DisplayObject/setScaleY' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The scaleY. Only provided for compatibility with Flash.
+		 ScaleY will always return 1 and setting it will be ignored.
+		 ]]></description>
+</method>
+<method name='setVisible' fullname='com.humboldtjs.display:DisplayObject/setVisible' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Boolean' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The visibility
+		 ]]></description>
+</method>
+<method name='setWidth' fullname='com.humboldtjs.display:DisplayObject/setWidth' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The width
+		 ]]></description>
+</method>
+<method name='setX' fullname='com.humboldtjs.display:DisplayObject/setX' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The x position (left)
+		 ]]></description>
+</method>
+<method name='setY' fullname='com.humboldtjs.display:DisplayObject/setY' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The y position (top)
+		 ]]></description>
+</method>
+<method name='setZIndex' fullname='com.humboldtjs.display:DisplayObject/setZIndex' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The z-index
+		 ]]></description>
+</method>
+<field name='mAlpha' fullname='com.humboldtjs.display:DisplayObject/protected:mAlpha' type='Number' isStatic='false' isConst='false' defaultValue='1' >
+</field>
+<field name='mBottom' fullname='com.humboldtjs.display:DisplayObject/protected:mBottom' type='Number' isStatic='false' isConst='false' defaultValue='-999999' >
+</field>
+<field name='mChildren' fullname='com.humboldtjs.display:DisplayObject/protected:mChildren' type='Array' isStatic='false' isConst='false' >
+</field>
+<field name='mElementType' fullname='com.humboldtjs.display:DisplayObject/protected:mElementType' type='String' isStatic='false' isConst='false' defaultValue='' >
+</field>
+<field name='mElement' fullname='com.humboldtjs.display:DisplayObject/protected:mElement' type='dom.domobjects:HTMLElement' isStatic='false' isConst='false' >
+</field>
+<field name='mHeight' fullname='com.humboldtjs.display:DisplayObject/protected:mHeight' type='Number' isStatic='false' isConst='false' defaultValue='-1' >
+</field>
+<field name='mParent' fullname='com.humboldtjs.display:DisplayObject/protected:mParent' type='com.humboldtjs.display:DisplayObject' isStatic='false' isConst='false' defaultValue='null' >
+</field>
+<field name='mPercentHeight' fullname='com.humboldtjs.display:DisplayObject/protected:mPercentHeight' type='Number' isStatic='false' isConst='false' defaultValue='-1' >
+</field>
+<field name='mPercentWidth' fullname='com.humboldtjs.display:DisplayObject/protected:mPercentWidth' type='Number' isStatic='false' isConst='false' defaultValue='-1' >
+</field>
+<field name='mRight' fullname='com.humboldtjs.display:DisplayObject/protected:mRight' type='Number' isStatic='false' isConst='false' defaultValue='-999999' >
+</field>
+<field name='mVisible' fullname='com.humboldtjs.display:DisplayObject/protected:mVisible' type='Boolean' isStatic='false' isConst='false' defaultValue='true' >
+</field>
+<field name='mWidth' fullname='com.humboldtjs.display:DisplayObject/protected:mWidth' type='Number' isStatic='false' isConst='false' defaultValue='-1' >
+</field>
+<field name='mX' fullname='com.humboldtjs.display:DisplayObject/protected:mX' type='Number' isStatic='false' isConst='false' defaultValue='-999999' >
+</field>
+<field name='mY' fullname='com.humboldtjs.display:DisplayObject/protected:mY' type='Number' isStatic='false' isConst='false' defaultValue='-999999' >
+</field>
+<field name='mZIndex' fullname='com.humboldtjs.display:DisplayObject/protected:mZIndex' type='int' isStatic='false' isConst='false' defaultValue='0' >
+</field>
+<classRec name='Stage' fullname='com.humboldtjs.display:Stage' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/display/Stage.as' namespace='com.humboldtjs.display' access='public' baseclass='com.humboldtjs.display:DisplayObject' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 A class that functionally simulates the Flash stage. It provides an
+	 EnterFrame timer loop which can be used for animation, and allows you
+	 to control framerate 
+	 ]]></description>
+</classRec>
+<method name='Stage' fullname='com.humboldtjs.display:Stage/Stage' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<method name='addEventListener' fullname='com.humboldtjs.display:Stage/addEventListener' isStatic='false' isFinal='false' isOverride='true'  param_names='aType;aFunction' param_types='String;dom.domobjects:EventFunction' param_defaults='undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 To make sure the frame loop doesn't cost more overhead than strictly
+		 needed we cache whether there are actually any listeners for
+		 ENTER_FRAME, otherwise we skip all kinds of processing.
+		 ]]></description>
+</method>
+<method name='doFrameLoop' fullname='com.humboldtjs.display:Stage/protected:doFrameLoop' isStatic='false' isFinal='false' isOverride='false'  result_type='void'>
+<description><![CDATA[
+		 Process the current frame, and dispatch ENTER_FRAME events if needed
+		 ]]></description>
+</method>
+<method name='getFrameRate' fullname='com.humboldtjs.display:Stage/getFrameRate' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The current framerate
+		 ]]></description>
+</method>
+<method name='getInstance' fullname='com.humboldtjs.display:Stage/getInstance' isStatic='true' isFinal='false' isOverride='false'  result_type='com.humboldtjs.display:Stage'>
+<description><![CDATA[
+		 Get's access to the application stage object
+		 ]]></description>
+</method>
+<method name='getStage' fullname='com.humboldtjs.display:Stage/getStage' isStatic='false' isFinal='false' isOverride='true'  result_type='com.humboldtjs.display:Stage'>
+<description><![CDATA[
+		 Every DisplayObject has a stage, and Stage inherits from DisplayObject
+		 so this returns itself.
+		 ]]></description>
+</method>
+<method name='removeEventListener' fullname='com.humboldtjs.display:Stage/removeEventListener' isStatic='false' isFinal='false' isOverride='true'  param_names='aType;aFunction' param_types='String;dom.domobjects:EventFunction' param_defaults='undefined;undefined' result_type='void'>
+<description><![CDATA[
+		 To make sure the frame loop doesn't cost more overhead than strictly
+		 needed we cache whether there are actually any listeners for
+		 ENTER_FRAME, otherwise we skip all kinds of processing.
+		 ]]></description>
+</method>
+<method name='setFrameRate' fullname='com.humboldtjs.display:Stage/setFrameRate' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The current framerate
+		 ]]></description>
+</method>
+<field name='mFrameDelay' fullname='com.humboldtjs.display:Stage/protected:mFrameDelay' type='Number' isStatic='false' isConst='false' defaultValue='40' >
+</field>
+<field name='mFrameRate' fullname='com.humboldtjs.display:Stage/protected:mFrameRate' type='Number' isStatic='false' isConst='false' defaultValue='25' >
+</field>
+<field name='mHasFrameListener' fullname='com.humboldtjs.display:Stage/protected:mHasFrameListener' type='Boolean' isStatic='false' isConst='false' defaultValue='false' >
+</field>
+<field name='mStage' fullname='com.humboldtjs.display:Stage/protected:mStage' type='com.humboldtjs.display:Stage' isStatic='true' isConst='false' >
+</field>
+<classRec name='HGroup' fullname='com.humboldtjs.display:HGroup' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/display/HGroup.as' namespace='com.humboldtjs.display' access='public' baseclass='com.humboldtjs.display:DisplayObject' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 A simple horizontal layout component. Uses float:left on it's children's
+	 HTML elements to layout the elements. Also serves as an example of how
+	 to modify addChild and removeChild to provide different layout behavior.
+	 ]]></description>
+</classRec>
+<method name='HGroup' fullname='com.humboldtjs.display:HGroup/HGroup' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<method name='addChild' fullname='com.humboldtjs.display:HGroup/addChild' isStatic='false' isFinal='false' isOverride='true'  param_names='aChild' param_types='com.humboldtjs.display:DisplayObject' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Add child to the container. Modifies the HTML element's CSS to
+		 float:left to create a horizontal layout
+		 ]]></description>
+</method>
+<classRec name='Bitmap' fullname='com.humboldtjs.display:Bitmap' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/display/Bitmap.as' namespace='com.humboldtjs.display' access='public' baseclass='com.humboldtjs.display:DisplayObject' interfaces='com.humboldtjs.display:ISrcDisplayObject' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 A simple bitmap class which loads and displays an image from a URL
+	 	 This class is wrapped by the Loader class which will give you a bit more
+	 feedback about how the loading is going, and as a final result will
+	 return a Bitmap object. 
+	 ]]></description>
+</classRec>
+<method name='Bitmap' fullname='com.humboldtjs.display:Bitmap/Bitmap' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<method name='clone' fullname='com.humboldtjs.display:Bitmap/clone' isStatic='false' isFinal='false' isOverride='false'  result_type='com.humboldtjs.display:ISrcDisplayObject'>
+<description><![CDATA[
+		 Return a copy of the Bitmap with the same contents
+		 ]]></description>
+</method>
+<method name='getSrc' fullname='com.humboldtjs.display:Bitmap/getSrc' isStatic='false' isFinal='false' isOverride='false'  result_type='String'>
+<description><![CDATA[
+		 The source URL of the bitmap.
+		 ]]></description>
+</method>
+<method name='getUnscaledHeight' fullname='com.humboldtjs.display:Bitmap/getUnscaledHeight' isStatic='false' isFinal='false' isOverride='true'  result_type='Number'>
+<description><![CDATA[
+		 The unscaled height of the bitmap.
+		 ]]></description>
+</method>
+<method name='getUnscaledWidth' fullname='com.humboldtjs.display:Bitmap/getUnscaledWidth' isStatic='false' isFinal='false' isOverride='true'  result_type='Number'>
+<description><![CDATA[
+		 The unscaled width of the bitmap.
+		 ]]></description>
+</method>
+<method name='onLoadComplete' fullname='com.humboldtjs.display:Bitmap/protected:onLoadComplete' isStatic='false' isFinal='false' isOverride='false'  result_type='void'>
+<description><![CDATA[
+		 Called when loading of the bitmap has completed
+		 ]]></description>
+</method>
+<method name='setSrc' fullname='com.humboldtjs.display:Bitmap/setSrc' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='String' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The source URL of the bitmap.
+		 ]]></description>
+</method>
+<field name='mUnscaledHeight' fullname='com.humboldtjs.display:Bitmap/protected:mUnscaledHeight' type='Number' isStatic='false' isConst='false' defaultValue='0' >
+</field>
+<field name='mUnscaledWidth' fullname='com.humboldtjs.display:Bitmap/protected:mUnscaledWidth' type='Number' isStatic='false' isConst='false' defaultValue='0' >
+</field>
+<classRec name='Video' fullname='com.humboldtjs.display:Video' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/display/Video.as' namespace='com.humboldtjs.display' access='public' baseclass='com.humboldtjs.display:DisplayObject' interfaces='com.humboldtjs.display:ISrcDisplayObject' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 A simple Video class which deals with some of the weird issues with
+	 HTML5 video. This already supports a few different platforms and situations
+	 however you still have to determine whether to load an MP4 or WEBM
+	 using the Capabilities class first.
+	 
+	 Note there are still numerous issues with various mobile browsers which
+	 have varying degrees of support for HTML5.
+	 ]]></description>
+</classRec>
+<method name='Video' fullname='com.humboldtjs.display:Video/Video' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<method name='clone' fullname='com.humboldtjs.display:Video/clone' isStatic='false' isFinal='false' isOverride='false'  result_type='com.humboldtjs.display:ISrcDisplayObject'>
+<description><![CDATA[
+		 Return a copy of the Video with the same contents
+		 ]]></description>
+</method>
+<method name='getCurrentTime' fullname='com.humboldtjs.display:Video/getCurrentTime' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The current playhead time
+		 ]]></description>
+</method>
+<method name='getDuration' fullname='com.humboldtjs.display:Video/getDuration' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+<description><![CDATA[
+		 The duration
+		 ]]></description>
+</method>
+<method name='getHasVideo' fullname='com.humboldtjs.display:Video/getHasVideo' isStatic='false' isFinal='false' isOverride='false'  result_type='Boolean'>
+<description><![CDATA[
+		 Whether the video is loaded
+		 ]]></description>
+</method>
+<method name='getSrc' fullname='com.humboldtjs.display:Video/getSrc' isStatic='false' isFinal='false' isOverride='false'  result_type='String'>
+<description><![CDATA[
+		 The source URL of the video.
+		 ]]></description>
+</method>
+<method name='getUnscaledHeight' fullname='com.humboldtjs.display:Video/getUnscaledHeight' isStatic='false' isFinal='false' isOverride='true'  result_type='Number'>
+<description><![CDATA[
+		 The original video height
+		 ]]></description>
+</method>
+<method name='getUnscaledWidth' fullname='com.humboldtjs.display:Video/getUnscaledWidth' isStatic='false' isFinal='false' isOverride='true'  result_type='Number'>
+<description><![CDATA[
+		 The original video width
+		 ]]></description>
+</method>
+<method name='onEventLoop' fullname='com.humboldtjs.display:Video/protected:onEventLoop' isStatic='false' isFinal='false' isOverride='false'  result_type='void'>
+<description><![CDATA[
+		 An eventloop which notifies listeners of changes in the timestamp of
+		 the video or when playback has ended (when the end of the video has
+		 been reached).
+		 ]]></description>
+</method>
+<method name='onLoadComplete' fullname='com.humboldtjs.display:Video/protected:onLoadComplete' isStatic='false' isFinal='false' isOverride='false'  result_type='void'>
+<description><![CDATA[
+		 Handle when loading of the video is complete
+		 ]]></description>
+</method>
+<method name='pause' fullname='com.humboldtjs.display:Video/pause' isStatic='false' isFinal='false' isOverride='false'  result_type='void'>
+<description><![CDATA[
+		 Pause video playback
+		 ]]></description>
+</method>
+<method name='play' fullname='com.humboldtjs.display:Video/play' isStatic='false' isFinal='false' isOverride='false'  result_type='void'>
+<description><![CDATA[
+		 Start video playback
+		 ]]></description>
+</method>
+<method name='setCurrentTime' fullname='com.humboldtjs.display:Video/setCurrentTime' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The current playhead time
+		 ]]></description>
+</method>
+<method name='setSrc' fullname='com.humboldtjs.display:Video/setSrc' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='String' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The source URL of the video.
+		 ]]></description>
+</method>
+<field name='EVENT_ENDED' fullname='com.humboldtjs.display:Video/EVENT_ENDED' type='String' isStatic='true' isConst='true' defaultValue='ended' >
+</field>
+<field name='EVENT_TIME_CHANGED' fullname='com.humboldtjs.display:Video/EVENT_TIME_CHANGED' type='String' isStatic='true' isConst='true' defaultValue='timechanged' >
+</field>
+<field name='VIDEO_MP4' fullname='com.humboldtjs.display:Video/VIDEO_MP4' type='String' isStatic='true' isConst='true' defaultValue='mp4' >
+</field>
+<field name='VIDEO_WEBM' fullname='com.humboldtjs.display:Video/VIDEO_WEBM' type='String' isStatic='true' isConst='true' defaultValue='webm' >
+</field>
+<field name='mCurrentTime' fullname='com.humboldtjs.display:Video/protected:mCurrentTime' type='Number' isStatic='false' isConst='false' defaultValue='0' >
+</field>
+<field name='mEnded' fullname='com.humboldtjs.display:Video/protected:mEnded' type='Boolean' isStatic='false' isConst='false' defaultValue='false' >
+</field>
+<field name='mHasVideo' fullname='com.humboldtjs.display:Video/protected:mHasVideo' type='Boolean' isStatic='false' isConst='false' defaultValue='false' >
+</field>
+<field name='mLoopRunning' fullname='com.humboldtjs.display:Video/protected:mLoopRunning' type='Boolean' isStatic='false' isConst='false' defaultValue='false' >
+</field>
+<field name='mPaused' fullname='com.humboldtjs.display:Video/protected:mPaused' type='Boolean' isStatic='false' isConst='false' defaultValue='true' >
+</field>
+<field name='mSrc' fullname='com.humboldtjs.display:Video/protected:mSrc' type='String' isStatic='false' isConst='false' defaultValue='' >
+</field>
+<classRec name='Loader' fullname='com.humboldtjs.display:Loader' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/display/Loader.as' namespace='com.humboldtjs.display' access='public' baseclass='com.humboldtjs.display:DisplayObject' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 A simple loader class that can manage loading Bitmap and Video
+	 instances. Note that the Video class isn't well supported yet since
+	 there are still numerous issues with video on various mobile devices,
+	 so YMMV.
+	 ]]></description>
+</classRec>
+<method name='Loader' fullname='com.humboldtjs.display:Loader/Loader' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<method name='close' fullname='com.humboldtjs.display:Loader/close' isStatic='false' isFinal='false' isOverride='false'  result_type='void'>
+<description><![CDATA[
+		 Close the loader before finishing loading. Cleans up any event
+		 listeners and removes the content if it already existed.
+		 ]]></description>
+</method>
+<method name='getContent' fullname='com.humboldtjs.display:Loader/getContent' isStatic='false' isFinal='false' isOverride='false'  result_type='com.humboldtjs.display:DisplayObject'>
+<description><![CDATA[
+		 If loading was complete returns the loaded content
+		 ]]></description>
+</method>
+<method name='load' fullname='com.humboldtjs.display:Loader/load' isStatic='false' isFinal='false' isOverride='false'  param_names='request' param_types='com.humboldtjs.net:URLRequest' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Load an ISrcDisplayObject from the requested URL
+		 ]]></description>
+</method>
+<method name='onLoadComplete' fullname='com.humboldtjs.display:Loader/protected:onLoadComplete' isStatic='false' isFinal='false' isOverride='false'  param_names='aEvent' param_types='com.humboldtjs.events:HJSEvent' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Handle load completion and send the appropriate events.
+		 ]]></description>
+</method>
+<method name='unload' fullname='com.humboldtjs.display:Loader/unload' isStatic='false' isFinal='false' isOverride='false'  result_type='void'>
+<description><![CDATA[
+		 Unload the current content and close the loader
+		 ]]></description>
+</method>
+<field name='mContent' fullname='com.humboldtjs.display:Loader/protected:mContent' type='com.humboldtjs.display:DisplayObject' isStatic='false' isConst='false' >
+</field>
+<field name='mSrc' fullname='com.humboldtjs.display:Loader/protected:mSrc' type='String' isStatic='false' isConst='false' defaultValue='' >
+</field>
+<classRec name='Canvas' fullname='com.humboldtjs.display:Canvas' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/display/Canvas.as' namespace='com.humboldtjs.display' access='public' baseclass='com.humboldtjs.display:DisplayObject' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 A simple DisplayObject that provides a Canvas and 2D context.
+	 ]]></description>
+</classRec>
+<method name='Canvas' fullname='com.humboldtjs.display:Canvas/Canvas' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<method name='getContext2D' fullname='com.humboldtjs.display:Canvas/getContext2D' isStatic='false' isFinal='false' isOverride='false'  result_type='dom.domobjects:CanvasRenderingContext2D'>
+<description><![CDATA[
+		 The 2D drawing context for this canvas
+		 ]]></description>
+</method>
+<method name='setHeight' fullname='com.humboldtjs.display:Canvas/setHeight' isStatic='false' isFinal='false' isOverride='true'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Set the height of the Canvas drawing area 
+		 ]]></description>
+</method>
+<method name='setWidth' fullname='com.humboldtjs.display:Canvas/setWidth' isStatic='false' isFinal='false' isOverride='true'  param_names='value' param_types='Number' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Set the width of the Canvas drawing area 
+		 ]]></description>
+</method>
+<classRec name='URLRequest' fullname='com.humboldtjs.net:URLRequest' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/net/URLRequest.as' namespace='com.humboldtjs.net' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 An object representing a request to a URL. This class doesn't actually
+	 do anything itself, but is used in e.g. loaders to figure out how to
+	 load certain things.
+	 ]]></description>
+</classRec>
+<method name='URLRequest' fullname='com.humboldtjs.net:URLRequest/URLRequest' isStatic='false' isFinal='false' isOverride='false'  param_names='aUrl' param_types='String' param_defaults='undefined' result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<method name='getContentType' fullname='com.humboldtjs.net:URLRequest/getContentType' isStatic='false' isFinal='false' isOverride='false'  result_type='String'>
+<description><![CDATA[
+		 The content type to request
+		 ]]></description>
+</method>
+<method name='getData' fullname='com.humboldtjs.net:URLRequest/getData' isStatic='false' isFinal='false' isOverride='false'  result_type='Object'>
+<description><![CDATA[
+		 The data object to send with the request
+		 ]]></description>
+</method>
+<method name='getMethod' fullname='com.humboldtjs.net:URLRequest/getMethod' isStatic='false' isFinal='false' isOverride='false'  result_type='String'>
+<description><![CDATA[
+		 The method to do the request with (either METHOD_GET or METHOD_POST)
+		 ]]></description>
+</method>
+<method name='getUrl' fullname='com.humboldtjs.net:URLRequest/getUrl' isStatic='false' isFinal='false' isOverride='false'  result_type='String'>
+<description><![CDATA[
+		 The URL to request
+		 ]]></description>
+</method>
+<method name='setContentType' fullname='com.humboldtjs.net:URLRequest/setContentType' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='String' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The content type to request
+		 ]]></description>
+</method>
+<method name='setData' fullname='com.humboldtjs.net:URLRequest/setData' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Object' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The data object to send with the request
+		 ]]></description>
+</method>
+<method name='setMethod' fullname='com.humboldtjs.net:URLRequest/setMethod' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='String' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The method to do the request with (either METHOD_GET or METHOD_POST)
+		 ]]></description>
+</method>
+<method name='setUrl' fullname='com.humboldtjs.net:URLRequest/setUrl' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='String' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The URL to request
+		 ]]></description>
+</method>
+<field name='CONTENTTYPE_IMAGE' fullname='com.humboldtjs.net:URLRequest/CONTENTTYPE_IMAGE' type='String' isStatic='true' isConst='true' defaultValue='image' >
+</field>
+<field name='CONTENTTYPE_VIDEO' fullname='com.humboldtjs.net:URLRequest/CONTENTTYPE_VIDEO' type='String' isStatic='true' isConst='true' defaultValue='video' >
+</field>
+<field name='METHOD_GET' fullname='com.humboldtjs.net:URLRequest/METHOD_GET' type='String' isStatic='true' isConst='true' defaultValue='get' >
+</field>
+<field name='METHOD_POST' fullname='com.humboldtjs.net:URLRequest/METHOD_POST' type='String' isStatic='true' isConst='true' defaultValue='post' >
+</field>
+<field name='mContentType' fullname='com.humboldtjs.net:URLRequest/protected:mContentType' type='String' isStatic='false' isConst='false' defaultValue='image' >
+</field>
+<field name='mData' fullname='com.humboldtjs.net:URLRequest/protected:mData' type='Object' isStatic='false' isConst='false' >
+</field>
+<field name='mMethod' fullname='com.humboldtjs.net:URLRequest/protected:mMethod' type='String' isStatic='false' isConst='false' defaultValue='get' >
+</field>
+<field name='mUrl' fullname='com.humboldtjs.net:URLRequest/protected:mUrl' type='String' isStatic='false' isConst='false' defaultValue='' >
+</field>
+<classRec name='PrefixLoader' fullname='com.humboldtjs.net:PrefixLoader' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/net/PrefixLoader.as' namespace='com.humboldtjs.net' access='public' baseclass='com.humboldtjs.events:EventDispatcher' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 The PrefixLoader is a simple loader that loads data using the JSONP
+	 method. It will load a file by creating a script and adding it to the
+	 DOM. Then when the script gets executed a "parse" method inside will
+	 call back to the PrefixLoader and handle sending the loaded data
+	 back into the HumboldtJS application.
+	 
+	 By default the parse method is "parse" and as such it expects your
+	 JSONP to be prefixed by that parse method. You can define different
+	 parse methods using the setPrefix method.
+	 ]]></description>
+</classRec>
+<method name='PrefixLoader' fullname='com.humboldtjs.net:PrefixLoader/PrefixLoader' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<method name='close' fullname='com.humboldtjs.net:PrefixLoader/close' isStatic='false' isFinal='false' isOverride='false'  result_type='void'>
+<description><![CDATA[
+		 Close the loader before finishing loading. Cleans up the head and
+		 removes the script.
+		 ]]></description>
+</method>
+<method name='doCallback' fullname='com.humboldtjs.net:PrefixLoader/protected:doCallback' isStatic='false' isFinal='false' isOverride='false'  param_names='aValue' param_types='*' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Handle the callback
+		 ]]></description>
+</method>
+<method name='getContent' fullname='com.humboldtjs.net:PrefixLoader/getContent' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+<description><![CDATA[
+		 The loaded content
+		 ]]></description>
+</method>
+<method name='getInternalId' fullname='com.humboldtjs.net:PrefixLoader/getInternalId' isStatic='false' isFinal='false' isOverride='false'  result_type='String'>
+<description><![CDATA[
+		 The unique internal ID of this PrefixLoader. Is used to link the
+		 JSONP script back to this specific instance of PrefixLoader.
+		 ]]></description>
+</method>
+<method name='getPrefix' fullname='com.humboldtjs.net:PrefixLoader/getPrefix' isStatic='false' isFinal='false' isOverride='false'  result_type='String'>
+<description><![CDATA[
+		 The JSONP prefix to use
+		 ]]></description>
+</method>
+<method name='load' fullname='com.humboldtjs.net:PrefixLoader/load' isStatic='false' isFinal='false' isOverride='false'  param_names='request' param_types='com.humboldtjs.net:URLRequest' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Load a JSONP from the give URLRequest.
+		 ]]></description>
+</method>
+<method name='onCallback' fullname='com.humboldtjs.net:PrefixLoader/protected:onCallback' isStatic='true' isFinal='false' isOverride='false'  param_names='aValue' param_types='*' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Handle all JSON callbacks, and figure out the right PrefixLoader and
+		 have it handle the rest of the callback.
+		 ]]></description>
+</method>
+<method name='setPrefix' fullname='com.humboldtjs.net:PrefixLoader/setPrefix' isStatic='false' isFinal='false' isOverride='false'  param_names='aValue' param_types='String' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 The JSONP prefix to use
+		 ]]></description>
+</method>
+<method name='unload' fullname='com.humboldtjs.net:PrefixLoader/unload' isStatic='false' isFinal='false' isOverride='false'  result_type='void'>
+<description><![CDATA[
+		 Unload the current content and close the loader
+		 ]]></description>
+</method>
+<field name='mCallbacks' fullname='com.humboldtjs.net:PrefixLoader/protected:mCallbacks' type='Vector$com.humboldtjs.net:PrefixLoader' isStatic='true' isConst='false' defaultValue='unknown' >
+</field>
+<field name='mContent' fullname='com.humboldtjs.net:PrefixLoader/protected:mContent' type='' isStatic='false' isConst='false' >
+</field>
+<field name='mInternalId' fullname='com.humboldtjs.net:PrefixLoader/protected:mInternalId' type='String' isStatic='false' isConst='false' >
+</field>
+<field name='mIsLoading' fullname='com.humboldtjs.net:PrefixLoader/protected:mIsLoading' type='Boolean' isStatic='false' isConst='false' >
+</field>
+<field name='mPrefixIndex' fullname='com.humboldtjs.net:PrefixLoader/protected:mPrefixIndex' type='Object' isStatic='true' isConst='false' defaultValue='unknown' >
+</field>
+<field name='mPrefix' fullname='com.humboldtjs.net:PrefixLoader/protected:mPrefix' type='String' isStatic='false' isConst='false' >
+</field>
+<field name='mScript' fullname='com.humboldtjs.net:PrefixLoader/protected:mScript' type='dom.domobjects:HTMLScriptElement' isStatic='false' isConst='false' >
+</field>
+<classRec name='XMLPLoader' fullname='com.humboldtjs.net:XMLPLoader' sourcefile='/Users/solitude/Documents/Adobe Flash Builder 4.5/HumboldtJSLibrary/src/com/humboldtjs/net/XMLPLoader.as' namespace='com.humboldtjs.net' access='public' baseclass='com.humboldtjs.net:PrefixLoader' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 A prefix loader which loads XMLP files that have been generated using
+	 the xmlpconverter.jar application.
+	 
+	 Returns a HJSXML object on callback.
+	 ]]></description>
+</classRec>
+<method name='XMLPLoader' fullname='com.humboldtjs.net:XMLPLoader/XMLPLoader' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+<description><![CDATA[
+		 ]]></description>
+<constructor><![CDATA[]]></constructor>
+</method>
+<method name='doCallback' fullname='com.humboldtjs.net:XMLPLoader/protected:doCallback' isStatic='false' isFinal='false' isOverride='true'  param_names='aValue' param_types='*' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+		 Do the callback, but before doing so first process the JSONP
+		 into a HJSXML object.
+		 ]]></description>
+</method>
+</asdoc>

@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?><apiPackage id="com.humboldtjs.display"><apiName>com.humboldtjs.display</apiName><apiDetail/><apiClassifier id="com.humboldtjs.display:DisplayObject"><apiName>DisplayObject</apiName><shortdesc>
+	 The standard DisplayObject.</shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.humboldtjs.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 The standard DisplayObject. This is modelled after the Flash
+	 DisplayObject and can be used in very similar way. Each DisplayObject
+	 will by default create a corresponding HTML DIV element. When extending
+	 DisplayObject you can change what type of HTML element gets created
+	 by setting the mElementType before calling the super() in the constructor.
+	 </apiDesc></apiClassifierDetail><apiConstructor id="com.humboldtjs.display:DisplayObject:DisplayObject"><apiName>DisplayObject</apiName><shortdesc>
+		 </shortdesc><prolog><asCustoms><constructor/></asCustoms></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="com.humboldtjs.display:DisplayObject:addChildAt"><apiName>addChildAt</apiName><shortdesc>
+		 Add a DisplayObject as a child to this DisplayObject at a certain
+		 position.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>aChild</apiItemName><apiOperationClassifier>com.humboldtjs.display:DisplayObject</apiOperationClassifier><apiDesc>The child to add
+		 </apiDesc></apiParam><apiParam><apiItemName>aIndex</apiItemName><apiType value="int"/><apiDesc>The position to add the child at
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Add a DisplayObject as a child to this DisplayObject at a certain
+		 position. If you have not touched the z-index this influences the
+		 draw order. Also automatically sets the child's parent to this.
+		 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:addChild"><apiName>addChild</apiName><shortdesc>
+		 Add a DisplayObject as a child to this DisplayObject.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>aChild</apiItemName><apiOperationClassifier>com.humboldtjs.display:DisplayObject</apiOperationClassifier><apiDesc>The child to add
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Add a DisplayObject as a child to this DisplayObject. Automatically
+		 sets the child's parent to this.
+		 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getAlpha"><apiName>getAlpha</apiName><shortdesc>
+		 The opacity
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The opacity
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getApplication"><apiName>getApplication</apiName><shortdesc>
+		 A reference to the root Application object if we can find it.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiOperationClassifier>com.humboldtjs.system:Application</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+		 A reference to the root Application object if we can find it. If not
+		 will return null
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getBottom"><apiName>getBottom</apiName><shortdesc>
+		 The bottom position
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The bottom position
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getChildAt"><apiName>getChildAt</apiName><shortdesc>
+		 Return the child at the given index
+		 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>The DisplayObject at the given index 
+		 </apiDesc><apiOperationClassifier>com.humboldtjs.display:DisplayObject</apiOperationClassifier></apiReturn><apiParam><apiItemName>aIndex</apiItemName><apiType value="int"/><apiDesc>The index at which to find the child
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Return the child at the given index
+		 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getHeight"><apiName>getHeight</apiName><shortdesc>
+		 The height
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The height
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getHtmlElement"><apiName>getHtmlElement</apiName><shortdesc>
+		 The DisplayObject's HTMLElement
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="dom.domobjects:HTMLElement"/></apiReturn></apiOperationDef><apiDesc>
+		 The DisplayObject's HTMLElement
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getNumChildren"><apiName>getNumChildren</apiName><shortdesc>
+		 The number of children this DisplayObject has
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="int"/></apiReturn></apiOperationDef><apiDesc>
+		 The number of children this DisplayObject has
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getParent"><apiName>getParent</apiName><shortdesc>
+		 The current instance's parent DisplayObject
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiOperationClassifier>com.humboldtjs.display:DisplayObject</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+		 The current instance's parent DisplayObject
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getPercentHeight"><apiName>getPercentHeight</apiName><shortdesc>
+		 The height as a percentage
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The height as a percentage
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getPercentWidth"><apiName>getPercentWidth</apiName><shortdesc>
+		 The width as a percentage
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The width as a percentage
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getRight"><apiName>getRight</apiName><shortdesc>
+		 The right position
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The right position
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getScaleX"><apiName>getScaleX</apiName><shortdesc>
+		 The scaleX.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The scaleX. Only provided for compatibility with Flash.
+		 ScaleX will always return 1 and setting it will be ignored.
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getScaleY"><apiName>getScaleY</apiName><shortdesc>
+		 The scaleY.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The scaleY. Only provided for compatibility with Flash.
+		 ScaleY will always return 1 and setting it will be ignored.
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getStage"><apiName>getStage</apiName><shortdesc>
+		 A reference to the Stage object if we can find it.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiOperationClassifier>com.humboldtjs.display:Stage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+		 A reference to the Stage object if we can find it. If not will return null
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getUnscaledHeight"><apiName>getUnscaledHeight</apiName><shortdesc>
+		 The unscaledHeight
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The unscaledHeight
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getUnscaledWidth"><apiName>getUnscaledWidth</apiName><shortdesc>
+		 The unscaledWidth
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The unscaledWidth
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getVisible"><apiName>getVisible</apiName><shortdesc>
+		 The visibility
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+		 The visibility
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getWidth"><apiName>getWidth</apiName><shortdesc>
+		 The width
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The width
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getX"><apiName>getX</apiName><shortdesc>
+		 The x position (left)
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The x position (left)
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getY"><apiName>getY</apiName><shortdesc>
+		 The y position (top)
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The y position (top)
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:getZIndex"><apiName>getZIndex</apiName><shortdesc>
+		 The z-index
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The z-index
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:removeChildAt"><apiName>removeChildAt</apiName><shortdesc>
+		 Remove a the child DisplayObject at the given index from this DisplayObject
+		 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>aIndex</apiItemName><apiType value="int"/><apiDesc>The index at which to remove the child
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Remove a the child DisplayObject at the given index from this DisplayObject
+		 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:removeChild"><apiName>removeChild</apiName><shortdesc>
+		 Remove a child DisplayObject from this DisplayObject
+		 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>aChild</apiItemName><apiOperationClassifier>com.humboldtjs.display:DisplayObject</apiOperationClassifier><apiDesc>The DisplayObject to remove
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Remove a child DisplayObject from this DisplayObject
+		 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:setAlpha"><apiName>setAlpha</apiName><shortdesc>
+		 The opacity
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc>
+		 The opacity
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:setBottom"><apiName>setBottom</apiName><shortdesc>
+		 The bottom position
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc>
+		 The bottom position
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:setHeight"><apiName>setHeight</apiName><shortdesc>
+		 The height
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc>
+		 The height
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:protected:setParent"><apiName>setParent</apiName><shortdesc>
+		 Set the parent element.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>aParent</apiItemName><apiOperationClassifier>com.humboldtjs.display:DisplayObject</apiOperationClassifier></apiParam></apiOperationDef><apiDesc>
+		 Set the parent element. This is called from within addChild.
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:setPercentHeight"><apiName>setPercentHeight</apiName><shortdesc>
+		 The height as a percentage
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc>
+		 The height as a percentage
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:setPercentWidth"><apiName>setPercentWidth</apiName><shortdesc>
+		 The width as a percentage
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc>
+		 The width as a percentage
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:setRight"><apiName>setRight</apiName><shortdesc>
+		 The right position
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc>
+		 The right position
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:setScaleX"><apiName>setScaleX</apiName><shortdesc>
+		 The scaleX.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc>
+		 The scaleX. Only provided for compatibility with Flash.
+		 ScaleX will always return 1 and setting it will be ignored.
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:setScaleY"><apiName>setScaleY</apiName><shortdesc>
+		 The scaleY.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc>
+		 The scaleY. Only provided for compatibility with Flash.
+		 ScaleY will always return 1 and setting it will be ignored.
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:setVisible"><apiName>setVisible</apiName><shortdesc>
+		 The visibility
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+		 The visibility
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:setWidth"><apiName>setWidth</apiName><shortdesc>
+		 The width
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc>
+		 The width
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:setX"><apiName>setX</apiName><shortdesc>
+		 The x position (left)
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc>
+		 The x position (left)
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:setY"><apiName>setY</apiName><shortdesc>
+		 The y position (top)
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc>
+		 The y position (top)
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:DisplayObject:setZIndex"><apiName>setZIndex</apiName><shortdesc>
+		 The z-index
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc>
+		 The z-index
+		 </apiDesc></apiOperationDetail></apiOperation><apiValue id="com.humboldtjs.display:DisplayObject:protected:mAlpha"><apiName>mAlpha</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>1</apiData><apiType value="Number"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:DisplayObject:protected:mBottom"><apiName>mBottom</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-999999</apiData><apiType value="Number"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:DisplayObject:protected:mChildren"><apiName>mChildren</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Array"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:DisplayObject:protected:mElementType"><apiName>mElementType</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:DisplayObject:protected:mElement"><apiName>mElement</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="dom.domobjects:HTMLElement"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:DisplayObject:protected:mHeight"><apiName>mHeight</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="Number"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:DisplayObject:protected:mParent"><apiName>mParent</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>null</apiData><apiValueClassifier>com.humboldtjs.display:DisplayObject</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:DisplayObject:protected:mPercentHeight"><apiName>mPercentHeight</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="Number"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:DisplayObject:protected:mPercentWidth"><apiName>mPercentWidth</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="Number"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:DisplayObject:protected:mRight"><apiName>mRight</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-999999</apiData><apiType value="Number"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:DisplayObject:protected:mVisible"><apiName>mVisible</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:DisplayObject:protected:mWidth"><apiName>mWidth</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-1</apiData><apiType value="Number"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:DisplayObject:protected:mX"><apiName>mX</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-999999</apiData><apiType value="Number"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:DisplayObject:protected:mY"><apiName>mY</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>-999999</apiData><apiType value="Number"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:DisplayObject:protected:mZIndex"><apiName>mZIndex</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="int"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.humboldtjs.display:Bitmap"><apiName>Bitmap</apiName><shortdesc>
+	 A simple bitmap class which loads and displays an image from a URL
+	 	 This class is wrapped by the Loader class which will give you a bit more
+	 feedback about how the loading is going, and as a final result will
+	 return a Bitmap object.</shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.humboldtjs.display:ISrcDisplayObject</apiBaseInterface><apiBaseClassifier>com.humboldtjs.display:DisplayObject</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 A simple bitmap class which loads and displays an image from a URL
+	 	 This class is wrapped by the Loader class which will give you a bit more
+	 feedback about how the loading is going, and as a final result will
+	 return a Bitmap object. 
+	 </apiDesc></apiClassifierDetail><apiConstructor id="com.humboldtjs.display:Bitmap:Bitmap"><apiName>Bitmap</apiName><shortdesc>
+		 </shortdesc><prolog><asCustoms><constructor/></asCustoms></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="com.humboldtjs.display:Bitmap:clone"><apiName>clone</apiName><shortdesc>
+		 Return a copy of the Bitmap with the same contents
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiOperationClassifier>com.humboldtjs.display:ISrcDisplayObject</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+		 Return a copy of the Bitmap with the same contents
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Bitmap:getSrc"><apiName>getSrc</apiName><shortdesc>
+		 The source URL of the bitmap.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+		 The source URL of the bitmap.
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Bitmap:getUnscaledHeight"><apiName>getUnscaledHeight</apiName><shortdesc>
+		 The unscaled height of the bitmap.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The unscaled height of the bitmap.
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Bitmap:getUnscaledWidth"><apiName>getUnscaledWidth</apiName><shortdesc>
+		 The unscaled width of the bitmap.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The unscaled width of the bitmap.
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Bitmap:protected:onLoadComplete"><apiName>onLoadComplete</apiName><shortdesc>
+		 Called when loading of the bitmap has completed
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		 Called when loading of the bitmap has completed
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Bitmap:setSrc"><apiName>setSrc</apiName><shortdesc>
+		 The source URL of the bitmap.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+		 The source URL of the bitmap.
+		 </apiDesc></apiOperationDetail></apiOperation><apiValue id="com.humboldtjs.display:Bitmap:protected:mUnscaledHeight"><apiName>mUnscaledHeight</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:Bitmap:protected:mUnscaledWidth"><apiName>mUnscaledWidth</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.humboldtjs.display:Loader"><apiName>Loader</apiName><shortdesc>
+	 A simple loader class that can manage loading Bitmap and Video
+	 instances.</shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.humboldtjs.display:DisplayObject</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 A simple loader class that can manage loading Bitmap and Video
+	 instances. Note that the Video class isn't well supported yet since
+	 there are still numerous issues with video on various mobile devices,
+	 so YMMV.
+	 </apiDesc></apiClassifierDetail><apiConstructor id="com.humboldtjs.display:Loader:Loader"><apiName>Loader</apiName><shortdesc>
+		 </shortdesc><prolog><asCustoms><constructor/></asCustoms></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="com.humboldtjs.display:Loader:close"><apiName>close</apiName><shortdesc>
+		 Close the loader before finishing loading.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		 Close the loader before finishing loading. Cleans up any event
+		 listeners and removes the content if it already existed.
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Loader:getContent"><apiName>getContent</apiName><shortdesc>
+		 If loading was complete returns the loaded content
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiOperationClassifier>com.humboldtjs.display:DisplayObject</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+		 If loading was complete returns the loaded content
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Loader:load"><apiName>load</apiName><shortdesc>
+		 Load an ISrcDisplayObject from the requested URL
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>request</apiItemName><apiOperationClassifier>com.humboldtjs.net:URLRequest</apiOperationClassifier></apiParam></apiOperationDef><apiDesc>
+		 Load an ISrcDisplayObject from the requested URL
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Loader:protected:onLoadComplete"><apiName>onLoadComplete</apiName><shortdesc>
+		 Handle load completion and send the appropriate events.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>aEvent</apiItemName><apiOperationClassifier>com.humboldtjs.events:HJSEvent</apiOperationClassifier></apiParam></apiOperationDef><apiDesc>
+		 Handle load completion and send the appropriate events.
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Loader:unload"><apiName>unload</apiName><shortdesc>
+		 Unload the current content and close the loader
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		 Unload the current content and close the loader
+		 </apiDesc></apiOperationDetail></apiOperation><apiValue id="com.humboldtjs.display:Loader:protected:mContent"><apiName>mContent</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>com.humboldtjs.display:DisplayObject</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:Loader:protected:mSrc"><apiName>mSrc</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="String"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.humboldtjs.display:HGroup"><apiName>HGroup</apiName><shortdesc>
+	 A simple horizontal layout component.</shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.humboldtjs.display:DisplayObject</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 A simple horizontal layout component. Uses float:left on it's children's
+	 HTML elements to layout the elements. Also serves as an example of how
+	 to modify addChild and removeChild to provide different layout behavior.
+	 </apiDesc></apiClassifierDetail><apiConstructor id="com.humboldtjs.display:HGroup:HGroup"><apiName>HGroup</apiName><shortdesc>
+		 </shortdesc><prolog><asCustoms><constructor/></asCustoms></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="com.humboldtjs.display:HGroup:addChild"><apiName>addChild</apiName><shortdesc>
+		 Add child to the container.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>aChild</apiItemName><apiOperationClassifier>com.humboldtjs.display:DisplayObject</apiOperationClassifier></apiParam></apiOperationDef><apiDesc>
+		 Add child to the container. Modifies the HTML element's CSS to
+		 float:left to create a horizontal layout
+		 </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="com.humboldtjs.display:Canvas"><apiName>Canvas</apiName><shortdesc>
+	 A simple DisplayObject that provides a Canvas and 2D context.</shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.humboldtjs.display:DisplayObject</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 A simple DisplayObject that provides a Canvas and 2D context.
+	 </apiDesc></apiClassifierDetail><apiConstructor id="com.humboldtjs.display:Canvas:Canvas"><apiName>Canvas</apiName><shortdesc>
+		 </shortdesc><prolog><asCustoms><constructor/></asCustoms></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="com.humboldtjs.display:Canvas:getContext2D"><apiName>getContext2D</apiName><shortdesc>
+		 The 2D drawing context for this canvas
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="dom.domobjects:CanvasRenderingContext2D"/></apiReturn></apiOperationDef><apiDesc>
+		 The 2D drawing context for this canvas
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Canvas:setHeight"><apiName>setHeight</apiName><shortdesc>
+		 Set the height of the Canvas drawing area 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc>
+		 Set the height of the Canvas drawing area 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Canvas:setWidth"><apiName>setWidth</apiName><shortdesc>
+		 Set the width of the Canvas drawing area 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc>
+		 Set the width of the Canvas drawing area 
+		 </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="com.humboldtjs.display:Stage"><apiName>Stage</apiName><shortdesc>
+	 A class that functionally simulates the Flash stage.</shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.humboldtjs.display:DisplayObject</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 A class that functionally simulates the Flash stage. It provides an
+	 EnterFrame timer loop which can be used for animation, and allows you
+	 to control framerate 
+	 </apiDesc></apiClassifierDetail><apiConstructor id="com.humboldtjs.display:Stage:Stage"><apiName>Stage</apiName><shortdesc>
+		 </shortdesc><prolog><asCustoms><constructor/></asCustoms></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="com.humboldtjs.display:Stage:addEventListener"><apiName>addEventListener</apiName><shortdesc>
+		 To make sure the frame loop doesn't cost more overhead than strictly
+		 needed we cache whether there are actually any listeners for
+		 ENTER_FRAME, otherwise we skip all kinds of processing.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>aType</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>aFunction</apiItemName><apiType value="dom.domobjects:EventFunction"/></apiParam></apiOperationDef><apiDesc>
+		 To make sure the frame loop doesn't cost more overhead than strictly
+		 needed we cache whether there are actually any listeners for
+		 ENTER_FRAME, otherwise we skip all kinds of processing.
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Stage:protected:doFrameLoop"><apiName>doFrameLoop</apiName><shortdesc>
+		 Process the current frame, and dispatch ENTER_FRAME events if needed
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		 Process the current frame, and dispatch ENTER_FRAME events if needed
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Stage:getFrameRate"><apiName>getFrameRate</apiName><shortdesc>
+		 The current framerate
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The current framerate
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Stage:getInstance"><apiName>getInstance</apiName><shortdesc>
+		 Get's access to the application stage object
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiOperationClassifier>com.humboldtjs.display:Stage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+		 Get's access to the application stage object
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Stage:getStage"><apiName>getStage</apiName><shortdesc>
+		 Every DisplayObject has a stage, and Stage inherits from DisplayObject
+		 so this returns itself.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiOperationClassifier>com.humboldtjs.display:Stage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+		 Every DisplayObject has a stage, and Stage inherits from DisplayObject
+		 so this returns itself.
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Stage:removeEventListener"><apiName>removeEventListener</apiName><shortdesc>
+		 To make sure the frame loop doesn't cost more overhead than strictly
+		 needed we cache whether there are actually any listeners for
+		 ENTER_FRAME, otherwise we skip all kinds of processing.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>aType</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>aFunction</apiItemName><apiType value="dom.domobjects:EventFunction"/></apiParam></apiOperationDef><apiDesc>
+		 To make sure the frame loop doesn't cost more overhead than strictly
+		 needed we cache whether there are actually any listeners for
+		 ENTER_FRAME, otherwise we skip all kinds of processing.
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Stage:setFrameRate"><apiName>setFrameRate</apiName><shortdesc>
+		 The current framerate
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc>
+		 The current framerate
+		 </apiDesc></apiOperationDetail></apiOperation><apiValue id="com.humboldtjs.display:Stage:protected:mFrameDelay"><apiName>mFrameDelay</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>40</apiData><apiType value="Number"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:Stage:protected:mFrameRate"><apiName>mFrameRate</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>25</apiData><apiType value="Number"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:Stage:protected:mHasFrameListener"><apiName>mHasFrameListener</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:Stage:protected:mStage"><apiName>mStage</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiStatic/><apiValueClassifier>com.humboldtjs.display:Stage</apiValueClassifier></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.humboldtjs.display:ISrcDisplayObject"><apiName>ISrcDisplayObject</apiName><shortdesc>
+	 Interface for any DisplayObject that can have its source set.</shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+	 Interface for any DisplayObject that can have its source set. This is
+	 used by the Loader class to describe its return type
+	 </apiDesc></apiClassifierDetail><apiOperation id="com.humboldtjs.display:ISrcDisplayObject:com.humboldtjs.display:ISrcDisplayObject:clone"><apiName>clone</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiOperationClassifier>com.humboldtjs.display:ISrcDisplayObject</apiOperationClassifier></apiReturn></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:ISrcDisplayObject:com.humboldtjs.display:ISrcDisplayObject:getSrc"><apiName>getSrc</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="String"/></apiReturn></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:ISrcDisplayObject:com.humboldtjs.display:ISrcDisplayObject:setSrc"><apiName>setSrc</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="com.humboldtjs.display:Video"><apiName>Video</apiName><shortdesc>
+	 A simple Video class which deals with some of the weird issues with
+	 HTML5 video.</shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.humboldtjs.display:ISrcDisplayObject</apiBaseInterface><apiBaseClassifier>com.humboldtjs.display:DisplayObject</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 A simple Video class which deals with some of the weird issues with
+	 HTML5 video. This already supports a few different platforms and situations
+	 however you still have to determine whether to load an MP4 or WEBM
+	 using the Capabilities class first.
+	 
+	 Note there are still numerous issues with various mobile browsers which
+	 have varying degrees of support for HTML5.
+	 </apiDesc></apiClassifierDetail><apiConstructor id="com.humboldtjs.display:Video:Video"><apiName>Video</apiName><shortdesc>
+		 </shortdesc><prolog><asCustoms><constructor/></asCustoms></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="com.humboldtjs.display:Video:clone"><apiName>clone</apiName><shortdesc>
+		 Return a copy of the Video with the same contents
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiOperationClassifier>com.humboldtjs.display:ISrcDisplayObject</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+		 Return a copy of the Video with the same contents
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Video:getCurrentTime"><apiName>getCurrentTime</apiName><shortdesc>
+		 The current playhead time
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The current playhead time
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Video:getDuration"><apiName>getDuration</apiName><shortdesc>
+		 The duration
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The duration
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Video:getHasVideo"><apiName>getHasVideo</apiName><shortdesc>
+		 Whether the video is loaded
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+		 Whether the video is loaded
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Video:getSrc"><apiName>getSrc</apiName><shortdesc>
+		 The source URL of the video.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+		 The source URL of the video.
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Video:getUnscaledHeight"><apiName>getUnscaledHeight</apiName><shortdesc>
+		 The original video height
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The original video height
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Video:getUnscaledWidth"><apiName>getUnscaledWidth</apiName><shortdesc>
+		 The original video width
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+		 The original video width
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Video:protected:onEventLoop"><apiName>onEventLoop</apiName><shortdesc>
+		 An eventloop which notifies listeners of changes in the timestamp of
+		 the video or when playback has ended (when the end of the video has
+		 been reached).</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		 An eventloop which notifies listeners of changes in the timestamp of
+		 the video or when playback has ended (when the end of the video has
+		 been reached).
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Video:protected:onLoadComplete"><apiName>onLoadComplete</apiName><shortdesc>
+		 Handle when loading of the video is complete
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		 Handle when loading of the video is complete
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Video:pause"><apiName>pause</apiName><shortdesc>
+		 Pause video playback
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		 Pause video playback
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Video:play"><apiName>play</apiName><shortdesc>
+		 Start video playback
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		 Start video playback
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Video:setCurrentTime"><apiName>setCurrentTime</apiName><shortdesc>
+		 The current playhead time
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc>
+		 The current playhead time
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.humboldtjs.display:Video:setSrc"><apiName>setSrc</apiName><shortdesc>
+		 The source URL of the video.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+		 The source URL of the video.
+		 </apiDesc></apiOperationDetail></apiOperation><apiValue id="com.humboldtjs.display:Video:EVENT_ENDED"><apiName>EVENT_ENDED</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>ended</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:Video:EVENT_TIME_CHANGED"><apiName>EVENT_TIME_CHANGED</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>timechanged</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:Video:VIDEO_MP4"><apiName>VIDEO_MP4</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>mp4</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:Video:VIDEO_WEBM"><apiName>VIDEO_WEBM</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>webm</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:Video:protected:mCurrentTime"><apiName>mCurrentTime</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:Video:protected:mEnded"><apiName>mEnded</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:Video:protected:mHasVideo"><apiName>mHasVideo</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:Video:protected:mLoopRunning"><apiName>mLoopRunning</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:Video:protected:mPaused"><apiName>mPaused</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.humboldtjs.display:Video:protected:mSrc"><apiName>mSrc</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="String"/></apiValueDef></apiValueDetail></apiValue></apiClassifier></apiPackage>
