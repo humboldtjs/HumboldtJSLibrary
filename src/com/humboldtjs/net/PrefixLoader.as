@@ -2,7 +2,7 @@
 * HumboldtJSLibrary
 * http://humboldtjs.com/
 *
-* Copyright (c) 2012 Daniël Haveman
+* Copyright (c) 2012 DaniÃ«l Haveman
 * Licensed under the MIT license
 * http://humboldtjs.com/license.html
 */
@@ -15,6 +15,7 @@ package com.humboldtjs.net
 	import dom.document;
 	import dom.domobjects.HTMLElement;
 	import dom.domobjects.HTMLScriptElement;
+	import dom.eventFunction;
 	import dom.window;
 	
 	/**
@@ -32,8 +33,7 @@ package com.humboldtjs.net
 	{
 		protected var mContent:*;
 		protected var mScript:HTMLScriptElement;
-		protected var mPrefix:String;
-		protected var mIsLoading:Boolean;
+		protected var mPrefix:String;		
 		protected var mInternalId:String;
 		
 		protected static var mCallbacks:Vector.<PrefixLoader> = new Vector.<PrefixLoader>();
@@ -65,10 +65,12 @@ package com.humboldtjs.net
 		public function PrefixLoader()
 		{
 			super();
-			
 			mInternalId = InternalId.generateInternalId("PrefixLoader");
 			mPrefix = "parse";
-			mIsLoading = false;
+			if (typeof window[getPrefix() + "L"] == "undefined" || window[getPrefix() + "L"] == null)
+				window[getPrefix() + "L"] = false;
+			if (typeof window[getPrefix() + "Q"] == "undefined" || window[getPrefix() + "Q"] == null)
+				window[getPrefix() + "Q"] = new Vector.<URLRequest>();
 			mScript = document.createElement("script") as HTMLScriptElement;
 
 			mContent = {};
@@ -80,11 +82,20 @@ package com.humboldtjs.net
 		 */
 		public function close():void
 		{
-			if (!mIsLoading) return;
-			
+			if (!window[getPrefix() + "L"]) return;
+						
 			// Remove the old script
 			var theHead:HTMLElement = document.getElementsByTagName("head")[0];
-			theHead.removeChild(mScript);
+			
+			// First find the correct script tag.
+			var theScripts:Array = theHead.getElementsByTagName("script");
+			for (var i:int = 0; i < theScripts.length; i++)
+			{
+				if (theScripts[i].id == getInternalId())
+					mScript = theScripts[i];
+			}
+			//trace("Found it? " + mScript.id + " -- " + getInternalId());
+			//theHead.removeChild(mScript);
 			mScript["src"] = "";
 
 			// Try to clean up the prefix callbacks a bit.
@@ -95,6 +106,11 @@ package com.humboldtjs.net
 			
 			// And clear the content
 			mContent = null;
+			
+			/*mScript = document.createElement("script") as HTMLScriptElement;
+			
+			mContent = {};*/
+
 		}
 		
 		/**
@@ -102,23 +118,37 @@ package com.humboldtjs.net
 		 */
 		public function load(request:URLRequest):void
 		{
+			trace("Load from " + getPrefix() + " " + getInternalId());
+			trace(typeof window[getPrefix() + "Q"]);
+			if (window[getPrefix() + "L"] == true)
+			{
+				trace("in q " + request.getUrl());
+				window[getPrefix() + "Q"] = window[getPrefix() + "Q"].concat(request);
+				trace(window[getPrefix() + "Q"].length);
+				mCallbacks.push(this);
+				return;
+			}
+			
 			unload();
 			
+			trace("l " + request.getUrl());
 			// We store the internal ID in the script to be able to do
 			// some smart stuff with that in the future
 			mScript["src"] = request.getUrl();
 			mScript.id = getInternalId();
+			trace("Created new script element: " + mScript.id);
 
 			// Create the callback on the prefix
-			window[getPrefix()] = onCallback;
-			mCallbacks.push(this);
+			window[getPrefix()] = eventFunction(this, doCallback);//onCallback;
+			if (mCallbacks.indexOf(this) != -1)
+				mCallbacks.unshift(this);
 			
 			// Then we keep track of how often a prefix callback is used to
 			// be able to clean up properly when nothing is being loaded anymore
 			if (mPrefixIndex[getPrefix()] == null) mPrefixIndex[getPrefix()] = 0;
-			mPrefixIndex[getPrefix()]++;
+				mPrefixIndex[getPrefix()]++;
 			
-			mIsLoading = true;
+			window[getPrefix() + "L"] = true;
 			
 			// And add the script to the head to start loading
 			var theHead:HTMLElement = document.getElementsByTagName("head")[0];
@@ -139,12 +169,29 @@ package com.humboldtjs.net
 		 */
 		protected function doCallback(aValue:*):void
 		{
+			trace("Do callback " + getInternalId());
 			unload();
 			
 			mContent = aValue;
-
+						
 			// We're done!
 			dispatchEvent(new HJSEvent(HJSEvent.COMPLETE));
+			
+			loadNextIfAvailable();
+		}
+		
+		protected function loadNextIfAvailable():void
+		{
+			trace("Loadnext from " + getPrefix() + " :::: " + window[getPrefix() + "L"] + " :::: " + window[getPrefix() + "Q"] + " :::: " + window[getPrefix() + "Q"].length);
+			window[getPrefix() + "L"] = false;
+			
+			if (window[getPrefix() + "Q"].length > 0)
+			{
+				var theUrlRequest:URLRequest = window[getPrefix() + "Q"].shift();
+				trace("out q " + theUrlRequest.getUrl());
+				var thePrefixLoader:PrefixLoader = mCallbacks.shift();
+				thePrefixLoader.load(theUrlRequest);
+			}
 		}
 		
 		/**
@@ -154,6 +201,7 @@ package com.humboldtjs.net
 		protected static function onCallback(aValue:*):void
 		{
 			var thePrefixLoader:PrefixLoader = mCallbacks.shift();
+			trace("onCallback called for " + thePrefixLoader.getInternalId() + " with: " + aValue);
 			thePrefixLoader.doCallback(aValue);
 		}
 	}
