@@ -31,6 +31,9 @@ package com.humboldtjs.net
 	 */
 	public class PrefixLoader extends EventDispatcher
 	{
+		protected static const IDENTIFIER_ISLOADING:String = "IsLoading";
+		protected static const IDENTIFIER_LOADQUEUE:String = "LoadQueue";
+		
 		protected var mContent:*;
 		protected var mScript:HTMLScriptElement;
 		protected var mPrefix:String;		
@@ -67,10 +70,12 @@ package com.humboldtjs.net
 			super();
 			mInternalId = InternalId.generateInternalId("PrefixLoader");
 			mPrefix = "parse";
-			if (typeof window[getPrefix() + "L"] == "undefined" || window[getPrefix() + "L"] == null)
-				window[getPrefix() + "L"] = false;
-			if (typeof window[getPrefix() + "Q"] == "undefined" || window[getPrefix() + "Q"] == null)
-				window[getPrefix() + "Q"] = new Vector.<URLRequest>();
+			
+			if (typeof window[getPrefix() + IDENTIFIER_ISLOADING] == "undefined" || window[getPrefix() + IDENTIFIER_ISLOADING] == null)
+				window[getPrefix() + IDENTIFIER_ISLOADING] = false;
+			if (typeof window[getPrefix() + IDENTIFIER_LOADQUEUE] == "undefined" || window[getPrefix() + IDENTIFIER_LOADQUEUE] == null)
+				window[getPrefix() + IDENTIFIER_LOADQUEUE] = new Vector.<URLRequest>();
+			
 			mScript = document.createElement("script") as HTMLScriptElement;
 
 			mContent = {};
@@ -82,20 +87,12 @@ package com.humboldtjs.net
 		 */
 		public function close():void
 		{
-			if (!window[getPrefix() + "L"]) return;
+			if (!window[getPrefix() + IDENTIFIER_ISLOADING]) return;
 						
 			// Remove the old script
 			var theHead:HTMLElement = document.getElementsByTagName("head")[0];
-			
-			// First find the correct script tag.
-			var theScripts:Array = theHead.getElementsByTagName("script");
-			for (var i:int = 0; i < theScripts.length; i++)
-			{
-				if (theScripts[i].id == getInternalId())
-					mScript = theScripts[i];
-			}
-			//trace("Found it? " + mScript.id + " -- " + getInternalId());
-			//theHead.removeChild(mScript);
+			theHead.removeChild(mScript);
+
 			mScript["src"] = "";
 
 			// Try to clean up the prefix callbacks a bit.
@@ -106,11 +103,6 @@ package com.humboldtjs.net
 			
 			// And clear the content
 			mContent = null;
-			
-			/*mScript = document.createElement("script") as HTMLScriptElement;
-			
-			mContent = {};*/
-
 		}
 		
 		/**
@@ -118,42 +110,36 @@ package com.humboldtjs.net
 		 */
 		public function load(request:URLRequest):void
 		{
-			trace("Load from " + getPrefix() + " " + getInternalId());
-			trace(typeof window[getPrefix() + "Q"]);
-			if (window[getPrefix() + "L"] == true)
+			// If we are currently loading, store the item in a queue
+			if (window[getPrefix() + IDENTIFIER_ISLOADING] == true)
 			{
-				trace("in q " + request.getUrl());
-				window[getPrefix() + "Q"] = window[getPrefix() + "Q"].concat(request);
-				trace(window[getPrefix() + "Q"].length);
+				window[getPrefix() + IDENTIFIER_LOADQUEUE] = window[getPrefix() + IDENTIFIER_LOADQUEUE].concat(request);
 				mCallbacks.push(this);
 				return;
 			}
 			
 			unload();
 			
-			trace("l " + request.getUrl());
 			// We store the internal ID in the script to be able to do
 			// some smart stuff with that in the future
 			mScript["src"] = request.getUrl();
 			mScript.id = getInternalId();
-			trace("Created new script element: " + mScript.id);
 
 			// Create the callback on the prefix
-			window[getPrefix()] = eventFunction(this, doCallback);//onCallback;
-			if (mCallbacks.indexOf(this) != -1)
-				mCallbacks.unshift(this);
+			window[getPrefix()] = eventFunction(this, doCallback);
+			if (mCallbacks.indexOf(this) != -1) // Should always be != -1 otherwise something will go wrong.
+				mCallbacks.unshift(this); // Put it at the beginning
 			
 			// Then we keep track of how often a prefix callback is used to
 			// be able to clean up properly when nothing is being loaded anymore
 			if (mPrefixIndex[getPrefix()] == null) mPrefixIndex[getPrefix()] = 0;
-				mPrefixIndex[getPrefix()]++;
+			mPrefixIndex[getPrefix()]++;
 			
-			window[getPrefix() + "L"] = true;
+			window[getPrefix() + IDENTIFIER_ISLOADING] = true;
 			
 			// And add the script to the head to start loading
 			var theHead:HTMLElement = document.getElementsByTagName("head")[0];
 			theHead.appendChild(mScript);
-			
 		}
 		
 		/**
@@ -165,11 +151,10 @@ package com.humboldtjs.net
 		}
 		
 		/**
-		 * Handle the callback
+		 * Handle the callback as instructed by the prefix.
 		 */
 		protected function doCallback(aValue:*):void
 		{
-			trace("Do callback " + getInternalId());
 			unload();
 			
 			mContent = aValue;
@@ -177,32 +162,25 @@ package com.humboldtjs.net
 			// We're done!
 			dispatchEvent(new HJSEvent(HJSEvent.COMPLETE));
 			
+			// Load the next item if we have any of those.
 			loadNextIfAvailable();
 		}
 		
+		/**
+		 * Load the next item in the queue if any is available
+		 */
 		protected function loadNextIfAvailable():void
 		{
-			trace("Loadnext from " + getPrefix() + " :::: " + window[getPrefix() + "L"] + " :::: " + window[getPrefix() + "Q"] + " :::: " + window[getPrefix() + "Q"].length);
-			window[getPrefix() + "L"] = false;
+			window[getPrefix() + IDENTIFIER_ISLOADING] = false;
 			
-			if (window[getPrefix() + "Q"].length > 0)
+			if (window[getPrefix() + IDENTIFIER_LOADQUEUE].length > 0)
 			{
-				var theUrlRequest:URLRequest = window[getPrefix() + "Q"].shift();
-				trace("out q " + theUrlRequest.getUrl());
+				var theUrlRequest:URLRequest = window[getPrefix() + IDENTIFIER_LOADQUEUE].shift();
+				
+				// Find the next prefixloader and load the matching item from the queue in it.
 				var thePrefixLoader:PrefixLoader = mCallbacks.shift();
 				thePrefixLoader.load(theUrlRequest);
 			}
-		}
-		
-		/**
-		 * Handle all JSON callbacks, and figure out the right PrefixLoader and
-		 * have it handle the rest of the callback.
-		 */
-		protected static function onCallback(aValue:*):void
-		{
-			var thePrefixLoader:PrefixLoader = mCallbacks.shift();
-			trace("onCallback called for " + thePrefixLoader.getInternalId() + " with: " + aValue);
-			thePrefixLoader.doCallback(aValue);
 		}
 	}
 }
