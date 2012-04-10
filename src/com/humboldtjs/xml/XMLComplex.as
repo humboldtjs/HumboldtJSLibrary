@@ -49,7 +49,8 @@ package com.humboldtjs.xml
 					if (aValue[i] is HJSXML) {
 						mValue.push(aValue[i]);
 					} else {
-						mValue.push(processXML(aValue[i]));
+						if (typeof aValue[i] !== "undefined")
+							mValue.push(processXML(aValue[i]));
 					}
 				}
 			}
