@@ -2,7 +2,7 @@
 * HumboldtJSLibrary
 * http://humboldtjs.com/
 *
-* Copyright (c) 2012 Daniël Haveman
+* Copyright (c) 2012 DaniÃ«l Haveman
 * Licensed under the MIT license
 * http://humboldtjs.com/license.html
 */
@@ -15,6 +15,7 @@ package com.humboldtjs.net
 	import dom.document;
 	import dom.domobjects.HTMLElement;
 	import dom.domobjects.HTMLScriptElement;
+	import dom.eventFunction;
 	import dom.window;
 	
 	/**
@@ -30,10 +31,12 @@ package com.humboldtjs.net
 	 */
 	public class PrefixLoader extends EventDispatcher
 	{
+		protected static const IDENTIFIER_ISLOADING:String = "IsLoading";
+		protected static const IDENTIFIER_LOADQUEUE:String = "LoadQueue";
+		
 		protected var mContent:*;
 		protected var mScript:HTMLScriptElement;
-		protected var mPrefix:String;
-		protected var mIsLoading:Boolean;
+		protected var mPrefix:String;		
 		protected var mInternalId:String;
 		
 		protected static var mCallbacks:Vector.<PrefixLoader> = new Vector.<PrefixLoader>();
@@ -65,10 +68,14 @@ package com.humboldtjs.net
 		public function PrefixLoader()
 		{
 			super();
-			
 			mInternalId = InternalId.generateInternalId("PrefixLoader");
 			mPrefix = "parse";
-			mIsLoading = false;
+			
+			if (typeof window[getPrefix() + IDENTIFIER_ISLOADING] == "undefined" || window[getPrefix() + IDENTIFIER_ISLOADING] == null)
+				window[getPrefix() + IDENTIFIER_ISLOADING] = false;
+			if (typeof window[getPrefix() + IDENTIFIER_LOADQUEUE] == "undefined" || window[getPrefix() + IDENTIFIER_LOADQUEUE] == null)
+				window[getPrefix() + IDENTIFIER_LOADQUEUE] = new Vector.<URLRequest>();
+			
 			mScript = document.createElement("script") as HTMLScriptElement;
 
 			mContent = {};
@@ -80,11 +87,12 @@ package com.humboldtjs.net
 		 */
 		public function close():void
 		{
-			if (!mIsLoading) return;
-			
+			if (!window[getPrefix() + IDENTIFIER_ISLOADING]) return;
+						
 			// Remove the old script
 			var theHead:HTMLElement = document.getElementsByTagName("head")[0];
 			theHead.removeChild(mScript);
+
 			mScript["src"] = "";
 
 			// Try to clean up the prefix callbacks a bit.
@@ -102,6 +110,14 @@ package com.humboldtjs.net
 		 */
 		public function load(request:URLRequest):void
 		{
+			// If we are currently loading, store the item in a queue
+			if (window[getPrefix() + IDENTIFIER_ISLOADING] == true)
+			{
+				window[getPrefix() + IDENTIFIER_LOADQUEUE] = window[getPrefix() + IDENTIFIER_LOADQUEUE].concat(request);
+				mCallbacks.push(this);
+				return;
+			}
+			
 			unload();
 			
 			// We store the internal ID in the script to be able to do
@@ -110,20 +126,20 @@ package com.humboldtjs.net
 			mScript.id = getInternalId();
 
 			// Create the callback on the prefix
-			window[getPrefix()] = onCallback;
-			mCallbacks.push(this);
+			window[getPrefix()] = eventFunction(this, doCallback);
+			if (mCallbacks.indexOf(this) != -1) // Should always be != -1 otherwise something will go wrong.
+				mCallbacks.unshift(this); // Put it at the beginning
 			
 			// Then we keep track of how often a prefix callback is used to
 			// be able to clean up properly when nothing is being loaded anymore
 			if (mPrefixIndex[getPrefix()] == null) mPrefixIndex[getPrefix()] = 0;
 			mPrefixIndex[getPrefix()]++;
 			
-			mIsLoading = true;
+			window[getPrefix() + IDENTIFIER_ISLOADING] = true;
 			
 			// And add the script to the head to start loading
 			var theHead:HTMLElement = document.getElementsByTagName("head")[0];
 			theHead.appendChild(mScript);
-			
 		}
 		
 		/**
@@ -135,26 +151,36 @@ package com.humboldtjs.net
 		}
 		
 		/**
-		 * Handle the callback
+		 * Handle the callback as instructed by the prefix.
 		 */
 		protected function doCallback(aValue:*):void
 		{
 			unload();
 			
 			mContent = aValue;
-
+						
 			// We're done!
 			dispatchEvent(new HJSEvent(HJSEvent.COMPLETE));
+			
+			// Load the next item if we have any of those.
+			loadNextIfAvailable();
 		}
 		
 		/**
-		 * Handle all JSON callbacks, and figure out the right PrefixLoader and
-		 * have it handle the rest of the callback.
+		 * Load the next item in the queue if any is available
 		 */
-		protected static function onCallback(aValue:*):void
+		protected function loadNextIfAvailable():void
 		{
-			var thePrefixLoader:PrefixLoader = mCallbacks.shift();
-			thePrefixLoader.doCallback(aValue);
+			window[getPrefix() + IDENTIFIER_ISLOADING] = false;
+			
+			if (window[getPrefix() + IDENTIFIER_LOADQUEUE].length > 0)
+			{
+				var theUrlRequest:URLRequest = window[getPrefix() + IDENTIFIER_LOADQUEUE].shift();
+				
+				// Find the next prefixloader and load the matching item from the queue in it.
+				var thePrefixLoader:PrefixLoader = mCallbacks.shift();
+				thePrefixLoader.load(theUrlRequest);
+			}
 		}
 	}
 }
