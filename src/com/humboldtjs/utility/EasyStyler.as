@@ -61,7 +61,22 @@ package com.humboldtjs.utility
 						aElement.style["Moz" + theUCName] = theValue;
 						aElement.style["O" + theUCName] = theValue;
 					}
-					aElement.style[theKey] = theValue;
+					if (theKey == "opacity") {
+						if (theValue == 1) {
+							delete aElement.style[theKey];
+							delete aElement.style["filter"];
+						} else {
+							aElement.style[theKey] = theValue;
+							aElement.style["filter"] = 'alpha(opacity=' + theValue * 100 + ')';
+						}
+						if (theValue == 0) {
+							aElement.style.display = "none";
+						} else {
+							aElement.style.display = "block";
+						}
+					} else {
+						aElement.style[theKey] = theValue;
+					}
 				}
 			}
 		}

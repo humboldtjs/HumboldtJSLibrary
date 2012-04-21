@@ -54,15 +54,21 @@ package com.humboldtjs.utility
 		 * This means e.g. "fontSize" instead of "font-size".
 		 * 
 		 * @param aProperty The style property to animate using Javascript notation
+		 * @param aDuration The target duration in seconds to take. The actual time may differ slightly due to the actual achieved framerate
 		 * @param aValue The numerical value to animate towards
 		 * @param aRoundFactor The factor to use when rounding the value
 		 * @param aPostFix The string to append to the rounded value. E.g. "px" for style values that require it.
 		 * @param aCompleteFunction The EventFunction that needs to be called when the animation is done
 		 */
-		public function animatePropertyTo(aProperty:String, aValue:Number, aRoundFactor:Number, aPostFix:String, aCompleteFunction:Function):void
+		public function animatePropertyTo(aProperty:String, aDuration:Number, aValue:Number, aRoundFactor:Number, aPostFix:String, aCompleteFunction:Function):void
 		{
 			var theStart:Number = parseFloat(mElement.style[aProperty].toString().split(aPostFix).join(""));
-			if (isNaN(theStart)) theStart = 0;
+			if (isNaN(theStart)) {
+				if (aProperty == "opacity" || aProperty == "-opacity")
+					theStart = 1;
+				else
+					theStart = 0;
+			}
 			
 			// First look if there is already an animation going on for this
 			// property
@@ -85,7 +91,7 @@ package com.humboldtjs.utility
 			theAnimation.start = theStart;
 			theAnimation.end = aValue;
 			theAnimation.position = 0;
-			theAnimation.speed = 0.05;
+			theAnimation.speed = 1 / (Math.max(1, aDuration * 1000) / 25);
 			theAnimation.roundFactor = aRoundFactor;
 			theAnimation.postFix = aPostFix;
 			theAnimation.complete = aCompleteFunction;
@@ -130,20 +136,25 @@ package com.humboldtjs.utility
 				
 				// Calculate the new value (using the rounding procedure as
 				// mentioned in the documentation for animatePropertyTo
-				var theValue:Number = Sine.ease(theAnimation.position, 0.5) * (theAnimation.end - theAnimation.start) + theAnimation.start;
+				var theValue:* = Sine.ease(theAnimation.position, 0.5) * (theAnimation.end - theAnimation.start) + theAnimation.start;
 				theValue = Math.round(theValue * theAnimation.roundFactor) / theAnimation.roundFactor;
-
-				// Opacity is special. There we cannot simply set the value and
-				// the vendor prefixes. Here we have to apply a specific IE
-				// hack as well.
-				// Also when the value == 1 we remove the opacity filter entirely
-				// to prevent some redraw issues on mobile
-				if (theAnimation.property == "opacity") {
+				theValue = theValue.toString() + theAnimation.postFix;
+				
+				var theKey:String = theAnimation.property;
+				if (theKey.substr(0, 1) == "-") {
+					theKey = theKey.substr(1);
+					var theUCName:String = theKey.substr(0, 1).toUpperCase() + theKey.substr(1); 
+					mElement.style["Webkit" + theUCName] = theValue;
+					mElement.style["Ms" + theUCName] = theValue;
+					mElement.style["Moz" + theUCName] = theValue;
+					mElement.style["O" + theUCName] = theValue;
+				}
+				if (theKey == "opacity") {
 					if (theValue == 1) {
-						delete mElement.style[theAnimation.property];
+						delete mElement.style[theKey];
 						delete mElement.style["filter"];
 					} else {
-						mElement.style[theAnimation.property] = theValue.toString() + theAnimation.postFix;
+						mElement.style[theKey] = theValue;
 						mElement.style["filter"] = 'alpha(opacity=' + theValue * 100 + ')';
 					}
 					if (theValue == 0) {
@@ -152,20 +163,7 @@ package com.humboldtjs.utility
 						mElement.style.display = "block";
 					}
 				} else {
-					var theFinalValue:String = theValue.toString() + theAnimation.postFix;
-					
-					// If the property name is prefixed with a "-" we add all
-					// the major vendor prefixes. Mainly for animating experimental
-					// CSS3 properties.
-					if (theAnimation.property.substr(0, 1) == "-") {
-						var theKey:String = theAnimation.property.substr(1);
-						var theUCName:String = theKey.substr(0, 1).toUpperCase() + theKey.substr(1); 
-						mElement.style["Webkit" + theUCName] = theFinalValue;
-						mElement.style["Ms" + theUCName] = theFinalValue;
-						mElement.style["Moz" + theUCName] = theFinalValue;
-						mElement.style["O" + theUCName] = theFinalValue;
-					}
-					mElement.style[theAnimation.property] = theFinalValue;
+					mElement.style[theKey] = theValue;
 				}
 
 				// If the animation is done, remove it from the list and
