@@ -101,6 +101,22 @@ package com.humboldtjs.utility
 		}
 		
 		/**
+		 * Stops the current animation.
+		 */
+		public function stop():void
+		{
+			for (var i:int = mAnimationMap.length - 1; i >= 0; i--) {
+				mAnimationMap.splice(i, 1);				
+			}
+			
+			if (mTimer > -1)
+			{
+				window.clearTimeout(mTimer);
+				mTimer = -1;
+			}
+		}
+		
+		/**
 		 * The main animation loop. Processes all currently running animations.
 		 */
 		protected function animationLoop():void
