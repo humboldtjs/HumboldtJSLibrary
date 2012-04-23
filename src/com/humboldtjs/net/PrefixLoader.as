@@ -2,7 +2,7 @@
 * HumboldtJSLibrary
 * http://humboldtjs.com/
 *
-* Copyright (c) 2012 DaniÃ«l Haveman
+* Copyright (c) 2012 Daniël Haveman
 * Licensed under the MIT license
 * http://humboldtjs.com/license.html
 */
@@ -131,8 +131,6 @@ package com.humboldtjs.net
 
 			// Create the callback on the prefix
 			window[getPrefix()] = eventFunction(this, doCallback);
-			if (mLoadingQueue.indexOf(this) != -1) // Should always be != -1 otherwise something will go wrong.
-				mLoadingQueue.unshift(this); // Put it at the beginning
 
 			mIsLoading = true;
 			
@@ -158,12 +156,12 @@ package com.humboldtjs.net
 			mIsLoading = false;
 			
 			mContent = aValue;
-						
-			// We're done!
-			dispatchEvent(new HJSEvent(HJSEvent.COMPLETE));
 			
 			// Load the next item if we have any of those.
 			loadNextIfAvailable();
+						
+			// We're done!
+			dispatchEvent(new HJSEvent(HJSEvent.COMPLETE));
 		}
 		
 		/**
