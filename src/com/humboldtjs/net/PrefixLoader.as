@@ -92,6 +92,11 @@ package com.humboldtjs.net
 
 			// And clear the content
 			mContent = null;
+			
+			// We create a new script element because IE9 refuses to reuse
+			// the same script element; it will load the new script, but
+			// never execute its content
+			mScript = document.createElement("script") as HTMLScriptElement;
 		}
 		
 		/**
