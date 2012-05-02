@@ -63,8 +63,16 @@ package com.humboldtjs.utility
 					}
 					if (theKey == "opacity") {
 						if (theValue == 1) {
-							delete aElement.style[theKey];
-							delete aElement.style["filter"];
+							try {
+								delete aElement.style["filter"];
+								delete aElement.style[theKey];
+							} catch (e:Error) {
+								// If this fails it is because IE doesn't allow
+								// us to delete properties. If so we try to null
+								// the values.
+								aElement.style["filter"] = null;
+								aElement.style[theKey] = null;
+							}
 						} else {
 							aElement.style[theKey] = theValue;
 							aElement.style["filter"] = 'alpha(opacity=' + theValue * 100 + ')';
