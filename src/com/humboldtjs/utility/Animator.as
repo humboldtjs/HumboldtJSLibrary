@@ -62,12 +62,31 @@ package com.humboldtjs.utility
 		 */
 		public function animatePropertyTo(aProperty:String, aDuration:Number, aValue:Number, aRoundFactor:Number, aPostFix:String, aCompleteFunction:Function):void
 		{
-			var theStart:Number = parseFloat(mElement.style[aProperty].toString().split(aPostFix).join(""));
+			var theStart:Number = NaN;
+			var theTestProperty:String = aProperty;
+			if (theTestProperty.substr(0, 1) == "-") theTestProperty = theTestProperty.substr(1);
+			if (theTestProperty == "opacity" || theTestProperty == "autoOpacity" || theTestProperty == "alpha" || theTestProperty == "autoAlpha")
+				theTestProperty = "opacity";
+				
+			try {
+				theStart = parseFloat(mElement.style[theTestProperty].toString().split(aPostFix).join(""));
+			} catch(e:Error) {}
+			
 			if (isNaN(theStart)) {
-				if (aProperty == "opacity" || aProperty == "-opacity")
+				if (theTestProperty == "opacity") {
 					theStart = 1;
-				else
+				} else {
 					theStart = 0;
+				}
+			}
+			
+			if (theTestProperty == "opacity") {
+				var theDisplayState:String = "block";
+				try {
+					theDisplayState = mElement.style.display;
+				} catch(e:Error) {}
+				
+				theStart = theDisplayState == "none" ? 0 : theStart;
 			}
 			
 			// First look if there is already an animation going on for this
@@ -140,38 +159,10 @@ package com.humboldtjs.utility
 				theValue = Math.round(theValue * theAnimation.roundFactor) / theAnimation.roundFactor;
 				theValue = theValue.toString() + theAnimation.postFix;
 				
-				var theKey:String = theAnimation.property;
-				if (theKey.substr(0, 1) == "-") {
-					theKey = theKey.substr(1);
-					var theUCName:String = theKey.substr(0, 1).toUpperCase() + theKey.substr(1); 
-					mElement.style["Webkit" + theUCName] = theValue;
-					mElement.style["Ms" + theUCName] = theValue;
-					mElement.style["Moz" + theUCName] = theValue;
-					mElement.style["O" + theUCName] = theValue;
-				}
-				if (theKey == "opacity") {
-					if (theValue == 1) {
-						mElement.style["filter"] = null;
-						mElement.style[theKey] = null;
-						try {
-							delete mElement.style["filter"];
-							delete mElement.style[theKey];
-						} catch (e:Error) {
-							// If this fails it is because IE doesn't allow
-							// us to delete properties.
-						}
-					} else {
-						mElement.style[theKey] = theValue;
-						mElement.style["filter"] = 'alpha(opacity=' + theValue * 100 + ')';
-					}
-					if (theValue == 0) {
-						mElement.style.display = "none";
-					} else {
-						mElement.style.display = "block";
-					}
-				} else {
-					mElement.style[theKey] = theValue;
-				}
+				var theObject:Object = {};
+				theObject[theAnimation.property] = theValue;
+				
+				EasyStyler.applyStyleObject(mElement, theObject);
 
 				// If the animation is done, remove it from the list and
 				// call the complete function

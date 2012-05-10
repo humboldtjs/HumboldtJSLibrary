@@ -61,25 +61,27 @@ package com.humboldtjs.utility
 						aElement.style["Moz" + theUCName] = theValue;
 						aElement.style["O" + theUCName] = theValue;
 					}
-					if (theKey == "opacity") {
+					if (theKey == "opacity" || theKey == "autoOpacity" || theKey == "alpha" || theKey == "autoAlpha") {
 						if (theValue == 1) {
 							aElement.style["filter"] = null;
-							aElement.style[theKey] = null;
+							aElement.style["opacity"] = null;
 							try {
 								delete aElement.style["filter"];
-								delete aElement.style[theKey];
+								delete aElement.style["opacity"];
 							} catch (e:Error) {
 								// If this fails it is because IE doesn't allow
 								// us to delete properties.
 							}
 						} else {
-							aElement.style[theKey] = theValue;
+							aElement.style["opacity"] = theValue;
 							aElement.style["filter"] = 'alpha(opacity=' + theValue * 100 + ')';
 						}
-						if (theValue == 0) {
-							aElement.style.display = "none";
-						} else {
-							aElement.style.display = "block";
+						if (theKey == "autoOpacity" || theKey == "autoAlpha") {
+							if (theValue == 0) {
+								aElement.style.display = "none";
+							} else {
+								aElement.style.display = "block";
+							}
 						}
 					} else {
 						aElement.style[theKey] = theValue;
