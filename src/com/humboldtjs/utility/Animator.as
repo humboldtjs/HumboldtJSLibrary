@@ -8,6 +8,8 @@
 */
 package com.humboldtjs.utility
 {
+    import com.humboldtjs.display.Stage;
+    import com.humboldtjs.events.HJSEvent;
     import com.humboldtjs.utility.easing.Sine;
     
     import dom.domobjects.HTMLElement;
@@ -26,7 +28,6 @@ package com.humboldtjs.utility
 	{
 		protected var mElement:HTMLElement;
 		protected var mAnimationMap:Array;
-		protected var mTimer:int = -1;
 
 		/**
 		 * @constructor
@@ -59,8 +60,9 @@ package com.humboldtjs.utility
 		 * @param aRoundFactor The factor to use when rounding the value
 		 * @param aPostFix The string to append to the rounded value. E.g. "px" for style values that require it.
 		 * @param aCompleteFunction The EventFunction that needs to be called when the animation is done
+		 * @param aPreFix An optional string to prepend to the rounded value. E.g. "translate(" for a transform.
 		 */
-		public function animatePropertyTo(aProperty:String, aDuration:Number, aValue:Number, aRoundFactor:Number, aPostFix:String, aCompleteFunction:Function):void
+		public function animatePropertyTo(aProperty:String, aDuration:Number, aValue:Number, aRoundFactor:Number, aPostFix:String, aCompleteFunction:Function = null, aPreFix:String = ""):void
 		{
 			var theStart:Number = NaN;
 			var theTestProperty:String = aProperty;
@@ -69,7 +71,7 @@ package com.humboldtjs.utility
 				theTestProperty = "opacity";
 				
 			try {
-				theStart = parseFloat(mElement.style[theTestProperty].toString().split(aPostFix).join(""));
+				theStart = parseFloat(mElement.style[theTestProperty].toString().split(aPostFix).join("").split(aPreFix).join(""));
 			} catch(e:Error) {}
 			
 			if (isNaN(theStart)) {
@@ -113,6 +115,7 @@ package com.humboldtjs.utility
 			theAnimation.speed = 1 / (Math.max(1, aDuration * 1000) / 25);
 			theAnimation.roundFactor = aRoundFactor;
 			theAnimation.postFix = aPostFix;
+			theAnimation.preFix = aPreFix;
 			theAnimation.complete = aCompleteFunction;
 			
 			// If it already existed we just updated the existing animation
@@ -121,8 +124,7 @@ package com.humboldtjs.utility
 				mAnimationMap.push(theAnimation);
 			
 			// And we make sure the animation is actually started
-			if (mTimer == -1)
-				animationLoop();
+			Stage.getInstance().addEventListener(HJSEvent.ENTER_FRAME, eventFunction(this, animationLoop));
 		}
 		
 		/**
@@ -134,17 +136,13 @@ package com.humboldtjs.utility
 				mAnimationMap.splice(i, 1);				
 			}
 			
-			if (mTimer > -1)
-			{
-				window.clearTimeout(mTimer);
-				mTimer = -1;
-			}
+			Stage.getInstance().removeEventListener(HJSEvent.ENTER_FRAME, eventFunction(this, animationLoop));
 		}
 		
 		/**
 		 * The main animation loop. Processes all currently running animations.
 		 */
-		protected function animationLoop():void
+		protected function animationLoop(aEvent:HJSEvent):void
 		{
 			// Loop through the current map of running animations
 			for (var i:int = mAnimationMap.length - 1; i >= 0; i--) {
@@ -157,7 +155,7 @@ package com.humboldtjs.utility
 				// mentioned in the documentation for animatePropertyTo
 				var theValue:* = Sine.ease(theAnimation.position, 0.5) * (theAnimation.end - theAnimation.start) + theAnimation.start;
 				theValue = Math.round(theValue * theAnimation.roundFactor) / theAnimation.roundFactor;
-				theValue = theValue.toString() + theAnimation.postFix;
+				theValue = theAnimation.preFix + theValue.toString() + theAnimation.postFix;
 				
 				var theObject:Object = {};
 				theObject[theAnimation.property] = theValue;
@@ -176,10 +174,8 @@ package com.humboldtjs.utility
 
 			// And if there is anything more to animate call the animation loop
 			// again after a short while.
-			if (mAnimationMap.length > 0) {
-				mTimer = window.setTimeout(eventFunction(this, animationLoop), 25);
-			} else {
-				mTimer = -1;
+			if (mAnimationMap.length == 0) {
+				Stage.getInstance().removeEventListener(HJSEvent.ENTER_FRAME, eventFunction(this, animationLoop));
 			}
 		}
 	}
