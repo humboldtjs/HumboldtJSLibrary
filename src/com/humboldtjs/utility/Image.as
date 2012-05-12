@@ -139,6 +139,7 @@ package com.humboldtjs.utility
 					
 					var theContext:CanvasRenderingContext2D = mBitmapCache.getContext2D();
 					theContext.drawImage(mContent.getHtmlElement(), 0, 0, mContentWidth, mContentHeight, ((mElement.clientWidth - mContentWidth * theScale) / 2), ((mElement.clientHeight - mContentHeight * theScale) / 2), mContentWidth * theScale, mContentHeight * theScale);
+					mContent.getHtmlElement().style.display = "none";
 				} else {
 					// Otherwise just put the image in the right position at
 					// the right size (will be slower though)
