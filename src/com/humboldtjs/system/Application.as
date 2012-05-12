@@ -104,9 +104,9 @@ package com.humboldtjs.system
 			// some default styling - make the app fit to the size of its
 			// container, but clip everything that extends beyond it
 			mElement.style.overflow = "hidden";
-			mElement.style.width = "100%";
-			mElement.style.height = "100%";
-			
+			setPercentWidth(100);
+			setPercentHeight(100);
+						
 			// if the DOM is accessible then continue initialization, otherwise
 			// wait for the DOM load event
 			if (document.body) {
@@ -127,6 +127,7 @@ package com.humboldtjs.system
 			// add a listener to the resize event this is used on mobile devices
 			// to re-hide the browser-chrome after a rotation occurred
 			HtmlUtils.addHtmlEventListener(window, "resize", eventFunction(this, onResize));
+			HtmlUtils.addHtmlEventListener(window, "orientationchange", eventFunction(this, onResize));
 			onResize(null);
 			
 			initialize();
@@ -138,12 +139,14 @@ package com.humboldtjs.system
 		 */
 		protected function onResize(aEvent:Event):void
 		{
-			var isIpad:Boolean = navigator.userAgent.indexOf("iPad") != -1;
-			var isFullScreen:Boolean = navigator["standalone"];
-			
 			// Start out by adding the height of the location bar to the width, so that
 			// we can scroll past it
 			if (Capabilities.getOs() == OperatingSystem.IOS) {
+				setHeight(10);
+				
+				var isIpad:Boolean = navigator.userAgent.indexOf("iPad") != -1;
+				var isFullScreen:Boolean = navigator["standalone"];
+				
 				// iOS reliably returns the innerWindow size for documentElement.clientHeight
 				// but window.innerHeight is sometimes the wrong value after rotating
 				// the orientation
