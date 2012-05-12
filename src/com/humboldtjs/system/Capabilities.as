@@ -139,7 +139,7 @@ package com.humboldtjs.system
 		 */
 		public static function getScreenResolutionX():Number
 		{
-			return screen.width;
+			return getOs() == OperatingSystem.IOS ? screen.height : screen.width;
 		}
 		
 		/**
@@ -147,7 +147,7 @@ package com.humboldtjs.system
 		 */
 		public static function getScreenResolutionY():Number
 		{
-			return screen.height;	
+			return getOs() == OperatingSystem.IOS ? screen.width : screen.height;	
 		}
 		
 		/**
