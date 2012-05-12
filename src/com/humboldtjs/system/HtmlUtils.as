@@ -8,7 +8,10 @@
 */
 package com.humboldtjs.system
 {
+	import com.humboldtjs.geom.Point;
+	
 	import dom.document;
+	import dom.domobjects.Event;
 	import dom.domobjects.EventFunction;
 	import dom.domobjects.HTMLElement;
 	import dom.window;
@@ -22,6 +25,26 @@ package com.humboldtjs.system
 	public class HtmlUtils
 	{
 		protected static var mListeners:Array = null;
+		
+		/**
+		 * Given an Event triggered by the DOM will return the position of the
+		 * mouse when that event occurred. Is intended for use with mouse and
+		 * touch events caught using the bindPress/UnPress/Move events.
+		 */
+		public static function getPosition(aEvent:Event):Point
+		{
+			if (typeof aEvent === "undefined") return null;
+				
+			var theX:Number = aEvent.clientX;
+			var theY:Number = aEvent.clientY;
+			
+			if (typeof aEvent["touches"] !== "undefined") {
+				theX = aEvent["touches"][0].clientX;
+				theY = aEvent["touches"][0].clientY;
+			}
+			
+			return new Point(theX, theY);
+		}
 		
 		/**
 		 * Listen to when an HTML element gets a mousedown or touchstart. This
@@ -103,7 +126,7 @@ package com.humboldtjs.system
 		public static function unbindMove(aElement:Object, aFunction:EventFunction):void
 		{
 			if (Capabilities.getHasTouchscreen()) {
-				removeHtmlEventListener(aElement, "touchmove", aFunction);
+				removeHtmlEventListener(window, "touchmove", aFunction);
 			} else if (aElement.addEventListener) {
 				removeHtmlEventListener(window, "mousemove", aFunction);
 			} else {
@@ -120,8 +143,8 @@ package com.humboldtjs.system
 		public static function unbindUnPress(aElement:Object, aFunction:EventFunction):void
 		{
 			if (Capabilities.getHasTouchscreen()) {
-				removeHtmlEventListener(aElement, "touchend", aFunction);
-				removeHtmlEventListener(aElement, "touchcancel", aFunction);
+				removeHtmlEventListener(window, "touchend", aFunction);
+				removeHtmlEventListener(window, "touchcancel", aFunction);
 			} else if (aElement.addEventListener) {
 				removeHtmlEventListener(window, "mouseup", aFunction);
 			} else {
