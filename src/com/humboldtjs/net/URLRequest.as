@@ -17,6 +17,8 @@ package com.humboldtjs.net
 	{
 		public static const CONTENTTYPE_IMAGE:String = "image";
 		public static const CONTENTTYPE_VIDEO:String = "video";
+		public static const CONTENTTYPE_TEXT:String = "text";
+		public static const CONTENTTYPE_XML:String = "xml";
 		
 		public static const METHOD_GET:String = "get";
 		public static const METHOD_POST:String = "post";
