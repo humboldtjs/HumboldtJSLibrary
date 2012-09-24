@@ -73,7 +73,7 @@ package com.humboldtjs.utility
 				// that are thrown in between.
 				var theIdPosition:int = theHtml.indexOf(theSearch, theCurrentPosition);
 				var theTagPosition:int = theHtml.lastIndexOf("<", theIdPosition);
-				var theTagName:String = theHtml.substr(0, theIdPosition).substr(theTagPosition + 1).split(" ")[0];
+				var theTagName:String = theHtml.substr(0, theIdPosition + theSearch.length).substr(theTagPosition + 1).split(" ")[0];
 				
 				// We keep track of an indent level, to make sure that e.g. a
 				// div with multiple divs inside will match to the correct
