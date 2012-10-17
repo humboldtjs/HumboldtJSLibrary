@@ -127,7 +127,7 @@ package com.humboldtjs.xml
 		public function getHasSimpleContent():Boolean
 		{
 			var theChildren:Vector.<HJSXML> = getChildren();
-			return (theChildren.length == 1 && theChildren[0] is XMLSimple)
+			return (theChildren.length == 1 && theChildren[0] is XMLSimple);
 		}
 		
 		/**
