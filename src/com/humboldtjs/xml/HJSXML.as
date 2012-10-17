@@ -34,7 +34,7 @@ package com.humboldtjs.xml
 		/**
 		 * A list of attributes of this node
 		 */
-		public function getAttributes():Vector.<XMLAttribute> { return new Vector.<HJSXML>(); }
+		public function getAttributes():Vector.<XMLAttribute> { return new Vector.<XMLAttribute>(); }
 
 		/**
 		 * Process a piece of JSON (formatted using xmlpconverter.jar) into an
