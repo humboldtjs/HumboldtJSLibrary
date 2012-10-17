@@ -26,7 +26,9 @@ package com.humboldtjs.display
 		
 		protected var mFrameRate:Number = 25;
 		protected var mFrameDelay:Number = 40; // 1000 / 25
-		protected var mHasFrameListener:Boolean = false;
+		protected var mHasFrameListener:Boolean = false; 
+		
+		protected var mRequestAnimationFrame:String;
 		
 		/**
 		 * Get's access to the application stage object
@@ -38,6 +40,21 @@ package com.humboldtjs.display
 			
 			mStage = new Stage();
 			return mStage;
+		}
+		
+		/**
+		 * Try to execute a callback on the next animation frame. This will
+		 * either use the native requestAnimationFrame of the browser or will
+		 * use a timeout with a duration of 1000ms / target framerate.
+		 */
+		public function requestAnimationFrame(aCallback:EventFunction):void
+		{
+			if (mRequestAnimationFrame == "") {
+				window.setTimeout(aCallback, mFrameDelay);
+			} else {
+				window[mRequestAnimationFrame](aCallback);
+			}
+			
 		}
 		
 		/**
@@ -54,6 +71,7 @@ package com.humboldtjs.display
 		 */
 		public function getFrameRate():Number
 		{
+			if (mRequestAnimationFrame != "") return 60;
 			return mFrameRate;
 		}
 		
@@ -75,6 +93,13 @@ package com.humboldtjs.display
 			
 			mElement = document.body;
 		
+			mRequestAnimationFrame = "";
+			
+			var theFunctions:Array = new Array("requestAnimationFrame", "webkitRequestAnimationFrame", "mozRequestAnimationFrame", "oRequestAnimationFrame", "msRequestAnimationFrame");
+			for (var i:int = 0; i < theFunctions.length; i++) {
+				if (window[theFunctions[i]] != null) mRequestAnimationFrame = theFunctions[i];
+			}
+
 			// start the frame loop
 			doFrameLoop();
 		}
@@ -113,7 +138,7 @@ package com.humboldtjs.display
 			if (mHasFrameListener)
 				dispatchEvent(new HJSEvent(HJSEvent.ENTER_FRAME));
 			
-			window.setTimeout(eventFunction(this, doFrameLoop), mFrameDelay);
+			requestAnimationFrame(eventFunction(this, doFrameLoop));
 		}
 	}
 }

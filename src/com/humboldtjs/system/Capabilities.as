@@ -29,6 +29,18 @@ package com.humboldtjs.system
 		}
 		
 		/**
+		 * Does the browser have a Retina display? You should use this method
+		 * to detect whether to use pixel-doubled images or not.
+		 */
+		public static function getHasRetinaSupport():Boolean
+		{
+			if (typeof window["devicePixelRatio"] !== "undefined") {
+				return window["devicePixelRatio"] > 1;
+			}
+			return false;
+		}
+		
+		/**
 		 * Does the browser support fullscreen mode? You should use this method
 		 * to detect this before setting fullscreen on an Application instance.
 		 */
