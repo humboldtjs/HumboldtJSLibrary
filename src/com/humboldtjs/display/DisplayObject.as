@@ -240,7 +240,7 @@ package com.humboldtjs.display
 		{
 			if (mWidth == value) return;
 			mWidth = value;
-			mPercentHeight = NaN;
+			mPercentWidth = NaN;
 			if (isNaN(mWidth))
 				mElement.style.width = null;
 			else

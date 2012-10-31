@@ -34,7 +34,7 @@ package com.humboldtjs.xml
 		/**
 		 * A list of attributes of this node
 		 */
-		public function getAttributes():Vector.<XMLAttribute> { return new Vector.<HJSXML>(); }
+		public function getAttributes():Vector.<XMLAttribute> { return new Vector.<XMLAttribute>(); }
 
 		/**
 		 * Process a piece of JSON (formatted using xmlpconverter.jar) into an
@@ -127,7 +127,7 @@ package com.humboldtjs.xml
 		public function getHasSimpleContent():Boolean
 		{
 			var theChildren:Vector.<HJSXML> = getChildren();
-			return (theChildren.length == 1 && theChildren[0] is XMLSimple)
+			return (theChildren.length == 1 && theChildren[0] is XMLSimple);
 		}
 		
 		/**
