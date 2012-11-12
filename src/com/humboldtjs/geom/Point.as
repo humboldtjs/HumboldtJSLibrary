@@ -94,9 +94,18 @@ package com.humboldtjs.geom
 			mY *= aScale;
 		}
 		
+		/**
+		 * Normalize the length of a point's vector to length equal to
+		 * aScaleFactor.
+		 * 
+		 * @param aScaleFactor The length of the point's normalized vector.
+		 */
 		public function normalize(aScaleFactor:Number):void
 		{
-			var theFactor:Number = aScaleFactor/ length(); 
+			if (length() == 0)
+				return;
+			
+			var theFactor:Number = aScaleFactor / length(); 
 	
 			mX *= theFactor;
 			mY *= theFactor;
