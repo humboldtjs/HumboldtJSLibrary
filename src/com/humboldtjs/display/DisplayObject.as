@@ -24,6 +24,7 @@ package com.humboldtjs.display
 	public class DisplayObject extends EventDispatcher
 	{
 		protected var mElement:HTMLElement;
+		protected var mClassNames:Array = new Array();
 		protected var mElementType:String = "";
 		protected var mChildren:Array;
 		
@@ -39,6 +40,37 @@ package com.humboldtjs.display
 		protected var mAlpha:Number = 1;
 		protected var mVisible:Boolean = true;
 		protected var mParent:DisplayObject = null;
+		
+		/**
+		 * Add a classname to the HTML element used to render this displayobject.
+		 * This requires the className to be defined in an external css.
+		 * 
+		 * @param The classname to add
+		 */
+		public function addClassName(aClassName:String):void
+		{
+			if (mClassNames.indexOf(aClassName) == -1) {
+				mClassNames.push(aClassName);
+			}
+			if (mElement != null) {
+				mElement.className = mClassNames.join(" ");
+			}
+		}
+		
+		/**
+		 * Remove a classname from the HTML element used to render this displayobject.
+		 * 
+		 * @param The className to remove
+		 */
+		public function removeClassName(aClassName:String):void
+		{
+			if (mClassNames.indexOf(aClassName) != -1) {
+				mClassNames.splice(mClassNames.indexOf(aClassName), 1);
+			}
+			if (mElement != null) {
+				mElement.className = mClassNames.join(" ");
+			}
+		}
 		
 		/**
 		 * Set the parent element. This is called from within addChild.
@@ -323,11 +355,15 @@ package com.humboldtjs.display
 			}
 			
 			mElement = document.createElement(mElementType);
-			mElement.style.position = "absolute";
-			mElement.style.zIndex = "0";
+			if (mClassNames.length == 0) {
+				mElement.style.position = "absolute";
+				mElement.style.zIndex = "0";
 			
-			setX(0);
-			setY(0);
+				setX(0);
+				setY(0);
+			} else {
+				mElement.className = mClassNames.join(" ");
+			}
 			
 			mChildren = new Array();
 		}
