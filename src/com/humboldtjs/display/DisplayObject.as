@@ -24,7 +24,7 @@ package com.humboldtjs.display
 	public class DisplayObject extends EventDispatcher
 	{
 		protected var mElement:HTMLElement;
-		protected var mClassNames:Array = new Array();
+		protected var mClassNames:Array = null;
 		protected var mElementType:String = "";
 		protected var mChildren:Array;
 		
@@ -49,6 +49,7 @@ package com.humboldtjs.display
 		 */
 		public function addClassName(aClassName:String):void
 		{
+			if (mClassNames == null) mClassNames = new Array();
 			if (mClassNames.indexOf(aClassName) == -1) {
 				mClassNames.push(aClassName);
 			}
@@ -64,6 +65,7 @@ package com.humboldtjs.display
 		 */
 		public function removeClassName(aClassName:String):void
 		{
+			if (mClassNames == null) mClassNames = new Array();
 			if (mClassNames.indexOf(aClassName) != -1) {
 				mClassNames.splice(mClassNames.indexOf(aClassName), 1);
 			}
