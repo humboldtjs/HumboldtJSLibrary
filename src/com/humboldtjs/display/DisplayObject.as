@@ -357,6 +357,7 @@ package com.humboldtjs.display
 			}
 			
 			mElement = document.createElement(mElementType);
+			if (mClassNames == null) mClassNames = new Array();
 			if (mClassNames.length == 0) {
 				mElement.style.position = "absolute";
 				mElement.style.zIndex = "0";

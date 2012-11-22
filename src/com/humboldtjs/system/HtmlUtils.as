@@ -126,7 +126,7 @@ package com.humboldtjs.system
 		public static function unbindMove(aElement:Object, aFunction:EventFunction):void
 		{
 			if (Capabilities.getHasTouchscreen()) {
-				removeHtmlEventListener(window, "touchmove", aFunction);
+				removeHtmlEventListener(aElement, "touchmove", aFunction);
 			} else if (aElement.addEventListener) {
 				removeHtmlEventListener(window, "mousemove", aFunction);
 			} else {
