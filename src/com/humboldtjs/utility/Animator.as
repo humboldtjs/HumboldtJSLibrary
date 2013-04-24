@@ -8,6 +8,7 @@
 */
 package com.humboldtjs.utility
 {
+    import com.humboldtjs.display.DisplayObject;
     import com.humboldtjs.display.Stage;
     import com.humboldtjs.events.HJSEvent;
     import com.humboldtjs.utility.easing.Sine;
@@ -26,16 +27,26 @@ package com.humboldtjs.utility
 	 */
     public class Animator
 	{
+		protected var mObject:*;
 		protected var mElement:HTMLElement;
 		protected var mAnimationMap:Array;
+		
+		public var ease:Function;
 
 		/**
 		 * @constructor
 		 */
-		public function Animator(aElement:HTMLElement)
+		public function Animator(aElement:*)
 		{
+			if (typeof aElement["getHtmlElement"] == "function") {
+				mObject = aElement;
+				mElement = aElement.getHtmlElement();
+			} else {
+				mObject = null;
+				mElement = aElement;
+			}
 			mAnimationMap = [];
-			mElement = aElement;
+			ease = Sine.ease;
 		}
 		
 		/**
@@ -62,17 +73,30 @@ package com.humboldtjs.utility
 		 * @param aCompleteFunction The EventFunction that needs to be called when the animation is done
 		 * @param aPreFix An optional string to prepend to the rounded value. E.g. "translate(" for a transform.
 		 */
-		public function animatePropertyTo(aProperty:String, aDuration:Number, aValue:Number, aRoundFactor:Number, aPostFix:String, aCompleteFunction:Function = null, aPreFix:String = ""):void
+		public function animatePropertyTo(aProperty:String, aDuration:Number, aValue:Number, aRoundFactor:Number, aPostFix:String, aCompleteFunction:Function = null, aPreFix:String = "", aDelay:Number = 0):void
 		{
 			var theStart:Number = NaN;
+			var isFunction:Boolean = false;
 			var theTestProperty:String = aProperty;
 			if (theTestProperty.substr(0, 1) == "-") theTestProperty = theTestProperty.substr(1);
-			if (theTestProperty == "opacity" || theTestProperty == "autoOpacity" || theTestProperty == "alpha" || theTestProperty == "autoAlpha")
-				theTestProperty = "opacity";
-				
-			try {
-				theStart = parseFloat(mElement.style[theTestProperty].toString().split(aPostFix).join("").split(aPreFix).join(""));
-			} catch(e:Error) {}
+			
+			var theGetter:String = "get" + theTestProperty.substr(0, 1).toUpperCase() + theTestProperty.substr(1);
+			var theSetter:String = "set" + theTestProperty.substr(0, 1).toUpperCase() + theTestProperty.substr(1);
+			if (mObject != null &&
+				typeof mObject[theGetter] == "function" &&
+				typeof mObject[theSetter] == "function") {
+				isFunction = true;
+			}
+			
+			if (isFunction) {
+				theStart = mObject[theGetter]();
+			} else {
+				if (theTestProperty == "opacity" || theTestProperty == "autoOpacity" || theTestProperty == "alpha" || theTestProperty == "autoAlpha")
+					theTestProperty = "opacity";
+				try {
+					theStart = parseFloat(mElement.style[theTestProperty].toString().split(aPostFix).join("").split(aPreFix).join(""));
+				} catch(e:Error) {}
+			}
 			
 			if (isNaN(theStart)) {
 				if (theTestProperty == "opacity") {
@@ -108,14 +132,20 @@ package com.humboldtjs.utility
 				return;
 			
 			// Otherwise set the properties for the animation
-			theAnimation.property = aProperty;
+			if (isFunction) {
+				theAnimation.property = theSetter;
+			} else {
+				theAnimation.property = aProperty;
+			}
+			theAnimation.isFunction = isFunction;
 			theAnimation.start = theStart;
 			theAnimation.end = aValue;
 			theAnimation.position = 0;
-			theAnimation.speed = 1 / (Math.max(1, aDuration * 1000) / 25);
+			theAnimation.speed = 1 / (Math.max(1, aDuration * 1000) / Stage.getInstance().getFrameRate());
 			theAnimation.roundFactor = aRoundFactor;
 			theAnimation.postFix = aPostFix;
 			theAnimation.preFix = aPreFix;
+			theAnimation.delay = aDelay * Stage.getInstance().getFrameRate();
 			theAnimation.complete = aCompleteFunction;
 			
 			// If it already existed we just updated the existing animation
@@ -149,18 +179,27 @@ package com.humboldtjs.utility
 				
 				var theAnimation:Object = mAnimationMap[i];
 				// Increment the time position
-				theAnimation.position += theAnimation.speed;
+				if (theAnimation.delay > 0) {
+					theAnimation.delay--;
+				} else {
+					theAnimation.position += theAnimation.speed;
+				}
 				
 				// Calculate the new value (using the rounding procedure as
 				// mentioned in the documentation for animatePropertyTo
-				var theValue:* = Sine.ease(theAnimation.position, 0.5) * (theAnimation.end - theAnimation.start) + theAnimation.start;
+				var theValue:* = ease(theAnimation.position, 0.5) * (theAnimation.end - theAnimation.start) + theAnimation.start;
 				theValue = Math.round(theValue * theAnimation.roundFactor) / theAnimation.roundFactor;
-				theValue = theAnimation.preFix + theValue.toString() + theAnimation.postFix;
 				
-				var theObject:Object = {};
-				theObject[theAnimation.property] = theValue;
+				if (theAnimation.isFunction) {
+					mObject[theAnimation.property](theValue);
+				} else {
+					theValue = theAnimation.preFix + theValue.toString() + theAnimation.postFix;
+
+					var theObject:Object = {};
+					theObject[theAnimation.property] = theValue;
 				
-				EasyStyler.applyStyleObject(mElement, theObject);
+					EasyStyler.applyStyleObject(mElement, theObject);
+				}
 
 				// If the animation is done, remove it from the list and
 				// call the complete function
