@@ -58,6 +58,8 @@ package com.humboldtjs.display
 			super();
 			
 			mElement.onload = eventFunction(this, onLoadComplete);
+			mElement.onerror = eventFunction(this, onLoadError);
+			mElement.onabort = eventFunction(this, onLoadError);
 		}
 		
 		/**
@@ -82,6 +84,14 @@ package com.humboldtjs.display
 				mUnscaledHeight = Convert.toInt(mElement.height.toString());
 			
 			dispatchEvent(new HJSEvent(HJSEvent.COMPLETE));
+		}
+		
+		/**
+		 * Called when loading threw an error or was aborted for some reason
+		 */
+		protected function onLoadError():void
+		{
+			dispatchEvent(new HJSEvent(HJSEvent.IO_ERROR));
 		}
 	}
 }

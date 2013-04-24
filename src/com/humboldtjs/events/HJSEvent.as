@@ -15,6 +15,7 @@ package com.humboldtjs.events
 	public class HJSEvent
 	{
 		public static const COMPLETE:String = "complete";
+		public static const IO_ERROR:String = "error";
 		public static const ENTER_FRAME:String = "enterFrame";
 		
 		protected var mType:String;

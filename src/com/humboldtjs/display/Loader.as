@@ -75,6 +75,7 @@ package com.humboldtjs.display
 			
 			// Listener for the complete event
 			mContent.addEventListener(HJSEvent.COMPLETE, eventFunction(this, onLoadComplete));
+			mContent.addEventListener(HJSEvent.IO_ERROR, eventFunction(this, onLoadError));
 			
 			// And start loading
 			(mContent as ISrcDisplayObject).setSrc(mSrc);
@@ -95,6 +96,11 @@ package com.humboldtjs.display
 		{
 			addChild(mContent);
 			dispatchEvent(new HJSEvent(HJSEvent.COMPLETE));
+		}
+		
+		protected function onLoadError(aEvent:HJSEvent):void
+		{
+			dispatchEvent(new HJSEvent(HJSEvent.IO_ERROR));
 		}
 	}
 }

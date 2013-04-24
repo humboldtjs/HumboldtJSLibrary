@@ -10,6 +10,7 @@ package com.humboldtjs.display
 {
 	import com.humboldtjs.events.DataEvent;
 	import com.humboldtjs.events.HJSEvent;
+	import com.humboldtjs.utility.EasyStyler;
 	
 	import dom.document;
 	import dom.eventFunction;
@@ -108,6 +109,7 @@ package com.humboldtjs.display
 			
 			super();
 			
+			EasyStyler.applyStyleObject(mElement, {"position":"absolute","top":"-3000px","left":"-3000px"});
 			document.body.appendChild(mElement);
 		}
 		
@@ -143,6 +145,10 @@ package com.humboldtjs.display
 		 */
 		protected function onLoadComplete():void
 		{
+			// If NETWORK_NO_SOURCE it means loading failed
+			if (mElement.networkState == 3)
+				onLoadError();
+			
 			// Also allow networkState 2; 'loading', as '1' may not always be set e.g. in chrome.
 			// TODO: see if there is another way to signal that all data has been loaded.
 			// Note: in principle we should also dispatch 'LoadedFarEnough' which is when readyState == 4. 
@@ -181,7 +187,16 @@ package com.humboldtjs.display
 			}
 
 			// And we're done!
+			EasyStyler.applyStyleObject(mElement, {"top":"0px","left":"0px"});
 			dispatchEvent(new HJSEvent(HJSEvent.COMPLETE));
+		}
+		
+		/**
+		 * Called when loading threw an error or was aborted for some reason
+		 */
+		protected function onLoadError():void
+		{
+			dispatchEvent(new HJSEvent(HJSEvent.IO_ERROR));
 		}
 		
 		/**
