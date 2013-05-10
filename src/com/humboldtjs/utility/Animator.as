@@ -183,6 +183,7 @@ package com.humboldtjs.utility
 					theAnimation.delay--;
 				} else {
 					theAnimation.position += theAnimation.speed;
+					if (theAnimation.position > 1) theAnimation.position = 1;
 				}
 				
 				// Calculate the new value (using the rounding procedure as
