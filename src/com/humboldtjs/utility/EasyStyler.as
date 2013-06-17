@@ -84,7 +84,12 @@ package com.humboldtjs.utility
 							}
 						}
 					} else {
-						aElement.style[theKey] = theValue;
+						try {
+							aElement.style[theKey] = theValue;
+						} catch (e:Error) {
+							// Try catch because IE throws an error if a value
+							// is entered that it thinks is invalid 
+						}
 					}
 				}
 			}
