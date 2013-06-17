@@ -124,10 +124,13 @@ package com.humboldtjs.events
 			
 			// Set the currentTarget to the instance dispatching the event
 			aEvent["mCurrentTarget"] = this;
-			
+
+			// Operate on a copy, because listeners may be modified in the
+			// listening callback
+			var theListeners:Array = mListeners.slice();
 			// Loop through all listeners that might be interested in this event
-			for (var i:int = mListeners.length - 1; i >= 0; i--) {
-				theListener = mListeners[i];
+			for (var i:int = theListeners.length - 1; i >= 0; i--) {
+				theListener = theListeners[i];
 				
 				if (theListener.t == theType) {
 					theListener.e(aEvent);
