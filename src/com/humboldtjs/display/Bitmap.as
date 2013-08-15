@@ -11,6 +11,7 @@ package com.humboldtjs.display
 	import com.humboldtjs.events.HJSEvent;
 	import com.humboldtjs.system.Convert;
 	
+	import dom.document;
 	import dom.eventFunction;
 
 	/**
@@ -78,10 +79,15 @@ package com.humboldtjs.display
 		 */
 		protected function onLoadComplete():void
 		{
+			document.body.appendChild(mElement);
 			if (mUnscaledWidth == 0)
 				mUnscaledWidth = Convert.toInt(mElement.width.toString());
 			if (mUnscaledHeight == 0)
 				mUnscaledHeight = Convert.toInt(mElement.height.toString());
+			document.body.removeChild(mElement);
+			
+			if (mParent)
+				mParent["mElement"].appendChild(mElement);
 			
 			dispatchEvent(new HJSEvent(HJSEvent.COMPLETE));
 		}
