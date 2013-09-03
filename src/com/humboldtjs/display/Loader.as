@@ -10,7 +10,7 @@ package com.humboldtjs.display
 {
 	import com.humboldtjs.events.HJSEvent;
 	import com.humboldtjs.net.URLRequest;
-	
+	import com.humboldtjs.system.Capabilities;
 	import dom.eventFunction;
 
 	/**
@@ -23,6 +23,10 @@ package com.humboldtjs.display
 	{
 		protected var mContent:DisplayObject;
 		protected var mSrc:String = "";
+		protected var mDataParent:DisplayObject;
+		
+		public function getDataParent():DisplayObject{ return mDataParent; }
+		public function setDataParent(aDataParent:DisplayObject):void{ mDataParent = aDataParent; }
 		
 		/**
 		 * If loading was complete returns the loaded content
@@ -31,10 +35,14 @@ package com.humboldtjs.display
 		
 		/**
 		 * @constructor
+		 * 
+		 * The Loader constructor. Important: The flash fallback video needs its final parent right away, as flash SWF's reload on reparenting. 
+		 *  @param aDataParent: the parent for the flash video fallback.
 		 */
-		public function Loader()
+		public function Loader(aDataParent:DisplayObject = null)
 		{
 			super();
+			mDataParent = aDataParent; 
 		}
 		
 		/**
@@ -64,8 +72,18 @@ package com.humboldtjs.display
 			
 			// Based on the content type we create either a new Bitmap or Video
 			switch(request.getContentType()) {
-				case URLRequest.CONTENTTYPE_VIDEO:
+				case URLRequest.CONTENTTYPE_VIDEO:				
 					mContent = new Video();
+					
+					//flash video is reloaded on reparenting, so we parent the video once at the right location, and dont reparent afterwards. 
+					if (mDataParent != null && (mContent as Video).useFallback())
+					{	
+						mDataParent.addChild(mContent); 
+					}else if (mDataParent == null && (mContent as Video).useFallback())
+					{
+						addChild(mContent); 
+					}
+					
 					break;
 				case URLRequest.CONTENTTYPE_IMAGE:
 				default:
@@ -76,10 +94,10 @@ package com.humboldtjs.display
 			// Listener for the complete event
 			mContent.addEventListener(HJSEvent.COMPLETE, eventFunction(this, onLoadComplete));
 			mContent.addEventListener(HJSEvent.IO_ERROR, eventFunction(this, onLoadError));
-			
-			// And start loading
-			(mContent as ISrcDisplayObject).setSrc(mSrc);
+				
+			(mContent as ISrcDisplayObject).setSrc(mSrc);				
 		}
+		
 		
 		/**
 		 * Unload the current content and close the loader
@@ -94,7 +112,10 @@ package com.humboldtjs.display
 		 */
 		protected function onLoadComplete(aEvent:HJSEvent):void
 		{
-			addChild(mContent);
+			//is this a flash fallback video, in that case the video has already been added to the stage, thus DO NOT add again.
+			if (!(mContent is Video && (mContent as Video).useFallback()))
+				addChild(mContent);
+			
 			dispatchEvent(new HJSEvent(HJSEvent.COMPLETE));
 		}
 		
