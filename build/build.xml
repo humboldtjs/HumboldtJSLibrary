@@ -2,10 +2,13 @@
 <project name="HumboldtJSLibrary" default="main" basedir="..">
 	<description>Compiles the SWC containing the core library of HumboldtJS.</description>
 
-	<property name="FLEX_HOME" location="/Applications/Adobe Flash Builder 4.5/sdks/4.5.0"/>
+	<property name="FLEX_HOME" location="/Applications/Adobe Flash Builder 4.6/sdks/4.6.0"/>
+	<property name="PLAYER_VERSION" value="11.1"/>
 		
 	<target name="main" depends="clean, compile, doc" description="Clean build of HumboldtJSLibrary.swc">
 	</target>
+
+	<taskdef resource="flexTasks.tasks" classpath="${ant.library.dir}/flexTasks.jar"/> 
 
 	<target name="clean" depends="clean-temp-docs">
 		<echo>${FLEX_HOME}</echo>
@@ -17,15 +20,14 @@
 	</target>
 
 	<target name="compile" depends="" description="Compile HumboldtJSLibrary.swc">
-		
 		<echo message="Compiling ${ant.project.name}.swc"/>
-		
+	
 		<compc fork="true" output="${basedir}/bin/${ant.project.name}.swc">
 		    <source-path path-element="${basedir}/src"/>
 		    <include-sources dir="${basedir}/dom" includes="**/*.as **/*.mxml"/>
 		    <include-sources dir="${basedir}/src" includes="**/*.as **/*.mxml"/>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-				<include name="player/10.0/playerglobal.swc"/>
+				<include name="player/${PLAYER_VERSION}/playerglobal.swc"/>
 			</external-library-path>
 			<external-library-path dir="${basedir}/lib">
 				<include name="HumboldtJSDOM.swc"/>
@@ -36,6 +38,10 @@
     		includes="**/*.as"
     		update="true"/>
 		
+		<zip destfile="${basedir}/bin/${ant.project.name}.swc"
+		    basedir="${basedir}"
+		    includes="resources/*"
+		    update="true"/>
 	</target>
 
 	<target name="doc" depends="clean-temp-docs, compile" description="Updates HumboldtJSLibrary.swc with ASDoc XML">
@@ -48,7 +54,7 @@
 			<doc-sources path-element="${basedir}/src"/>
 		    <doc-sources path-element="${basedir}/dom"/>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-				<include name="player/10.0/playerglobal.swc"/>
+				<include name="player/${PLAYER_VERSION}/playerglobal.swc"/>
 			</external-library-path>
 			<external-library-path dir="${basedir}/lib">
 				<include name="HumboldtJSDOM.swc"/>
