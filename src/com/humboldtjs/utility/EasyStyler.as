@@ -98,7 +98,7 @@ package com.humboldtjs.utility
 						theKey = theKey.substr(1);
 						var theUCName:String = theKey.substr(0, 1).toUpperCase() + theKey.substr(1); 
 						aElement.style["Webkit" + theUCName] = theValue;
-						aElement.style["Ms" + theUCName] = theValue;
+						aElement.style["ms" + theUCName] = theValue;
 						aElement.style["Moz" + theUCName] = theValue;
 						aElement.style["O" + theUCName] = theValue;
 					}
