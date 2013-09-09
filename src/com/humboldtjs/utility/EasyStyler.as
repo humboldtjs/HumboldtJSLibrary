@@ -8,6 +8,7 @@
 */
 package com.humboldtjs.utility
 {
+	import dom.document;
 	import dom.domobjects.HTMLElement;
 
 	/**
@@ -23,6 +24,9 @@ package com.humboldtjs.utility
 	public class EasyStyler
 	{
 		protected static var mInstance:EasyStyler;
+		
+		protected static var mFontEmbedStyleSheet:HTMLElement;
+		protected static var mFontEmbedList:Vector.<String>;
 
 		protected var mStyles:Object;
 		
@@ -35,6 +39,43 @@ package com.humboldtjs.utility
 		public static function applyStyle(aElement:HTMLElement, aStyleName:String):void
 		{
 			applyStyleObject(aElement, getInstance().mStyles[aStyleName]);
+		}
+		
+		protected static function addFontEmbed(theValue:String):void
+		{
+			if (mFontEmbedList == null) {
+				mFontEmbedList = new Vector.<String>();
+			}
+			if (mFontEmbedStyleSheet == null) {
+				mFontEmbedStyleSheet = document.createElement("style");
+				document.getElementsByTagName("head")[0].appendChild(mFontEmbedStyleSheet);
+			}
+			
+			if (mFontEmbedList.indexOf(theValue) == -1) {
+				mFontEmbedList.push(theValue);
+			}
+			
+			updateFontEmbedStyleSheet();
+		}
+		
+		protected static function updateFontEmbedStyleSheet():void
+		{
+			var theStyleSheet:String = "";
+			for (var i:int = 0; i < mFontEmbedList.length; i++) {
+				var theFont:String = mFontEmbedList[i];
+				theStyleSheet += "@font-face {\n" +
+					"\tfont-family:'" + theFont.substr(theFont.lastIndexOf("/") + 1) + "';\n" +
+					"\tsrc:url('" + theFont + ".eot');\n" +
+					"\tsrc:url('" + theFont + ".eot?#iefix') format('embedded-opentype'),\n" +
+					"\turl('" + theFont + ".woff') format('woff'),\n" +
+					"\turl('" + theFont + ".ttf') format('truetype'),\n" +
+					"\turl('" + theFont + ".svg#" + theFont + "') format('svg');\n" +
+					"\tfont-weight: normal;\n" +
+					"\tfont-style: normal;\n" +
+					"}";
+			}
+			
+			mFontEmbedStyleSheet.innerHTML = theStyleSheet;
 		}
 
 		/**
@@ -61,7 +102,9 @@ package com.humboldtjs.utility
 						aElement.style["Moz" + theUCName] = theValue;
 						aElement.style["O" + theUCName] = theValue;
 					}
-					if (theKey == "opacity" || theKey == "autoOpacity" || theKey == "alpha" || theKey == "autoAlpha") {
+					if (theKey == "fontEmbed") {
+						addFontEmbed(theValue);
+					} else if (theKey == "opacity" || theKey == "autoOpacity" || theKey == "alpha" || theKey == "autoAlpha") {
 						if (theValue == 1) {
 							aElement.style["filter"] = null;
 							aElement.style["opacity"] = null;
