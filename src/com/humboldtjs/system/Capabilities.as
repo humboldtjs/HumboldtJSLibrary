@@ -29,6 +29,19 @@ package com.humboldtjs.system
 		}
 		
 		/**
+		 * Does the browser support CSS3 transforms?
+		 */
+		public static function getHasCSS3TransformSupport():Boolean
+		{
+			var style:* = document.createElement("div").style;
+			return (typeof style.MozTransform !== "undefined" ||
+				typeof style.WebkitTransform !== "undefined" ||
+				typeof style.msTransform !== "undefined" ||
+				typeof style.OTransform !== "undefined" ||
+				typeof style.transform !== "undefined");
+		}
+		
+		/**
 		 * Does the browser have a Retina display? You should use this method
 		 * to detect whether to use pixel-doubled images or not.
 		 */
