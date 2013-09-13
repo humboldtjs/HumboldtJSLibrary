@@ -10,10 +10,15 @@ package com.humboldtjs.display
 {
 	import com.humboldtjs.events.DataEvent;
 	import com.humboldtjs.events.HJSEvent;
+	import com.humboldtjs.system.Capabilities;
+	import com.humboldtjs.system.HtmlUtils;
+	import com.humboldtjs.system.OperatingSystem;
 	import com.humboldtjs.utility.EasyStyler;
 	
 	import dom.document;
+	import dom.domobjects.Event;
 	import dom.eventFunction;
+	import dom.navigator;
 	import dom.window;
 	
 	/**
@@ -32,7 +37,7 @@ package com.humboldtjs.display
 		
 		public static const EVENT_ENDED:String = "ended";
 		public static const EVENT_TIME_CHANGED:String = "timechanged";
-
+		
 		protected var mHasVideo:Boolean = false;
 		protected var mLoopRunning:Boolean = false;
 		protected var mSrc:String = "";
@@ -40,6 +45,8 @@ package com.humboldtjs.display
 		protected var mEnded:Boolean = false;
 		protected var mPaused:Boolean = true;
 		protected var mCurrentTime:Number = 0;
+		protected var mTimer:int = -1;
+		protected var mTries:int = 0;
 		
 		/**
 		 * The original video width
@@ -87,10 +94,21 @@ package com.humboldtjs.display
 				mHasVideo = false;
 				mElement.autoplay = false;
 				mElement.controls = false;
-				mElement.pause();
-				mPaused = true;
+				pause();
 				mElement.src = value;
-
+				
+				mTries = 4;
+				HtmlUtils.addHtmlEventListener(mElement, "canplaythrough", eventFunction(this, onLoadedFarEnough));
+				HtmlUtils.addHtmlEventListener(mElement, "load", eventFunction(this, onLoadedFarEnough));
+				
+				if (Capabilities.getOs() == OperatingSystem.IOS) {
+					play();
+					window.setTimeout(eventFunction(this, pause), 1);
+				}
+				
+				if (mTimer != -1)
+					window.clearTimeout(mTimer);
+				
 				onLoadComplete();
 			}
 		}
@@ -99,7 +117,7 @@ package com.humboldtjs.display
 		 * Whether the video is loaded
 		 */
 		public function getHasVideo():Boolean					{ return mHasVideo; }
-
+		
 		/**
 		 * @constructor
 		 */
@@ -130,6 +148,7 @@ package com.humboldtjs.display
 		public function play():void
 		{
 			mElement.play();
+			mPaused = false;
 		}
 		
 		/**
@@ -138,6 +157,7 @@ package com.humboldtjs.display
 		public function pause():void
 		{
 			mElement.pause();
+			mPaused = true;
 		}
 		
 		/**
@@ -145,9 +165,17 @@ package com.humboldtjs.display
 		 */
 		protected function onLoadComplete():void
 		{
+			mTimer = -1;
+			
+			// stop trying to load if we don't have a source
+			if (mSrc == "")
+				return;
+			
 			// If NETWORK_NO_SOURCE it means loading failed
-			if (mElement.networkState == 3)
+			if (mElement.error != null) {
 				onLoadError();
+				return;
+			}
 			
 			// Also allow networkState 2; 'loading', as '1' may not always be set e.g. in chrome.
 			// TODO: see if there is another way to signal that all data has been loaded.
@@ -157,13 +185,25 @@ package com.humboldtjs.display
 				mElement.duration == 0 ||
 				isNaN(mElement.duration) ||
 				!((mElement.readyState == 4 ||
-				   mElement.readyState == 3) &&
-				  (mElement.networkState == 1 ||
-				   mElement.networkState == 2))) {
-				window.setTimeout(eventFunction(this, onLoadComplete), 100);
+					mElement.readyState == 3) &&
+					(mElement.networkState == 1 ||
+						mElement.networkState == 2))) {
+				mTimer = window.setTimeout(eventFunction(this, onLoadComplete), 100);
+				return;
+			}
+			
+			if (mElement.readyState !== 4 && mTries > 0) {
+				mTries--;
+				mTimer = window.setTimeout(eventFunction(this, onLoadComplete), 50);
 				return;
 			}
 
+			HtmlUtils.removeHtmlEventListener(mElement, "canplaythrough", eventFunction(this, onLoadedFarEnough));
+			HtmlUtils.removeHtmlEventListener(mElement, "load", eventFunction(this, onLoadedFarEnough));
+
+			// Allready set complete
+			if (mHasVideo) return;
+			
 			// Set the playhead time to the start of the video
 			setCurrentTime(0);
 			
@@ -171,10 +211,10 @@ package com.humboldtjs.display
 			// internal size to the videoWidth and videoHeight (otherwise it
 			// will remain 0x0 and we won't see anything)
 			if (mWidth == -1 && mPercentWidth == -1)
-				mElement.style.width = mElement.videoWidth;
+				mElement.style.width = mElement.videoWidth + "px";
 			if (mHeight == -1 && mPercentHeight == -1)
-				mElement.style.height = mElement.videoHeight;
-
+				mElement.style.height = mElement.videoHeight + "px";
+			
 			// Video has been loaded
 			mHasVideo = true;
 			
@@ -185,10 +225,24 @@ package com.humboldtjs.display
 				mLoopRunning = true;
 				window.setTimeout(eventFunction(this, onEventLoop), 100);
 			}
-
+			
 			// And we're done!
 			EasyStyler.applyStyleObject(mElement, {"top":"0px","left":"0px"});
 			dispatchEvent(new HJSEvent(HJSEvent.COMPLETE));
+		}
+		
+		/**
+		 * onLoadedFarEnough events on iOS devices, wait for these events
+		 * before setting complete in order to not show QT logo
+		 * @param aEvent
+		 * 
+		 */		
+		protected function onLoadedFarEnough(aEvent:Event):void
+		{
+			HtmlUtils.removeHtmlEventListener(mElement, "canplaythrough", eventFunction(this, onLoadedFarEnough));
+			HtmlUtils.removeHtmlEventListener(mElement, "load", eventFunction(this, onLoadedFarEnough));
+			
+			onLoadComplete();
 		}
 		
 		/**
@@ -218,7 +272,7 @@ package com.humboldtjs.display
 				if (mEnded)
 					dispatchEvent(new HJSEvent(EVENT_ENDED));
 			}
-
+			
 			// If the currentTime has changed then send an event
 			if (mCurrentTime != mElement.currentTime) {
 				mCurrentTime = mElement.currentTime;
