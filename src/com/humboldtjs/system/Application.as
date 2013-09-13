@@ -54,21 +54,19 @@ package com.humboldtjs.system
 					// standards way, otherwise fallback to webkit specific
 					// code
 					if (Capabilities.getHasFullScreen()) {
-						if (document.body["requestFullScreen"])
-							document["fullScreenEnabled"]();
-						else if (document.body["webkitRequestFullScreen"])
-							document.body["webkitRequestFullScreen"]();
+						var theRequestFullscreen:String = HtmlUtils.getPropertyFromListWithVendor(document.body, ["requestFullscreen", "requestFullScreen"]);
+						document.body[theRequestFullscreen]();
+
+						var theFullscreen:String = HtmlUtils.getPropertyFromListWithVendor(document.body, ["requestFullscreen", "requestFullScreen"]);
+						HtmlUtils.addHtmlEventListenerWithVendor(document, "fullscreenchange", eventFunction(this, onFullScreenChange));
 					}
-					HtmlUtils.addHtmlEventListener(document, "fullscreenchange", eventFunction(this, onFullScreenChange));
-					HtmlUtils.addHtmlEventListener(document, "webkitfullscreenchange", eventFunction(this, onFullScreenChange));
 				} else {
 					if (Capabilities.getHasFullScreen()) {
-						if (document["cancelFullScreen"])
-							document["cancelFullScreen"]();
-						else if (document["webkitCancelFullScreen"])
-							document["webkitCancelFullScreen"]();
+						var theCancelFullscreen:String = HtmlUtils.getPropertyFromListWithVendor(document, ["cancelFullscreen", "cancelFullScreen", "exitFullscreen"]);
+						document[theCancelFullscreen]();
+
+						onFullScreenChange(null);
 					}
-					onFullScreenChange(null);
 				}
 			}
 		}
@@ -184,11 +182,11 @@ package com.humboldtjs.system
 		 */
 		protected function onFullScreenChange(aEvent:Event):void
 		{
-			if (document["webkitIsFullScreen"] || document["fullscreen"])
+			var theFullscreenElement:String = HtmlUtils.getPropertyFromListWithVendor(document, ["fullscreenElement", "fullScreenElement"]);
+			if (document[theFullscreenElement] != null)
 				return;
 			
-			HtmlUtils.removeHtmlEventListener(document, "fullscreenchange", eventFunction(this, onFullScreenChange));
-			HtmlUtils.removeHtmlEventListener(document, "webkitfullscreenchange", eventFunction(this, onFullScreenChange));
+			HtmlUtils.removeHtmlEventListenerWithVendor(document, "fullscreenchange", eventFunction(this, onFullScreenChange));
 			mFullScreen = false;
 			
 			// trigger a resize event because the browser will not always trigger this 

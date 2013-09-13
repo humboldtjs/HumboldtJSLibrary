@@ -59,10 +59,9 @@ package com.humboldtjs.system
 		 */
 		public static function getHasFullScreen():Boolean
 		{
-			if (document.body["requestFullScreen"])
-				return document["fullScreenEnabled"];
-			else if (document.body["webkitRequestFullScreen"])
+			if (HtmlUtils.getPropertyFromListWithVendor(document.body, ["requestFullscreen", "requestFullScreen"]) !== null) {
 				return true;
+			}
 			return false;
 		}
 		

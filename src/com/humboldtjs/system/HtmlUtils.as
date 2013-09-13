@@ -47,6 +47,34 @@ package com.humboldtjs.system
 		}
 		
 		/**
+		 * Find a supported property on an object; pass in a bunch of possible
+		 * property names and it will return the property name for the first one
+		 * it finds. This is useful to find a bunch of variations with vendor
+		 * prefixes.
+		 */
+		public static function getPropertyFromListWithVendor(aObject:Object, aPropertyList:Array):String
+		{
+			if (aPropertyList == null) return null;
+			
+			var theVendors:Array = ["webkit", "moz", "o", "ms"];
+			
+			for (var i:int = 0; i < aPropertyList.length; i++) {
+				var theName:String = aPropertyList[i];
+				var theUCName:String = theName.substr(0, 1).toUpperCase() + theName.substr(1);
+
+				if (typeof aObject[theName] !== "undefined")
+					return theName;
+				
+				for (var j:int = 0; j < theVendors.length; j++) {
+					if (typeof aObject[theVendors[j] + theUCName] !== "undefined")
+						return theVendors[j] + theUCName;
+				}
+			}
+			
+			return null;
+		}
+		
+		/**
 		 * Listen to when an HTML element gets a mousedown or touchstart. This
 		 * allows you to capture the start of a drag action regardless of whether
 		 * the user is on a touchscreen or using a mouse.
@@ -150,6 +178,24 @@ package com.humboldtjs.system
 			} else {
 				removeHtmlEventListener(aElement, "mouseup", aFunction);
 			}
+		}
+		
+		public static function addHtmlEventListenerWithVendor(aElement:Object, aType:String, aFunction:EventFunction):void
+		{
+			addHtmlEventListener(aElement, aType, aFunction);
+			addHtmlEventListener(aElement, "webkit" + aType, aFunction);
+			addHtmlEventListener(aElement, "moz" + aType, aFunction);
+			addHtmlEventListener(aElement, "o" + aType, aFunction);
+			addHtmlEventListener(aElement, "ms" + aType, aFunction);
+		}
+		
+		public static function removeHtmlEventListenerWithVendor(aElement:Object, aType:String, aFunction:EventFunction):void
+		{
+			removeHtmlEventListener(aElement, aType, aFunction);
+			removeHtmlEventListener(aElement, "webkit" + aType, aFunction);
+			removeHtmlEventListener(aElement, "moz" + aType, aFunction);
+			removeHtmlEventListener(aElement, "o" + aType, aFunction);
+			removeHtmlEventListener(aElement, "ms" + aType, aFunction);
 		}
 		
 		/**
