@@ -70,6 +70,8 @@ package com.humboldtjs.display
 		{
 			var theBitmap:Bitmap = new Bitmap();
 			theBitmap.setSrc(getSrc());
+			theBitmap.mUnscaledWidth = mUnscaledWidth;
+			theBitmap.mUnscaledHeight = mUnscaledHeight;
 			
 			return theBitmap;
 		}
