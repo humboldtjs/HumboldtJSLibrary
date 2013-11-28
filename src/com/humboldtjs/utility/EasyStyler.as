@@ -48,6 +48,7 @@ package com.humboldtjs.utility
 			}
 			if (mFontEmbedStyleSheet == null) {
 				mFontEmbedStyleSheet = document.createElement("style");
+				mFontEmbedStyleSheet.setAttribute("type", "text/css");
 				document.getElementsByTagName("head")[0].appendChild(mFontEmbedStyleSheet);
 			}
 			
@@ -69,13 +70,20 @@ package com.humboldtjs.utility
 					"\tsrc:url('" + theFont + ".eot?#iefix') format('embedded-opentype'),\n" +
 					"\turl('" + theFont + ".woff') format('woff'),\n" +
 					"\turl('" + theFont + ".ttf') format('truetype'),\n" +
-					"\turl('" + theFont + ".svg#" + theFont + "') format('svg');\n" +
+					"\turl('" + theFont + ".svg#" + theFont.substr(theFont.lastIndexOf("/") + 1) + "') format('svg');\n" +
 					"\tfont-weight: normal;\n" +
 					"\tfont-style: normal;\n" +
 					"}";
 			}
 			
-			mFontEmbedStyleSheet.innerHTML = theStyleSheet;
+			// Specific IE8 fix to set styles as .innerHTML is read only in IE8 for <style> nodes.
+			// http://www.phpied.com/dynamic-script-and-style-elements-in-ie/
+			// http://msdn.microsoft.com/en-us/library/ms533897%28VS.85%29.aspx
+			if (mFontEmbedStyleSheet["styleSheet"] != null) {
+				mFontEmbedStyleSheet["styleSheet"].cssText = theStyleSheet;
+			} else {
+				mFontEmbedStyleSheet.innerHTML = theStyleSheet;
+			}
 		}
 
 		/**

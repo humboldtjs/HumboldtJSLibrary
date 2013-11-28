@@ -101,13 +101,12 @@ package com.humboldtjs.display
 				HtmlUtils.addHtmlEventListener(mElement, "canplaythrough", eventFunction(this, onLoadedFarEnough));
 				HtmlUtils.addHtmlEventListener(mElement, "load", eventFunction(this, onLoadedFarEnough));
 				
-				if (Capabilities.getOs() == OperatingSystem.IOS) {
+				if (Capabilities.getOs() == OperatingSystem.IOS || Capabilities.getOs() == OperatingSystem.ANDROID) {
 					play();
 					window.setTimeout(eventFunction(this, pause), 1);
 				}
-				
-				if (mTimer != -1)
-					window.clearTimeout(mTimer);
+
+				clearTimer();
 				
 				onLoadComplete();
 			}
@@ -129,6 +128,16 @@ package com.humboldtjs.display
 			
 			EasyStyler.applyStyleObject(mElement, {"position":"absolute","top":"-3000px","left":"-3000px"});
 			document.body.appendChild(mElement);
+		}
+		
+		public function dispose():void
+		{
+			mHasVideo = false;
+			
+			// Clear the src attribute to make sure the video is garbage collected.
+			if (mElement != null) mElement.src = "";
+			clearTimer();
+			removeHtmlEventListeners();
 		}
 		
 		/**
@@ -160,6 +169,26 @@ package com.humboldtjs.display
 			mPaused = true;
 		}
 		
+		/**
+		 * Removes html eventlisteners.
+		 */ 
+		protected function removeHtmlEventListeners():void
+		{
+			HtmlUtils.removeHtmlEventListener(mElement, "canplaythrough", eventFunction(this, onLoadedFarEnough));
+			HtmlUtils.removeHtmlEventListener(mElement, "load", eventFunction(this, onLoadedFarEnough));			
+		}
+
+		/**
+		 * Removes html eventlisteners.
+		 */ 
+		protected function clearTimer():void
+		{
+			if (mTimer != -1) {
+				window.clearTimeout(mTimer);
+				mTimer = -1;
+			}
+		}
+
 		/**
 		 * Handle when loading of the video is complete
 		 */
@@ -198,9 +227,8 @@ package com.humboldtjs.display
 				return;
 			}
 
-			HtmlUtils.removeHtmlEventListener(mElement, "canplaythrough", eventFunction(this, onLoadedFarEnough));
-			HtmlUtils.removeHtmlEventListener(mElement, "load", eventFunction(this, onLoadedFarEnough));
-
+			removeHtmlEventListeners();
+			
 			// Allready set complete
 			if (mHasVideo) return;
 			
@@ -223,7 +251,7 @@ package com.humboldtjs.display
 			// used for example to create custom player controls
 			if (!mLoopRunning) {
 				mLoopRunning = true;
-				window.setTimeout(eventFunction(this, onEventLoop), 100);
+				mTimer = window.setTimeout(eventFunction(this, onEventLoop), 100);
 			}
 			
 			// And we're done!
@@ -239,12 +267,11 @@ package com.humboldtjs.display
 		 */		
 		protected function onLoadedFarEnough(aEvent:Event):void
 		{
-			HtmlUtils.removeHtmlEventListener(mElement, "canplaythrough", eventFunction(this, onLoadedFarEnough));
-			HtmlUtils.removeHtmlEventListener(mElement, "load", eventFunction(this, onLoadedFarEnough));
+			removeHtmlEventListeners();
 			
 			onLoadComplete();
 		}
-		
+				
 		/**
 		 * Called when loading threw an error or was aborted for some reason
 		 */
@@ -261,7 +288,7 @@ package com.humboldtjs.display
 		protected function onEventLoop():void
 		{
 			// If we don't have a video anymore then stop the loop
-			if (mSrc == "" || mSrc == null) {
+			if (mSrc == "" || mSrc == null || !mHasVideo) {
 				mLoopRunning = false;
 				return;
 			}
@@ -280,7 +307,7 @@ package com.humboldtjs.display
 			}
 			
 			// And loop
-			window.setTimeout(eventFunction(this, onEventLoop), 100);
+			mTimer = window.setTimeout(eventFunction(this, onEventLoop), 100);
 		}
 	}
 }

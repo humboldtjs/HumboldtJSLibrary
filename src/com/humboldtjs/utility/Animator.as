@@ -8,15 +8,13 @@
 */
 package com.humboldtjs.utility
 {
-    import com.humboldtjs.display.DisplayObject;
-    import com.humboldtjs.display.Stage;
-    import com.humboldtjs.events.HJSEvent;
-    import com.humboldtjs.utility.easing.Sine;
-    
-    import dom.domobjects.HTMLElement;
-    import dom.eventFunction;
-    import dom.window;
-
+	import com.humboldtjs.display.Stage;
+	import com.humboldtjs.events.HJSEvent;
+	import com.humboldtjs.utility.easing.Sine;
+	
+	import dom.domobjects.HTMLElement;
+	import dom.eventFunction;
+	
 	/**
 	 * Time based animator. Can take an HTML element and perform simple
 	 * linear time based animations. Takes into account things like vendor
@@ -25,14 +23,15 @@ package com.humboldtjs.utility
 	 * Note that this operates on an HTML element, and will cause desync from its
 	 * corresponding DisplayObject.
 	 */
-    public class Animator
+	public class Animator
 	{
 		protected var mObject:*;
 		protected var mElement:HTMLElement;
 		protected var mAnimationMap:Array;
+		protected var mHasEventListener:Boolean = false;
 		
 		public var ease:Function;
-
+		
 		/**
 		 * @constructor
 		 */
@@ -125,7 +124,7 @@ package com.humboldtjs.utility
 					theAnimationExists = true;
 				}
 			}
-
+			
 			// If there is already an animation going on, and it has the same
 			// end value, then we don't need to do anything
 			if (theAnimationExists && theAnimation.end == aValue)
@@ -154,7 +153,10 @@ package com.humboldtjs.utility
 				mAnimationMap.push(theAnimation);
 			
 			// And we make sure the animation is actually started
-			Stage.getInstance().addEventListener(HJSEvent.ENTER_FRAME, eventFunction(this, animationLoop));
+			if (!mHasEventListener) {
+				Stage.getInstance().addEventListener(HJSEvent.ENTER_FRAME, eventFunction(this, animationLoop));
+				mHasEventListener = true;
+			}
 		}
 		
 		/**
@@ -167,6 +169,7 @@ package com.humboldtjs.utility
 			}
 			
 			Stage.getInstance().removeEventListener(HJSEvent.ENTER_FRAME, eventFunction(this, animationLoop));
+			mHasEventListener = false;
 		}
 		
 		/**
@@ -195,13 +198,13 @@ package com.humboldtjs.utility
 					mObject[theAnimation.property](theValue);
 				} else {
 					theValue = theAnimation.preFix + theValue.toString() + theAnimation.postFix;
-
+					
 					var theObject:Object = {};
 					theObject[theAnimation.property] = theValue;
-				
+					
 					EasyStyler.applyStyleObject(mElement, theObject);
 				}
-
+				
 				// If the animation is done, remove it from the list and
 				// call the complete function
 				if (theAnimation.position >= 1) {
@@ -211,11 +214,12 @@ package com.humboldtjs.utility
 					}
 				}
 			}
-
+			
 			// And if there is anything more to animate call the animation loop
 			// again after a short while.
 			if (mAnimationMap.length == 0) {
 				Stage.getInstance().removeEventListener(HJSEvent.ENTER_FRAME, eventFunction(this, animationLoop));
+				mHasEventListener = false;
 			}
 		}
 	}
