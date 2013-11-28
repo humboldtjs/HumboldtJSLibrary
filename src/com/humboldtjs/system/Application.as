@@ -27,6 +27,7 @@ package com.humboldtjs.system
 		protected var mApplicationRoot:HTMLElement;
 		protected var mFullScreen:Boolean = false;
 		protected var mStage:Stage;
+		protected var mHJSAppId:* = null;
 		
 		/**
 		 * Whether the application should run fullscreen or not. Does not work
@@ -49,14 +50,14 @@ package com.humboldtjs.system
 				mFullScreen = value;
 				
 				if (mFullScreen) {
-
+					
 					// if fullscreen is possible first attempt to do it the
 					// standards way, otherwise fallback to webkit specific
 					// code
 					if (Capabilities.getHasFullScreen()) {
 						var theRequestFullscreen:String = HtmlUtils.getPropertyFromListWithVendor(document.body, ["requestFullscreen", "requestFullScreen"]);
 						document.body[theRequestFullscreen]();
-
+						
 						var theFullscreen:String = HtmlUtils.getPropertyFromListWithVendor(document.body, ["requestFullscreen", "requestFullScreen"]);
 						HtmlUtils.addHtmlEventListenerWithVendor(document, "fullscreenchange", eventFunction(this, onFullScreenChange));
 					}
@@ -64,7 +65,7 @@ package com.humboldtjs.system
 					if (Capabilities.getHasFullScreen()) {
 						var theCancelFullscreen:String = HtmlUtils.getPropertyFromListWithVendor(document, ["cancelFullscreen", "cancelFullScreen", "exitFullscreen"]);
 						document[theCancelFullscreen]();
-
+						
 						onFullScreenChange(null);
 					}
 				}
@@ -80,7 +81,7 @@ package com.humboldtjs.system
 		{
 			return mStage;
 		}
-
+		
 		/**
 		 * @constructor
 		 */
@@ -90,11 +91,8 @@ package com.humboldtjs.system
 			
 			// try to figure out whether we're supposed to add ourselves to
 			// a specific parent element or otherwise add to document.body
-			if (window["__humboldtjs"].appId != -1) {
-				mApplicationRoot = document.getElementById(window["__humboldtjs"].appId);
-			} else {
-				mApplicationRoot = document.body;
-			}
+			mHJSAppId = window["__humboldtjs"].appId;
+			_retrieveApplicationRoot();
 			
 			// make sure we have a stage object
 			mStage = Stage.getInstance();
@@ -104,13 +102,32 @@ package com.humboldtjs.system
 			mElement.style.overflow = "hidden";
 			setPercentWidth(100);
 			setPercentHeight(100);
-						
+			
 			// if the DOM is accessible then continue initialization, otherwise
 			// wait for the DOM load event
-			if (document.body) {
+			if (mApplicationRoot) {
 				_initialize(null);
 			} else {
+				HtmlUtils.addHtmlEventListener(document, "DOMContentLoaded", eventFunction(this, _initialize));
+				HtmlUtils.addHtmlEventListener(document, "readystatechange", eventFunction(this, _readyStateChange));
+				HtmlUtils.addHtmlEventListener(document.body, "load", eventFunction(this, _initialize));
 				HtmlUtils.addHtmlEventListener(window, "load", eventFunction(this, _initialize));
+			}
+		}
+		
+		protected function _retrieveApplicationRoot():void
+		{
+			if (mHJSAppId != -1) {
+				mApplicationRoot = document.getElementById(mHJSAppId);
+			} else {
+				mApplicationRoot = document.body;
+			}
+		}
+		
+		protected function _readyStateChange(aEvent:Event):void
+		{
+			if ( document.readyState === "complete" ) {
+				_initialize(null);
 			}
 		}
 		
@@ -119,9 +136,17 @@ package com.humboldtjs.system
 		 */
 		protected function _initialize(aEvent:Event):void
 		{
+			if (HtmlUtils.hasHtmlEventListener(document.body, "DOMContentLoaded"))
+				HtmlUtils.removeHtmlEventListener(document, "DOMContentLoaded", eventFunction(this, _initialize));
+			if (HtmlUtils.hasHtmlEventListener(document.body, "readystatechange"))
+				HtmlUtils.removeHtmlEventListener(document, "readystatechange", eventFunction(this, _readyStateChange));
 			if (HtmlUtils.hasHtmlEventListener(document.body, "load"))
+				HtmlUtils.removeHtmlEventListener(document.body, "load", eventFunction(this, _initialize));
+			if (HtmlUtils.hasHtmlEventListener(window, "load"))
 				HtmlUtils.removeHtmlEventListener(window, "load", eventFunction(this, _initialize));
-			
+
+			_retrieveApplicationRoot();
+
 			// add a listener to the resize event this is used on mobile devices
 			// to re-hide the browser-chrome after a rotation occurred
 			HtmlUtils.addHtmlEventListener(window, "resize", eventFunction(this, onResize));
@@ -174,7 +199,7 @@ package com.humboldtjs.system
 		{
 			mApplicationRoot.appendChild(mElement);
 		}
-
+		
 		/**
 		 * When we return from fullscreen mode this method takes care of
 		 * cleanup. It also triggers a window resize event because this does
