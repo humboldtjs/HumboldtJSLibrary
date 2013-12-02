@@ -15,7 +15,6 @@ package com.humboldtjs.net
 	import dom.document;
 	import dom.domobjects.HTMLElement;
 	import dom.domobjects.HTMLScriptElement;
-	import dom.eventFunction;
 	import dom.window;
 	
 	/**
@@ -135,7 +134,7 @@ package com.humboldtjs.net
 			mScript.id = getInternalId();
 
 			// Create the callback on the prefix
-			window[getPrefix()] = eventFunction(this, doCallback);
+			window[getPrefix()] = doCallback;
 
 			mIsLoading = true;
 			

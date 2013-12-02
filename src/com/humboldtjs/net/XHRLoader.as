@@ -12,7 +12,6 @@ package com.humboldtjs.net
 	import com.humboldtjs.events.HJSEvent;
 	
 	import dom.domobjects.HTMLElement;
-	import dom.eventFunction;
 	import dom.jsobjects.ActiveXObject;
 	import dom.jsobjects.XMLHttpRequest;
 	import dom.window;
@@ -110,7 +109,7 @@ package com.humboldtjs.net
 		{
 			mContentType = request.getContentType();
 			mRequest.open(request.getMethod(), request.getUrl(), true);
-			mRequest["onreadystatechange"] = eventFunction(this, onReadyStateChange);
+			mRequest["onreadystatechange"] = onReadyStateChange;
 			mRequest.send(request.getData());
 		}
 		

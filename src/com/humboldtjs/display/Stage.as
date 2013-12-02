@@ -11,8 +11,6 @@ package com.humboldtjs.display
 	import com.humboldtjs.events.HJSEvent;
 	
 	import dom.document;
-	import dom.domobjects.EventFunction;
-	import dom.eventFunction;
 	import dom.window;
 
 	/**
@@ -47,7 +45,7 @@ package com.humboldtjs.display
 		 * either use the native requestAnimationFrame of the browser or will
 		 * use a timeout with a duration of 1000ms / target framerate.
 		 */
-		public function requestAnimationFrame(aCallback:EventFunction):void
+		public function requestAnimationFrame(aCallback:Function):void
 		{
 			if (mRequestAnimationFrame == "") {
 				window.setTimeout(aCallback, mFrameDelay);
@@ -109,7 +107,7 @@ package com.humboldtjs.display
 		 * needed we cache whether there are actually any listeners for
 		 * ENTER_FRAME, otherwise we skip all kinds of processing.
 		 */
-		override public function addEventListener(aType:String, aFunction:EventFunction):void
+		override public function addEventListener(aType:String, aFunction:Function):void
 		{
 			if (aType == HJSEvent.ENTER_FRAME)
 				mHasFrameListener = true;
@@ -122,7 +120,7 @@ package com.humboldtjs.display
 		 * needed we cache whether there are actually any listeners for
 		 * ENTER_FRAME, otherwise we skip all kinds of processing.
 		 */
-		override public function removeEventListener(aType:String, aFunction:EventFunction):void
+		override public function removeEventListener(aType:String, aFunction:Function):void
 		{
 			super.removeEventListener(aType, aFunction);
 			
@@ -138,7 +136,7 @@ package com.humboldtjs.display
 			if (mHasFrameListener)
 				dispatchEvent(new HJSEvent(HJSEvent.ENTER_FRAME));
 			
-			requestAnimationFrame(eventFunction(this, doFrameLoop));
+			requestAnimationFrame(doFrameLoop);
 		}
 	}
 }

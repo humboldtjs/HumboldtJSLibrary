@@ -14,7 +14,6 @@ package com.humboldtjs.system
 	import dom.document;
 	import dom.domobjects.Event;
 	import dom.domobjects.HTMLElement;
-	import dom.eventFunction;
 	import dom.navigator;
 	import dom.window;
 	
@@ -59,7 +58,7 @@ package com.humboldtjs.system
 						document.body[theRequestFullscreen]();
 						
 						var theFullscreen:String = HtmlUtils.getPropertyFromListWithVendor(document.body, ["requestFullscreen", "requestFullScreen"]);
-						HtmlUtils.addHtmlEventListenerWithVendor(document, "fullscreenchange", eventFunction(this, onFullScreenChange));
+						HtmlUtils.addHtmlEventListenerWithVendor(document, "fullscreenchange", onFullScreenChange);
 					}
 				} else {
 					if (Capabilities.getHasFullScreen()) {
@@ -108,10 +107,10 @@ package com.humboldtjs.system
 			if (mApplicationRoot) {
 				_initialize(null);
 			} else {
-				HtmlUtils.addHtmlEventListener(document, "DOMContentLoaded", eventFunction(this, _initialize));
-				HtmlUtils.addHtmlEventListener(document, "readystatechange", eventFunction(this, _readyStateChange));
-				HtmlUtils.addHtmlEventListener(document.body, "load", eventFunction(this, _initialize));
-				HtmlUtils.addHtmlEventListener(window, "load", eventFunction(this, _initialize));
+				HtmlUtils.addHtmlEventListener(document, "DOMContentLoaded", _initialize);
+				HtmlUtils.addHtmlEventListener(document, "readystatechange", _readyStateChange);
+				HtmlUtils.addHtmlEventListener(document.body, "load", _initialize);
+				HtmlUtils.addHtmlEventListener(window, "load", _initialize);
 			}
 		}
 		
@@ -137,20 +136,20 @@ package com.humboldtjs.system
 		protected function _initialize(aEvent:Event):void
 		{
 			if (HtmlUtils.hasHtmlEventListener(document.body, "DOMContentLoaded"))
-				HtmlUtils.removeHtmlEventListener(document, "DOMContentLoaded", eventFunction(this, _initialize));
+				HtmlUtils.removeHtmlEventListener(document, "DOMContentLoaded", _initialize);
 			if (HtmlUtils.hasHtmlEventListener(document.body, "readystatechange"))
-				HtmlUtils.removeHtmlEventListener(document, "readystatechange", eventFunction(this, _readyStateChange));
+				HtmlUtils.removeHtmlEventListener(document, "readystatechange", _readyStateChange);
 			if (HtmlUtils.hasHtmlEventListener(document.body, "load"))
-				HtmlUtils.removeHtmlEventListener(document.body, "load", eventFunction(this, _initialize));
+				HtmlUtils.removeHtmlEventListener(document.body, "load", _initialize);
 			if (HtmlUtils.hasHtmlEventListener(window, "load"))
-				HtmlUtils.removeHtmlEventListener(window, "load", eventFunction(this, _initialize));
+				HtmlUtils.removeHtmlEventListener(window, "load", _initialize);
 
 			_retrieveApplicationRoot();
 
 			// add a listener to the resize event this is used on mobile devices
 			// to re-hide the browser-chrome after a rotation occurred
-			HtmlUtils.addHtmlEventListener(window, "resize", eventFunction(this, onResize));
-			HtmlUtils.addHtmlEventListener(window, "orientationchange", eventFunction(this, onResize));
+			HtmlUtils.addHtmlEventListener(window, "resize", onResize);
+			HtmlUtils.addHtmlEventListener(window, "orientationchange", onResize);
 			onResize(null);
 			
 			initialize();
@@ -211,7 +210,7 @@ package com.humboldtjs.system
 			if (document[theFullscreenElement] != null)
 				return;
 			
-			HtmlUtils.removeHtmlEventListenerWithVendor(document, "fullscreenchange", eventFunction(this, onFullScreenChange));
+			HtmlUtils.removeHtmlEventListenerWithVendor(document, "fullscreenchange", onFullScreenChange);
 			mFullScreen = false;
 			
 			// trigger a resize event because the browser will not always trigger this 

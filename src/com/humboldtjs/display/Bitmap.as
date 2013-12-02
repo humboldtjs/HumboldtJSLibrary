@@ -12,8 +12,7 @@ package com.humboldtjs.display
 	import com.humboldtjs.system.Convert;
 	
 	import dom.document;
-	import dom.eventFunction;
-
+	
 	/**
 	 * A simple bitmap class which loads and displays an image from a URL
 	 *
@@ -58,9 +57,9 @@ package com.humboldtjs.display
 			
 			super();
 			
-			mElement.onload = eventFunction(this, onLoadComplete);
-			mElement.onerror = eventFunction(this, onLoadError);
-			mElement.onabort = eventFunction(this, onLoadError);
+			mElement.onload = onLoadComplete;
+			mElement.onerror = onLoadError;
+			mElement.onabort = onLoadError;
 		}
 		
 		/**

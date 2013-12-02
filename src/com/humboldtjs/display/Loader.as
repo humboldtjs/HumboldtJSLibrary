@@ -12,7 +12,6 @@ package com.humboldtjs.display
 	import com.humboldtjs.net.URLRequest;
 	
 	import dom.document;
-	import dom.eventFunction;
 	
 	/**
 	 * A simple loader class that can manage loading Bitmap and Video
@@ -48,8 +47,8 @@ package com.humboldtjs.display
 			// If we have content
 			if (mContent) {
 				// Clean up the old listeners
-				mContent.removeEventListener(HJSEvent.COMPLETE, eventFunction(this, onLoadComplete));
-				mContent.removeEventListener(HJSEvent.IO_ERROR, eventFunction(this, onLoadError));
+				mContent.removeEventListener(HJSEvent.COMPLETE, onLoadComplete);
+				mContent.removeEventListener(HJSEvent.IO_ERROR, onLoadError);
 				// And clear the content
 				mContent = null;
 			}
@@ -79,8 +78,8 @@ package com.humboldtjs.display
 			addChild(mContent);
 			
 			// Listener for the complete event
-			mContent.addEventListener(HJSEvent.COMPLETE, eventFunction(this, onLoadComplete));
-			mContent.addEventListener(HJSEvent.IO_ERROR, eventFunction(this, onLoadError));
+			mContent.addEventListener(HJSEvent.COMPLETE, onLoadComplete);
+			mContent.addEventListener(HJSEvent.IO_ERROR, onLoadError);
 			
 			// And start loading
 			(mContent as ISrcDisplayObject).setSrc(mSrc);

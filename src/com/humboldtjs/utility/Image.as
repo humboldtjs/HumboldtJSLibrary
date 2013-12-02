@@ -18,7 +18,6 @@ package com.humboldtjs.utility
 	
 	import dom.domobjects.CanvasRenderingContext2D;
 	import dom.domobjects.Event;
-	import dom.eventFunction;
 	import dom.window;
 	
 	/**
@@ -102,12 +101,12 @@ package com.humboldtjs.utility
 			// Listening for element resizes is very unreliable, so we listen
 			// for window resizes, since they are propably what will trigger the
 			// element resize anyway.
-			HtmlUtils.addHtmlEventListener(window, "resize", eventFunction(this, onResize));
+			HtmlUtils.addHtmlEventListener(window, "resize", onResize);
 			
 			mContent = null;
 			
 			mLoader = new Loader();
-			mLoader.addEventListener(HJSEvent.COMPLETE, eventFunction(this, onLoadComplete));
+			mLoader.addEventListener(HJSEvent.COMPLETE, onLoadComplete);
 		}
 		
 		/**
@@ -120,7 +119,7 @@ package com.humboldtjs.utility
 			// If we don't have a size yet, we'll just delay processing until
 			// we do
 			if (mElement.clientWidth == 0 || mElement.clientHeight == 0) {
-				window.setTimeout(eventFunction(this, onResize), 100);
+				window.setTimeout(onResize, 100);
 				return;
 			}
 			
@@ -172,7 +171,7 @@ package com.humboldtjs.utility
 			// happen when the load has completed but the DOM hasn't been recalculated
 			// properly yet) we'll try again until it is.
 			if (mContentWidth == 0 || mContentHeight == 0) {
-				mTimer = window.setTimeout(eventFunction(this, onLoadComplete), 100);
+				mTimer = window.setTimeout(onLoadComplete, 100);
 				return;
 			}
 			mTimer = -1;

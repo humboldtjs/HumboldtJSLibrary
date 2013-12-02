@@ -13,7 +13,6 @@ package com.humboldtjs.utility
 	import com.humboldtjs.utility.easing.Sine;
 	
 	import dom.domobjects.HTMLElement;
-	import dom.eventFunction;
 	
 	/**
 	 * Time based animator. Can take an HTML element and perform simple
@@ -154,7 +153,7 @@ package com.humboldtjs.utility
 			
 			// And we make sure the animation is actually started
 			if (!mHasEventListener) {
-				Stage.getInstance().addEventListener(HJSEvent.ENTER_FRAME, eventFunction(this, animationLoop));
+				Stage.getInstance().addEventListener(HJSEvent.ENTER_FRAME, animationLoop);
 				mHasEventListener = true;
 			}
 		}
@@ -168,7 +167,7 @@ package com.humboldtjs.utility
 				mAnimationMap.splice(i, 1);				
 			}
 			
-			Stage.getInstance().removeEventListener(HJSEvent.ENTER_FRAME, eventFunction(this, animationLoop));
+			Stage.getInstance().removeEventListener(HJSEvent.ENTER_FRAME, animationLoop);
 			mHasEventListener = false;
 		}
 		
@@ -218,7 +217,7 @@ package com.humboldtjs.utility
 			// And if there is anything more to animate call the animation loop
 			// again after a short while.
 			if (mAnimationMap.length == 0) {
-				Stage.getInstance().removeEventListener(HJSEvent.ENTER_FRAME, eventFunction(this, animationLoop));
+				Stage.getInstance().removeEventListener(HJSEvent.ENTER_FRAME, animationLoop);
 				mHasEventListener = false;
 			}
 		}

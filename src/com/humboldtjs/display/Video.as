@@ -17,7 +17,6 @@ package com.humboldtjs.display
 	
 	import dom.document;
 	import dom.domobjects.Event;
-	import dom.eventFunction;
 	import dom.navigator;
 	import dom.window;
 	
@@ -98,12 +97,12 @@ package com.humboldtjs.display
 				mElement.src = value;
 				
 				mTries = 4;
-				HtmlUtils.addHtmlEventListener(mElement, "canplaythrough", eventFunction(this, onLoadedFarEnough));
-				HtmlUtils.addHtmlEventListener(mElement, "load", eventFunction(this, onLoadedFarEnough));
+				HtmlUtils.addHtmlEventListener(mElement, "canplaythrough", onLoadedFarEnough);
+				HtmlUtils.addHtmlEventListener(mElement, "load", onLoadedFarEnough);
 				
 				if (Capabilities.getOs() == OperatingSystem.IOS || Capabilities.getOs() == OperatingSystem.ANDROID) {
 					play();
-					window.setTimeout(eventFunction(this, pause), 1);
+					window.setTimeout(pause, 1);
 				}
 
 				clearTimer();
@@ -174,8 +173,8 @@ package com.humboldtjs.display
 		 */ 
 		protected function removeHtmlEventListeners():void
 		{
-			HtmlUtils.removeHtmlEventListener(mElement, "canplaythrough", eventFunction(this, onLoadedFarEnough));
-			HtmlUtils.removeHtmlEventListener(mElement, "load", eventFunction(this, onLoadedFarEnough));			
+			HtmlUtils.removeHtmlEventListener(mElement, "canplaythrough", onLoadedFarEnough);
+			HtmlUtils.removeHtmlEventListener(mElement, "load", onLoadedFarEnough);			
 		}
 
 		/**
@@ -217,13 +216,13 @@ package com.humboldtjs.display
 					mElement.readyState == 3) &&
 					(mElement.networkState == 1 ||
 						mElement.networkState == 2))) {
-				mTimer = window.setTimeout(eventFunction(this, onLoadComplete), 100);
+				mTimer = window.setTimeout(onLoadComplete, 100);
 				return;
 			}
 			
 			if (mElement.readyState !== 4 && mTries > 0) {
 				mTries--;
-				mTimer = window.setTimeout(eventFunction(this, onLoadComplete), 50);
+				mTimer = window.setTimeout(onLoadComplete, 50);
 				return;
 			}
 
@@ -251,7 +250,7 @@ package com.humboldtjs.display
 			// used for example to create custom player controls
 			if (!mLoopRunning) {
 				mLoopRunning = true;
-				mTimer = window.setTimeout(eventFunction(this, onEventLoop), 100);
+				mTimer = window.setTimeout(onEventLoop, 100);
 			}
 			
 			// And we're done!
@@ -307,7 +306,7 @@ package com.humboldtjs.display
 			}
 			
 			// And loop
-			mTimer = window.setTimeout(eventFunction(this, onEventLoop), 100);
+			mTimer = window.setTimeout(onEventLoop, 100);
 		}
 	}
 }

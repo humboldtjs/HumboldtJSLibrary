@@ -10,9 +10,7 @@ package com.humboldtjs.system
 {
 	import com.humboldtjs.geom.Point;
 	
-	import dom.document;
 	import dom.domobjects.Event;
-	import dom.domobjects.EventFunction;
 	import dom.domobjects.HTMLElement;
 	import dom.window;
 
@@ -82,7 +80,7 @@ package com.humboldtjs.system
 		 * @param aElement The HTML element to bind the event on
 		 * @param aFunction The EventFunction to call when the press happens
 		 */
-		public static function bindPress(aElement:Object, aFunction:EventFunction):void
+		public static function bindPress(aElement:Object, aFunction:Function):void
 		{
 			if (Capabilities.getHasTouchscreen()) {
 				addHtmlEventListener(aElement, "touchstart", aFunction);
@@ -99,7 +97,7 @@ package com.humboldtjs.system
 		 * @param aElement The HTML element to bind the event on
 		 * @param aFunction The EventFunction to call when the move happens
 		 */
-		public static function bindMove(aElement:Object, aFunction:EventFunction):void
+		public static function bindMove(aElement:Object, aFunction:Function):void
 		{
 			if (Capabilities.getHasTouchscreen()) {
 				addHtmlEventListener(aElement, "touchmove", aFunction);
@@ -118,7 +116,7 @@ package com.humboldtjs.system
 		 * @param aElement The HTML element to bind the event on
 		 * @param aFunction The EventFunction to call when the unpress happens
 		 */
-		public static function bindUnPress(aElement:Object, aFunction:EventFunction):void
+		public static function bindUnPress(aElement:Object, aFunction:Function):void
 		{
 			if (Capabilities.getHasTouchscreen()) {
 				addHtmlEventListener(aElement, "touchend", aFunction);
@@ -136,7 +134,7 @@ package com.humboldtjs.system
 		 * @param aElement The HTML element that the the event was bound to
 		 * @param aFunction The EventFunction that the press was bound to
 		 */
-		public static function unbindPress(aElement:Object, aFunction:EventFunction):void
+		public static function unbindPress(aElement:Object, aFunction:Function):void
 		{
 			if (Capabilities.getHasTouchscreen()) {
 				removeHtmlEventListener(aElement, "touchstart", aFunction);
@@ -151,7 +149,7 @@ package com.humboldtjs.system
 		 * @param aElement The HTML element that the the event was bound to
 		 * @param aFunction The EventFunction that the move was bound to
 		 */
-		public static function unbindMove(aElement:Object, aFunction:EventFunction):void
+		public static function unbindMove(aElement:Object, aFunction:Function):void
 		{
 			if (Capabilities.getHasTouchscreen()) {
 				removeHtmlEventListener(aElement, "touchmove", aFunction);
@@ -168,7 +166,7 @@ package com.humboldtjs.system
 		 * @param aElement The HTML element that the the event was bound to
 		 * @param aFunction The EventFunction that the unpress was bound to
 		 */
-		public static function unbindUnPress(aElement:Object, aFunction:EventFunction):void
+		public static function unbindUnPress(aElement:Object, aFunction:Function):void
 		{
 			if (Capabilities.getHasTouchscreen()) {
 				removeHtmlEventListener(window, "touchend", aFunction);
@@ -180,7 +178,7 @@ package com.humboldtjs.system
 			}
 		}
 		
-		public static function addHtmlEventListenerWithVendor(aElement:Object, aType:String, aFunction:EventFunction):void
+		public static function addHtmlEventListenerWithVendor(aElement:Object, aType:String, aFunction:Function):void
 		{
 			addHtmlEventListener(aElement, aType, aFunction);
 			addHtmlEventListener(aElement, "webkit" + aType, aFunction);
@@ -189,7 +187,7 @@ package com.humboldtjs.system
 			addHtmlEventListener(aElement, "ms" + aType, aFunction);
 		}
 		
-		public static function removeHtmlEventListenerWithVendor(aElement:Object, aType:String, aFunction:EventFunction):void
+		public static function removeHtmlEventListenerWithVendor(aElement:Object, aType:String, aFunction:Function):void
 		{
 			removeHtmlEventListener(aElement, aType, aFunction);
 			removeHtmlEventListener(aElement, "webkit" + aType, aFunction);
@@ -208,8 +206,10 @@ package com.humboldtjs.system
 		 * @param aType The string name of the event to listen for
 		 * @param aFunction The EventFunction that should be called when the event is triggered
 		 */
-		public static function addHtmlEventListener(aElement:Object, aType:String, aFunction:EventFunction):void
+		public static function addHtmlEventListener(aElement:Object, aType:String, aFunction:Function):void
 		{
+			var theIn:* = aFunction;
+
 			if (mListeners == null) mListeners = [];
 			
 			var theListener:Object = null;
@@ -225,14 +225,14 @@ package com.humboldtjs.system
 				// same values (same object, same method). If so then they count
 				// as being the same.
 				if (theListener.t == aType && 
-					theListener.s == aFunction.s &&
-					theListener.f == aFunction.f &&
+					theListener.s == theIn.s &&
+					theListener.f == theIn.f &&
 					theListener.l == aElement) return;
 			}
 			
 			// Store the listener that is being registered, so we can remove it
 			// again later.
-			theListener = {t: aType, e: aFunction, s: aFunction.s, f: aFunction.f, l: aElement};
+			theListener = {t: aType, e: theIn, s: theIn.s, f: theIn.f, l: aElement};
 			mListeners.push(theListener);
 
 			// Some browsers use addEventListener and others use attachEvent so
@@ -276,8 +276,10 @@ package com.humboldtjs.system
 		 * @param aType The string name of the event to unbind
 		 * @param aFunction The EventFunction that references the instance and method that the event was bound to
 		 */
-		public static function removeHtmlEventListener(aElement:Object, aType:String, aFunction:EventFunction):void
+		public static function removeHtmlEventListener(aElement:Object, aType:String, aFunction:Function):void
 		{
+			var theIn:* = aFunction;
+			
 			if (mListeners == null) mListeners = [];
 			
 			var theListener:Object = null;
@@ -293,8 +295,8 @@ package com.humboldtjs.system
 				// same values (same object, same method). If so then they count
 				// as being the same.
 				if (theListener.t == aType && 
-					theListener.s == aFunction.s &&
-					theListener.f == aFunction.f &&
+					theListener.s == theIn.s &&
+					theListener.f == theIn.f &&
 					theListener.l == aElement) {
 					
 					mListeners.splice(i, 1);

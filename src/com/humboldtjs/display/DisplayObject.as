@@ -119,15 +119,15 @@ package com.humboldtjs.display
 		/**
 		 * The z-index
 		 */
-		public function getZIndex():Number { return mZIndex; }
+		public function getZIndex():int { return mZIndex; }
 		/**
 		 * The z-index
 		 */
-		public function setZIndex(value:Number):void
+		public function setZIndex(value:int):void
 		{
 			if (mZIndex == value) return;
 			mZIndex = value;
-			mElement.style.zIndex = "" + Math.round(value);
+			mElement.style.zIndex = "" + value;
 		}
 		
 		/**
@@ -178,7 +178,7 @@ package com.humboldtjs.display
 			if (isNaN(mX))
 				mElement.style.left = null;
 			else
-				mElement.style.left = Math.round(mX) + "px";
+				mElement.style.left = mX + "px";
 		}
 		
 		/**
@@ -195,7 +195,7 @@ package com.humboldtjs.display
 			if (isNaN(mRight))
 				mElement.style.right = null;
 			else
-				mElement.style.right = Math.round(mRight) + "px";
+				mElement.style.right = mRight + "px";
 		}
 		
 		/**
@@ -212,7 +212,7 @@ package com.humboldtjs.display
 			if (isNaN(mY))
 				mElement.style.top = null;
 			else
-				mElement.style.top = Math.round(mY) + "px";
+				mElement.style.top = mY + "px";
 		}
 		
 		/**
@@ -229,7 +229,7 @@ package com.humboldtjs.display
 			if (isNaN(mBottom))
 				mElement.style.bottom = null;
 			else
-				mElement.style.bottom = Math.round(mBottom) + "px";
+				mElement.style.bottom = mBottom + "px";
 		}
 		
 		/**
@@ -278,7 +278,7 @@ package com.humboldtjs.display
 			if (isNaN(mWidth))
 				mElement.style.width = null;
 			else
-				mElement.style.width = Math.round(mWidth) + "px";
+				mElement.style.width = mWidth + "px";
 		}
 		
 		/**
@@ -296,7 +296,7 @@ package com.humboldtjs.display
 			if (isNaN(mHeight))
 				mElement.style.height = null;
 			else
-				mElement.style.height = Math.round(mHeight) + "px";
+				mElement.style.height = mHeight + "px";
 		}
 		
 		/**
@@ -314,7 +314,7 @@ package com.humboldtjs.display
 			if (isNaN(mPercentWidth))
 				mElement.style.width = null;
 			else
-				mElement.style.width = Math.round(mPercentWidth) + "%";
+				mElement.style.width = mPercentWidth + "%";
 		}
 		
 		/**
@@ -332,7 +332,7 @@ package com.humboldtjs.display
 			if (isNaN(mPercentHeight))
 				mElement.style.height = null;
 			else
-				mElement.style.height = Math.round(mPercentHeight) + "%";
+				mElement.style.height = mPercentHeight + "%";
 		}
 		
 		/**

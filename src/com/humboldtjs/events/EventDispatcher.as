@@ -8,8 +8,6 @@
 */
 package com.humboldtjs.events
 {
-	import dom.domobjects.EventFunction;
-
 	/**
 	 * An EventDispatcher is an object that can easily send events (HJSEvent).
 	 * Any event has a named type, and objects can register and deregister
@@ -36,8 +34,10 @@ package com.humboldtjs.events
 		 * @param aType The type name of the event to listen for
 		 * @param aFunction The EventFunction to call when the event is dispatched
 		 */
-		public function addEventListener(aType:String, aFunction:EventFunction):void
+		public function addEventListener(aType:String, aFunction:Function):void
 		{
+			var theIn:* = aFunction;
+			
 			var theListener:Object;
 
 			// First check if the event is already registered. If so skip
@@ -51,13 +51,13 @@ package com.humboldtjs.events
 				// same values (same object, same method). If so then they count
 				// as being the same.
 				if (theListener.t == aType && 
-					theListener.s == aFunction.s &&
-					theListener.f == aFunction.f) return;
+					theListener.s == theIn.s &&
+					theListener.f == theIn.f) return;
 			}
 			
 			// Store the listener that is being registered, so we can remove it
 			// again later.
-			theListener = {t: aType, e: aFunction, s: aFunction.s, f: aFunction.f};
+			theListener = {t: aType, e: theIn, s: theIn.s, f: theIn.f};
 			mListeners.push(theListener);
 		}
 		
@@ -85,8 +85,9 @@ package com.humboldtjs.events
 		 * @param aType The type name of the event to remove from
 		 * @param aFunction The EventFunction to remove as listener
 		 */
-		public function removeEventListener(aType:String, aFunction:EventFunction):void
+		public function removeEventListener(aType:String, aFunction:Function):void
 		{
+			var theIn:* = aFunction;
 			var theListener:Object;
 			
 			// Loop through all registered listeners and remove it if it has
@@ -100,8 +101,8 @@ package com.humboldtjs.events
 				// same values (same object, same method). If so then they count
 				// as being the same.
 				if (theListener.t == aType && 
-					theListener.s == aFunction.s &&
-					theListener.f == aFunction.f) {
+					theListener.s == theIn.s &&
+					theListener.f == theIn.f) {
 					
 					mListeners.splice(i, 1);
 				}

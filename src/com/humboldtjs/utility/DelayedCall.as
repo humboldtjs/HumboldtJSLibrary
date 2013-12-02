@@ -8,7 +8,6 @@
 */
 package com.humboldtjs.utility
 {
-	import dom.domobjects.EventFunction;
 	import dom.window;
 
 	/**
@@ -24,7 +23,7 @@ package com.humboldtjs.utility
 		 * @param aFunction The EventFunction to call
 		 * @param aTime The time to delay calling the function
 		 */
-		public static function call(aFunction:EventFunction, aTime:int = 0):void
+		public static function call(aFunction:Function, aTime:int = 0):void
 		{
 			if (hasCall(aFunction))
 				cancelCall(aFunction);
@@ -39,11 +38,12 @@ package com.humboldtjs.utility
 		 * 
 		 * @param aFunction The EventFunction to check
 		 */
-		public static function hasCall(aFunction:EventFunction):Boolean
+		public static function hasCall(aFunction:Function):Boolean
 		{
+			var theIn:* = aFunction;
 			for (var i:int = 0; i < mTimers.length; i++) {
-				var theF:EventFunction = mTimers[i].f;
-				if (theF.s == aFunction.s && theF.f == aFunction.f) return true;
+				var theF:* = mTimers[i].f;
+				if (theF.s == theIn.s && theF.f == theIn.f) return true;
 			}
 			
 			return false;
@@ -56,11 +56,12 @@ package com.humboldtjs.utility
 		 * 
 		 * @param aFunction The EventFunction to which the delayed call needs to be cancelled.
 		 */
-		public static function cancelCall(aFunction:EventFunction):void
+		public static function cancelCall(aFunction:Function):void
 		{
+			var theIn:* = aFunction;
 			for (var i:int = mTimers.length - 1; i >= 0; i--) {
-				var theF:EventFunction = mTimers[i].f;
-				if (theF.s == aFunction.s && theF.f == aFunction.f) 
+				var theF:* = mTimers[i].f;
+				if (theF.s == theIn.s && theF.f == theIn.f) 
 					mTimers.splice(i, 1);
 			}
 		}
