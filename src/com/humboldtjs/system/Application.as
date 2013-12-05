@@ -90,7 +90,7 @@ package com.humboldtjs.system
 			
 			// try to figure out whether we're supposed to add ourselves to
 			// a specific parent element or otherwise add to document.body
-			mHJSAppId = window["__humboldtjs"].appId;
+			mHJSAppId = window["__hjs"].appId;
 			_retrieveApplicationRoot();
 			
 			// make sure we have a stage object

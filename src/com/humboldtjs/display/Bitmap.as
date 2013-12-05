@@ -53,13 +53,16 @@ package com.humboldtjs.display
 		 */
 		public function Bitmap()
 		{
-			mElementType = "img";
-			
 			super();
 			
 			mElement.onload = onLoadComplete;
 			mElement.onerror = onLoadError;
 			mElement.onabort = onLoadError;
+		}
+		
+		override protected function initializeElement():void
+		{
+			mElement = document.createElement("img");
 		}
 		
 		/**

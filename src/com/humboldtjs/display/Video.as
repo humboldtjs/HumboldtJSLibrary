@@ -121,12 +121,15 @@ package com.humboldtjs.display
 		 */
 		public function Video()
 		{
-			mElementType = "video";
-			
 			super();
 			
 			EasyStyler.applyStyleObject(mElement, {"position":"absolute","top":"-3000px","left":"-3000px"});
 			document.body.appendChild(mElement);
+		}
+		
+		override protected function initializeElement():void
+		{
+			mElement = document.createElement("video");
 		}
 		
 		public function dispose():void

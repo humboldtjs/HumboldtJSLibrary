@@ -205,7 +205,7 @@ package com.humboldtjs.system
 		 */
 		public static function getVersion():String
 		{
-			return window["__humboldtjs"]["version"];
+			return window["__hjs"]["version"];
 		}
 		
 		/**

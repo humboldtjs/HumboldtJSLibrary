@@ -19,13 +19,12 @@ package com.humboldtjs.display
 	 * DisplayObject and can be used in very similar way. Each DisplayObject
 	 * will by default create a corresponding HTML DIV element. When extending
 	 * DisplayObject you can change what type of HTML element gets created
-	 * by setting the mElementType before calling the super() in the constructor.
+	 * by overriding the initializeElement method.
 	 */
 	public class DisplayObject extends EventDispatcher
 	{
 		protected var mElement:HTMLElement;
 		protected var mClassNames:Array = null;
-		protected var mElementType:String = "";
 		protected var mChildren:Array;
 		
 		protected var mX:Number = -999999;
@@ -352,11 +351,19 @@ package com.humboldtjs.display
 		{
 			super();
 			
-			if (mElementType == "" && mElement == null) {
-				mElementType = "div";
-			}
+			initializeElement();
+			initializeStyle();
 			
-			mElement = document.createElement(mElementType);
+			mChildren = new Array();
+		}
+		
+		protected function initializeElement():void
+		{
+			mElement = document.createElement("div");
+		}
+		
+		protected function initializeStyle():void
+		{
 			if (mClassNames == null) mClassNames = new Array();
 			if (mClassNames.length == 0) {
 				mElement.style.position = "absolute";
@@ -367,8 +374,6 @@ package com.humboldtjs.display
 			} else {
 				mElement.className = mClassNames.join(" ");
 			}
-			
-			mChildren = new Array();
 		}
 		
 		/**

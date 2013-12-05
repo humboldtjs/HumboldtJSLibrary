@@ -11,6 +11,7 @@ package com.humboldtjs.display
 	import com.humboldtjs.system.Capabilities;
 	import com.humboldtjs.system.Logger;
 	
+	import dom.document;
 	import dom.domobjects.CanvasRenderingContext2D;
 
 	/**
@@ -51,8 +52,6 @@ package com.humboldtjs.display
 		 */
 		public function Canvas()
 		{
-			mElementType = "canvas";
-			
 			super();
 			
 			if (!Capabilities.getHasCanvasSupport())
@@ -65,6 +64,11 @@ package com.humboldtjs.display
 			// to draw over other elements and be pretty much ignored. However this may not
 			// always be what you want, if so be sure to delete the pointerEvents property
 			mElement.style.pointerEvents = "none";
+		}
+
+		override protected function initializeElement():void
+		{
+			mElement = document.createElement("canvas");
 		}
 	}
 }
