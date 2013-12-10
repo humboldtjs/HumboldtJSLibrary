@@ -20,6 +20,8 @@ package com.humboldtjs.display
 	 */
 	public class Stage extends DisplayObject
 	{
+		protected static const MAX_DELAY:Number = 100;
+		
 		protected static var mStage:Stage;
 		
 		protected var mFrameRate:Number = 25;
@@ -27,6 +29,7 @@ package com.humboldtjs.display
 		protected var mHasFrameListener:Boolean = false; 
 		
 		protected var mRequestAnimationFrame:String;
+		protected var mRequestTimer:int = -1;
 		
 		/**
 		 * Get's access to the application stage object
@@ -48,9 +51,10 @@ package com.humboldtjs.display
 		public function requestAnimationFrame(aCallback:Function):void
 		{
 			if (mRequestAnimationFrame == "") {
-				window.setTimeout(aCallback, mFrameDelay);
+				mRequestTimer = window.setTimeout(aCallback, mFrameDelay);
 			} else {
 				window[mRequestAnimationFrame](aCallback);
+				mRequestTimer = window.setTimeout(aCallback, mFrameDelay + MAX_DELAY);
 			}
 			
 		}
@@ -133,6 +137,10 @@ package com.humboldtjs.display
 		 */
 		protected function doFrameLoop():void
 		{
+			if (mRequestTimer != -1) {
+				window.clearTimeout(mRequestTimer);
+				mRequestTimer = -1;
+			}
 			if (mHasFrameListener)
 				dispatchEvent(new HJSEvent(HJSEvent.ENTER_FRAME));
 			
