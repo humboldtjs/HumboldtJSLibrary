@@ -20,7 +20,7 @@ package com.humboldtjs.display
 	 */
 	public class Stage extends DisplayObject
 	{
-		protected static const MAX_DELAY:Number = 100;
+		protected static const MAX_DELAY:Number = 1000;
 		
 		protected static var mStage:Stage;
 		
@@ -29,7 +29,6 @@ package com.humboldtjs.display
 		protected var mHasFrameListener:Boolean = false; 
 		
 		protected var mRequestAnimationFrame:String;
-		protected var mRequestTimer:int = -1;
 		
 		/**
 		 * Get's access to the application stage object
@@ -41,22 +40,6 @@ package com.humboldtjs.display
 			
 			mStage = new Stage();
 			return mStage;
-		}
-		
-		/**
-		 * Try to execute a callback on the next animation frame. This will
-		 * either use the native requestAnimationFrame of the browser or will
-		 * use a timeout with a duration of 1000ms / target framerate.
-		 */
-		public function requestAnimationFrame(aCallback:Function):void
-		{
-			if (mRequestAnimationFrame == "") {
-				mRequestTimer = window.setTimeout(aCallback, mFrameDelay);
-			} else {
-				window[mRequestAnimationFrame](aCallback);
-				mRequestTimer = window.setTimeout(aCallback, mFrameDelay + MAX_DELAY);
-			}
-			
 		}
 		
 		/**
@@ -104,6 +87,7 @@ package com.humboldtjs.display
 
 			// start the frame loop
 			doFrameLoop();
+			kickRequestAnimationFrame();
 		}
 		
 		/**
@@ -137,14 +121,26 @@ package com.humboldtjs.display
 		 */
 		protected function doFrameLoop():void
 		{
-			if (mRequestTimer != -1) {
-				window.clearTimeout(mRequestTimer);
-				mRequestTimer = -1;
-			}
 			if (mHasFrameListener)
 				dispatchEvent(new HJSEvent(HJSEvent.ENTER_FRAME));
 			
-			requestAnimationFrame(doFrameLoop);
+			if (mRequestAnimationFrame == "") {
+				window.setTimeout(doFrameLoop, mFrameDelay);
+			} else {
+				window[mRequestAnimationFrame](doFrameLoop);
+			}
+		}
+		
+		protected function kickRequestAnimationFrame():void
+		{
+			if (mRequestAnimationFrame != "") {
+				window.setTimeout(kickRequestAnimationFrame, MAX_DELAY);
+				window[mRequestAnimationFrame](doNothing);
+			}
+		}
+		
+		protected function doNothing():void
+		{
 		}
 	}
 }
