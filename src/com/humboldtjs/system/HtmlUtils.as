@@ -119,8 +119,8 @@ package com.humboldtjs.system
 		public static function bindUnPress(aElement:Object, aFunction:Function):void
 		{
 			if (Capabilities.getHasTouchscreen()) {
-				addHtmlEventListener(window, "touchend", aFunction);
-				addHtmlEventListener(window, "touchcancel", aFunction);
+				addHtmlEventListener(aElement, "touchend", aFunction);
+				addHtmlEventListener(aElement, "touchcancel", aFunction);
 			} else if (aElement.addEventListener) {
 				addHtmlEventListener(window, "mouseup", aFunction);
 			} else {
@@ -169,8 +169,8 @@ package com.humboldtjs.system
 		public static function unbindUnPress(aElement:Object, aFunction:Function):void
 		{
 			if (Capabilities.getHasTouchscreen()) {
-				removeHtmlEventListener(window, "touchend", aFunction);
-				removeHtmlEventListener(window, "touchcancel", aFunction);
+				removeHtmlEventListener(aElement, "touchend", aFunction);
+				removeHtmlEventListener(aElement, "touchcancel", aFunction);
 			} else if (aElement.addEventListener) {
 				removeHtmlEventListener(window, "mouseup", aFunction);
 			} else {
