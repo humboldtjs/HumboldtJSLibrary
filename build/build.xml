@@ -1,14 +1,34 @@
 <?xml version="1.0"?>
 <project name="HumboldtJSLibrary" default="main" basedir="..">
-	<description>Compiles the SWC containing the core library of HumboldtJS.</description>
+	<description>Compiles the SWC containing the core library of HumboldtJS.
+	It is possible to override the default properties with your own settings (or any other property).
+	Do this by creating a user.properties.xml next to this build.xml.
+	</description>
 
+	<!-- You could user.properties.xml to override the default properties. -->
+	<xmlproperty file="build/user.properties.xml" semanticAttributes="true" collapseAttributes="true" keepRoot="false"/>
+	
+	<!-- Default properties, adjust to your likings in build/user.properties.xml. -->
 	<property name="FLEX_HOME" location="/Applications/Adobe Flash Builder 4.5/sdks/4.5.0"/>
+	<property name="FLEX_PLAYER" location="10.0"/>
+	
+	<!-- Ant tasks for Flex building. -->
+	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" /> 
 		
+	<target name="check-sdk" description="Check whether all paths to the Flex SDK exists.">
+		<available file="${FLEX_HOME}" property="sdk-path-exists"/>
+		<fail unless="sdk-path-exists" message="The current FLEX_HOME points to an invalid SDK location, please specify a valid location in either user.properties.xml or define one as a ant argument by using -DFLEX_HOME=.... "/>
+		
+		<available file="${FLEX_HOME}/frameworks/libs/player/${FLEX_PLAYER}" property="sdk-player-exists"/>
+		<fail unless="sdk-player-exists" message="Could not find the player '${FLEX_PLAYER}' in the FLEX_HOME SDK folder (${FLEX_HOME}), please specify a valid location in either user.properties.xml or define one as a ant argument by using -DFLEX_PLAYER=.... "/>
+	</target>
+	
 	<target name="main" depends="clean, compile, doc" description="Clean build of HumboldtJSLibrary.swc">
 	</target>
 
 	<target name="clean" depends="clean-temp-docs">
-		<echo>${FLEX_HOME}</echo>
+		<echo>FLEX_HOME: ${FLEX_HOME}</echo>
+		<echo>FLEX_PLAYER: ${FLEX_PLAYER}</echo>
 		<delete failonerror="false">
 			<fileset dir="${basedir}/bin">
 				<include name="${ant.project.name}.swc"/>
@@ -16,7 +36,7 @@
 		</delete>
 	</target>
 
-	<target name="compile" depends="" description="Compile HumboldtJSLibrary.swc">
+	<target name="compile" depends="check-sdk" description="Compile HumboldtJSLibrary.swc">
 		
 		<echo message="Compiling ${ant.project.name}.swc"/>
 		
@@ -25,7 +45,7 @@
 		    <include-sources dir="${basedir}/dom" includes="**/*.as **/*.mxml"/>
 		    <include-sources dir="${basedir}/src" includes="**/*.as **/*.mxml"/>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-				<include name="player/10.0/playerglobal.swc"/>
+				<include name="player/${FLEX_PLAYER}/playerglobal.swc"/>
 			</external-library-path>
 			<external-library-path dir="${basedir}/lib">
 				<include name="HumboldtJSDOM.swc"/>
@@ -38,7 +58,7 @@
 		
 	</target>
 
-	<target name="doc" depends="clean-temp-docs, compile" description="Updates HumboldtJSLibrary.swc with ASDoc XML">
+	<target name="doc" depends="check-sdk, clean-temp-docs, compile" description="Updates HumboldtJSLibrary.swc with ASDoc XML">
 
 		<echo message="Compiling ASDoc for ${ant.project.name}.swc"/>
 		
@@ -48,7 +68,7 @@
 			<doc-sources path-element="${basedir}/src"/>
 		    <doc-sources path-element="${basedir}/dom"/>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-				<include name="player/10.0/playerglobal.swc"/>
+				<include name="player/${FLEX_PLAYER}/playerglobal.swc"/>
 			</external-library-path>
 			<external-library-path dir="${basedir}/lib">
 				<include name="HumboldtJSDOM.swc"/>
