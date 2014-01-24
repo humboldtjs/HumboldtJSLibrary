@@ -341,5 +341,45 @@ package com.humboldtjs.system
 			
 			return null;
 		}
+		
+		/**
+		 * Add the given classname from the given element.
+		 *  
+		 * @param aElement		The HTML element at which the classname must be added.
+		 * @param aClassName	The classname to be added.
+		 * @return 				When successfully add a <code>true</code>, <code>false</code> when the element
+		 * 						already contains the given classname.
+		 */
+		public static function addClassname(aElement:HTMLElement, aClassName:String):Boolean
+		{
+			var theClassName:String = aElement.className;
+			var theExpression:RegExp = new RegExp("(^|\\s+)(" + aClassName + ")(\\s+|$)");
+			var theMatch:Object = theExpression.exec(theClassName);
+			if (theMatch == null || theMatch.length != 4) {
+				aElement.className += ((aElement.className.length == 0) ? "" : " ") + aClassName;
+				return true;
+			}
+			return false;
+		}
+		
+		/**
+		 * Remove the given classname from the given element.
+		 *  
+		 * @param aElement		The HTML element for which the classname must be removed.
+		 * @param aClassName	The classname to be removed.
+		 * @return 				When successfully removed a <code>true</code>, <code>false</code> when the element
+		 * 						does not contain the given classname.
+		 */
+		public static function removeClassname(aElement:HTMLElement, aClassName:String):Boolean
+		{
+			var theClassName:String = aElement.className;
+			var theExpression:RegExp = new RegExp("(^|\\s+)(" + aClassName + ")(\\s+|$)");
+			var theMatch:Object = theExpression.exec(theClassName);
+			if (theMatch !== null && theMatch.length == 4) {
+				aElement.className = theClassName.substring(0, theMatch.index) + theClassName.substring(theMatch.index + 1 + theMatch[2].length);
+				return true;
+			}
+			return false;
+		}
 	}
 }
