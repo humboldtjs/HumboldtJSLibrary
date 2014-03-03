@@ -11,8 +11,6 @@ package com.humboldtjs.display
 	import com.humboldtjs.events.HJSEvent;
 	import com.humboldtjs.net.URLRequest;
 	
-	import dom.document;
-	
 	/**
 	 * A simple loader class that can manage loading Bitmap and Video
 	 * instances. Note that the Video class isn't well supported yet since
@@ -23,11 +21,23 @@ package com.humboldtjs.display
 	{
 		protected var mContent:DisplayObject;
 		protected var mSrc:String = "";
+		protected var mComplete:Boolean = false;
+		protected var mFarEnough:Boolean = false;
 		
 		/**
 		 * If loading was complete returns the loaded content
 		 */
 		public function getContent():DisplayObject	{ return (mSrc !== "") ? mContent : null; }
+		
+		/**
+		 * Check if loading has completed
+		 */
+		public function getComplete():Boolean { return mComplete; }
+		
+		/**
+		 * Check if loading is far enough to use the asset
+		 */
+		public function getFarEnough():Boolean { return mFarEnough; }
 		
 		/**
 		 * @constructor
@@ -48,6 +58,7 @@ package com.humboldtjs.display
 			if (mContent) {
 				// Clean up the old listeners
 				mContent.removeEventListener(HJSEvent.COMPLETE, onLoadComplete);
+				mContent.removeEventListener(HJSEvent.FAR_ENOUGH, onFarEnough);
 				mContent.removeEventListener(HJSEvent.IO_ERROR, onLoadError);
 				// And clear the content
 				mContent = null;
@@ -79,6 +90,7 @@ package com.humboldtjs.display
 			
 			// Listener for the complete event
 			mContent.addEventListener(HJSEvent.COMPLETE, onLoadComplete);
+			mContent.addEventListener(HJSEvent.FAR_ENOUGH, onFarEnough);
 			mContent.addEventListener(HJSEvent.IO_ERROR, onLoadError);
 			
 			// And start loading
@@ -98,7 +110,19 @@ package com.humboldtjs.display
 		 */
 		protected function onLoadComplete(aEvent:HJSEvent):void
 		{
-			dispatchEvent(new HJSEvent(HJSEvent.COMPLETE));
+			if (!mComplete) {
+				mComplete = true;
+				onFarEnough(null);
+				dispatchEvent(new HJSEvent(HJSEvent.COMPLETE));
+			}
+		}
+		
+		protected function onFarEnough(aEvent:HJSEvent):void
+		{
+			if (!mFarEnough) {
+				mFarEnough = true;
+				dispatchEvent(new HJSEvent(HJSEvent.FAR_ENOUGH));
+			}
 		}
 		
 		protected function onLoadError(aEvent:HJSEvent):void

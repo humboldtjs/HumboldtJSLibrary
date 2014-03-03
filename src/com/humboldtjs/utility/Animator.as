@@ -139,11 +139,11 @@ package com.humboldtjs.utility
 			theAnimation.start = theStart;
 			theAnimation.end = aValue;
 			theAnimation.position = 0;
-			theAnimation.speed = 1 / (Math.max(1, aDuration * 1000) / Stage.getInstance().getFrameRate());
+			theAnimation.time = (new Date()).getTime() / 1000 + aDelay;
+			theAnimation.duration = aDuration;
 			theAnimation.roundFactor = aRoundFactor;
 			theAnimation.postFix = aPostFix;
 			theAnimation.preFix = aPreFix;
-			theAnimation.delay = aDelay * Stage.getInstance().getFrameRate();
 			theAnimation.complete = aCompleteFunction;
 			
 			// If it already existed we just updated the existing animation
@@ -181,12 +181,9 @@ package com.humboldtjs.utility
 				
 				var theAnimation:Object = mAnimationMap[i];
 				// Increment the time position
-				if (theAnimation.delay > 0) {
-					theAnimation.delay--;
-				} else {
-					theAnimation.position += theAnimation.speed;
-					if (theAnimation.position > 1) theAnimation.position = 1;
-				}
+				theAnimation.position = ((new Date()).getTime() / 1000 - theAnimation.time) / theAnimation.duration;
+				if (theAnimation.position < 0) theAnimation.position = 0;
+				if (theAnimation.position > 1) theAnimation.position = 1;
 				
 				// Calculate the new value (using the rounding procedure as
 				// mentioned in the documentation for animatePropertyTo
