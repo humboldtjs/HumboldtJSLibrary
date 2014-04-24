@@ -8,6 +8,7 @@
 */
 package com.humboldtjs.display
 {
+	import com.humboldtjs.audio.Audio;
 	import com.humboldtjs.events.HJSEvent;
 	import com.humboldtjs.net.URLRequest;
 	
@@ -67,6 +68,9 @@ package com.humboldtjs.display
 			switch(request.getContentType()) {
 				case URLRequest.CONTENTTYPE_VIDEO:
 					mContent = new Video();
+					break;
+				case URLRequest.CONTENTTYPE_AUDIO:
+					mContent = new Audio();
 					break;
 				case URLRequest.CONTENTTYPE_IMAGE:
 				default:
