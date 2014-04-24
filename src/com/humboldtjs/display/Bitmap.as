@@ -71,9 +71,9 @@ package com.humboldtjs.display
 		public function clone():ISrcDisplayObject
 		{
 			var theBitmap:Bitmap = new Bitmap();
-			theBitmap.setSrc(getSrc());
 			theBitmap.mUnscaledWidth = mUnscaledWidth;
 			theBitmap.mUnscaledHeight = mUnscaledHeight;
+			theBitmap.setSrc(getSrc());
 			
 			return theBitmap;
 		}
@@ -83,12 +83,29 @@ package com.humboldtjs.display
 		 */
 		protected function onLoadComplete():void
 		{
-			document.body.appendChild(mElement);
-			if (mUnscaledWidth == 0)
-				mUnscaledWidth = Convert.toInt(mElement.width.toString());
-			if (mUnscaledHeight == 0)
-				mUnscaledHeight = Convert.toInt(mElement.height.toString());
-			document.body.removeChild(mElement);
+			if (mElement["naturalWidth"]) {
+				
+				mUnscaledWidth = mElement.naturalWidth;
+				mUnscaledHeight = mElement.naturalHeight;
+
+			} else {
+				
+				// When IE has failed loading this image once before it
+				// will use a 28x30 image-not-found-placeholder. This is
+				// workaround for a bug where when requesting unscaled
+				// size it will use this 28x30 from the cache instead.
+				// Setting style to auto forces recalculation.
+				mElement.style.width = "auto";
+				mElement.style.height = "auto";
+				
+				document.body.appendChild(mElement);
+				if (mUnscaledWidth == 0)
+					mUnscaledWidth = Convert.toInt(mElement.width.toString());
+				if (mUnscaledHeight == 0)
+					mUnscaledHeight = Convert.toInt(mElement.height.toString());
+
+				document.body.removeChild(mElement);
+			}
 			
 			if (mParent)
 				mParent["mElement"].appendChild(mElement);

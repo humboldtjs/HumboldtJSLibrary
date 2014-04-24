@@ -16,9 +16,8 @@ package com.humboldtjs.display
 	import com.humboldtjs.utility.EasyStyler;
 	
 	import dom.document;
-	import dom.domobjects.Event;
-	import dom.navigator;
 	import dom.window;
+	import dom.domobjects.Event;
 	
 	/**
 	 * A simple Video class which deals with some of the weird issues with
@@ -36,6 +35,9 @@ package com.humboldtjs.display
 		
 		public static const EVENT_ENDED:String = "ended";
 		public static const EVENT_TIME_CHANGED:String = "timechanged";
+		
+		// A required fuzz-factor to compare the time of the total video duration and that of the last buffered frame.
+		public static const DURATION_TIME_FUZZINES:int = 0.5 / 25.0;
 		
 		protected var mHasVideo:Boolean = false;
 		protected var mLoopRunning:Boolean = false;
@@ -107,7 +109,7 @@ package com.humboldtjs.display
 
 				clearTimer();
 				
-				onLoadComplete();
+				handleLoadedFarEnough();
 			}
 		}
 		
@@ -192,9 +194,19 @@ package com.humboldtjs.display
 		}
 
 		/**
-		 * Handle when loading of the video is complete
-		 */
-		protected function onLoadComplete():void
+		 * onLoadedFarEnough events on iOS devices, wait for these events
+		 * before setting complete in order to not show QT logo
+		 * @param aEvent
+		 * 
+		 */		
+		protected function onLoadedFarEnough(aEvent:Event):void
+		{
+			removeHtmlEventListeners();
+			
+			handleLoadedFarEnough();
+		}
+		
+		protected function handleLoadedFarEnough():void
 		{
 			mTimer = -1;
 			
@@ -219,16 +231,16 @@ package com.humboldtjs.display
 					mElement.readyState == 3) &&
 					(mElement.networkState == 1 ||
 						mElement.networkState == 2))) {
-				mTimer = window.setTimeout(onLoadComplete, 100);
+				mTimer = window.setTimeout(handleLoadedFarEnough, 100);
 				return;
 			}
 			
 			if (mElement.readyState !== 4 && mTries > 0) {
 				mTries--;
-				mTimer = window.setTimeout(onLoadComplete, 50);
+				mTimer = window.setTimeout(handleLoadedFarEnough, 50);
 				return;
 			}
-
+			
 			removeHtmlEventListeners();
 			
 			// Allready set complete
@@ -253,27 +265,36 @@ package com.humboldtjs.display
 			// used for example to create custom player controls
 			if (!mLoopRunning) {
 				mLoopRunning = true;
-				mTimer = window.setTimeout(onEventLoop, 100);
+				Stage.getInstance().addEventListener(HJSEvent.ENTER_FRAME, onEventLoop);
 			}
 			
 			// And we're done!
 			EasyStyler.applyStyleObject(mElement, {"top":"0px","left":"0px"});
+			dispatchEvent(new HJSEvent(HJSEvent.FAR_ENOUGH));
+
+			handleLoadComplete();
+		}
+				
+		/**
+		 * Handle when loading of the video is complete
+		 */
+		protected function handleLoadComplete():void
+		{
+			mTimer = -1;
+			
+			// stop trying to load if we don't have a source
+			if (mSrc == "")
+				return;
+			
+			var theBufferedranges:int = typeof mElement.buffered !== "undefined" ? mElement.buffered.length : 0;
+			if (theBufferedranges == 0 || mElement.buffered.end(theBufferedranges - 1) < (mElement.duration - DURATION_TIME_FUZZINES)) {
+				mTimer = window.setTimeout(handleLoadComplete, 50);
+				return;
+			}
+			
 			dispatchEvent(new HJSEvent(HJSEvent.COMPLETE));
 		}
 		
-		/**
-		 * onLoadedFarEnough events on iOS devices, wait for these events
-		 * before setting complete in order to not show QT logo
-		 * @param aEvent
-		 * 
-		 */		
-		protected function onLoadedFarEnough(aEvent:Event):void
-		{
-			removeHtmlEventListeners();
-			
-			onLoadComplete();
-		}
-				
 		/**
 		 * Called when loading threw an error or was aborted for some reason
 		 */
@@ -287,10 +308,11 @@ package com.humboldtjs.display
 		 * the video or when playback has ended (when the end of the video has
 		 * been reached).
 		 */
-		protected function onEventLoop():void
+		protected function onEventLoop(aEvent:HJSEvent):void
 		{
 			// If we don't have a video anymore then stop the loop
 			if (mSrc == "" || mSrc == null || !mHasVideo) {
+				Stage.getInstance().removeEventListener(HJSEvent.ENTER_FRAME, onEventLoop);
 				mLoopRunning = false;
 				return;
 			}
@@ -304,12 +326,9 @@ package com.humboldtjs.display
 			
 			// If the currentTime has changed then send an event
 			if (mCurrentTime != mElement.currentTime) {
-				mCurrentTime = mElement.currentTime;
+				mCurrentTime = Math.round(mElement.currentTime * 25) / 25;
 				dispatchEvent(new DataEvent(EVENT_TIME_CHANGED, mCurrentTime));
 			}
-			
-			// And loop
-			mTimer = window.setTimeout(onEventLoop, 100);
 		}
 	}
 }
