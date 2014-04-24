@@ -253,7 +253,7 @@ package com.humboldtjs.display
 			// used for example to create custom player controls
 			if (!mLoopRunning) {
 				mLoopRunning = true;
-				mTimer = window.setTimeout(onEventLoop, 100);
+				Stage.getInstance().addEventListener(HJSEvent.ENTER_FRAME, onEventLoop);
 			}
 			
 			// And we're done!
@@ -287,10 +287,11 @@ package com.humboldtjs.display
 		 * the video or when playback has ended (when the end of the video has
 		 * been reached).
 		 */
-		protected function onEventLoop():void
+		protected function onEventLoop(aEvent:HJSEvent):void
 		{
 			// If we don't have a video anymore then stop the loop
 			if (mSrc == "" || mSrc == null || !mHasVideo) {
+				Stage.getInstance().removeEventListener(HJSEvent.ENTER_FRAME, onEventLoop);
 				mLoopRunning = false;
 				return;
 			}
@@ -304,12 +305,9 @@ package com.humboldtjs.display
 			
 			// If the currentTime has changed then send an event
 			if (mCurrentTime != mElement.currentTime) {
-				mCurrentTime = mElement.currentTime;
+				mCurrentTime = Math.round(mElement.currentTime * 25) / 25;
 				dispatchEvent(new DataEvent(EVENT_TIME_CHANGED, mCurrentTime));
 			}
-			
-			// And loop
-			mTimer = window.setTimeout(onEventLoop, 100);
 		}
 	}
 }
