@@ -14,20 +14,20 @@ package com.humboldtjs.geom
 	 */ 
 	public class Matrix3D
 	{
-		protected var mRawData:Array; // To maintain in sync with flash, the array fills the matrix column first.
+		protected var _rawData:Array; // To maintain in sync with flash, the array fills the matrix column first.
 		
-		public function getRawData():Array { return mRawData; }
+		public function getRawData():Array { return _rawData; }
 		public function setRawData(aValue:Array):void				
 		{ 
 			if (aValue.length != 16) // the Array needs to have a length of exactly 16
 				return;
 			
-			mRawData = aValue;
+			_rawData = aValue;
 		}
 
 		public function Matrix3D()
 		{
-			mRawData = new Array(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+			_rawData = new Array(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 		}
 		
 		/**
@@ -36,7 +36,7 @@ package com.humboldtjs.geom
 		public function clone():Matrix3D
 		{
 			var theMatrix:Matrix3D = new Matrix3D();
-			theMatrix.setRawData(mRawData.slice());
+			theMatrix.setRawData(_rawData.slice());
 			return theMatrix;
 		}
 
@@ -46,7 +46,7 @@ package com.humboldtjs.geom
 		 */ 
 		public function setScaleMatrix(aScaleX:Number, aScaleY:Number, aScaleZ:Number, aScaleW:Number = 1):void
 		{
-			mRawData = new Array(aScaleX, 0, 0, 0, 0, aScaleY, 0, 0, 0, 0, aScaleZ, 0, 0, 0, 0, aScaleW);
+			_rawData = new Array(aScaleX, 0, 0, 0, 0, aScaleY, 0, 0, 0, 0, aScaleZ, 0, 0, 0, 0, aScaleW);
 		}
 		
 		/**
@@ -77,7 +77,7 @@ package com.humboldtjs.geom
 		 */ 
 		public function setTranslationMatrix(aX:Number, aY:Number, aZ:Number):void
 		{
-			mRawData = new Array(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, aX, aY, aZ, 1);
+			_rawData = new Array(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, aX, aY, aZ, 1);
 		}
 		
 		/**
@@ -121,25 +121,25 @@ package com.humboldtjs.geom
 			var theOneMinusCosine:Number = 1 - theCosine;
 			
 			// The rotation maxtrix.
-			mRawData[0] = theAxisX * theAxisX * theOneMinusCosine + theCosine;
-			mRawData[1] = theAxisY * theAxisX * theOneMinusCosine + theAxisZ * theSine; 
-			mRawData[2] = theAxisZ * theAxisX * theOneMinusCosine - theAxisY * theSine;
-			mRawData[3] = 0;
+			_rawData[0] = theAxisX * theAxisX * theOneMinusCosine + theCosine;
+			_rawData[1] = theAxisY * theAxisX * theOneMinusCosine + theAxisZ * theSine; 
+			_rawData[2] = theAxisZ * theAxisX * theOneMinusCosine - theAxisY * theSine;
+			_rawData[3] = 0;
 			
-			mRawData[4] = theAxisX * theAxisY * theOneMinusCosine - theAxisZ * theSine;
-			mRawData[5] = theAxisY * theAxisY * theOneMinusCosine + theCosine;
-			mRawData[6] = theAxisZ * theAxisY * theOneMinusCosine + theAxisX * theSine;
-			mRawData[7] = 0;
+			_rawData[4] = theAxisX * theAxisY * theOneMinusCosine - theAxisZ * theSine;
+			_rawData[5] = theAxisY * theAxisY * theOneMinusCosine + theCosine;
+			_rawData[6] = theAxisZ * theAxisY * theOneMinusCosine + theAxisX * theSine;
+			_rawData[7] = 0;
 			
-			mRawData[8] = theAxisX * theAxisZ * theOneMinusCosine + theAxisY * theSine;
-			mRawData[9] = theAxisY * theAxisZ * theOneMinusCosine - theAxisX * theSine;
-			mRawData[10] = theAxisZ * theAxisZ * theOneMinusCosine + theCosine;
-			mRawData[11] = 0;
+			_rawData[8] = theAxisX * theAxisZ * theOneMinusCosine + theAxisY * theSine;
+			_rawData[9] = theAxisY * theAxisZ * theOneMinusCosine - theAxisX * theSine;
+			_rawData[10] = theAxisZ * theAxisZ * theOneMinusCosine + theCosine;
+			_rawData[11] = 0;
 			
-			mRawData[12] = 0; 
-			mRawData[13] = 0; 
-			mRawData[14] = 0; 
-			mRawData[15] = 1; 
+			_rawData[12] = 0; 
+			_rawData[13] = 0; 
+			_rawData[14] = 0; 
+			_rawData[15] = 1; 
 		}
 		
 		/**
@@ -159,25 +159,25 @@ package com.humboldtjs.geom
 			var theSineZ:Number = Math.sin(aAngleZ);
 			var theCosineZ:Number = Math.cos(aAngleZ);
 
-			mRawData[0] = theCosineY * theCosineZ;
-			mRawData[1] = theCosineY * theSineZ; 
-			mRawData[2] = -theSineY;
-			mRawData[3] = 0;
+			_rawData[0] = theCosineY * theCosineZ;
+			_rawData[1] = theCosineY * theSineZ; 
+			_rawData[2] = -theSineY;
+			_rawData[3] = 0;
 			
-			mRawData[4] = -theCosineX * theSineZ + theSineX * theSineY * theCosineZ;
-			mRawData[5] = theCosineX * theCosineZ + theSineX * theSineY * theSineZ;
-			mRawData[6] = theSineX * theCosineY;
-			mRawData[7] = 0;
+			_rawData[4] = -theCosineX * theSineZ + theSineX * theSineY * theCosineZ;
+			_rawData[5] = theCosineX * theCosineZ + theSineX * theSineY * theSineZ;
+			_rawData[6] = theSineX * theCosineY;
+			_rawData[7] = 0;
 			
-			mRawData[8] = theSineX * theSineZ + theCosineX * theSineY * theCosineZ;
-			mRawData[9] = -theSineX * theCosineZ + theCosineX * theSineY * theSineZ;
-			mRawData[10] = theCosineX * theCosineY;
-			mRawData[11] = 0;
+			_rawData[8] = theSineX * theSineZ + theCosineX * theSineY * theCosineZ;
+			_rawData[9] = -theSineX * theCosineZ + theCosineX * theSineY * theSineZ;
+			_rawData[10] = theCosineX * theCosineY;
+			_rawData[11] = 0;
 			
-			mRawData[12] = 0; 
-			mRawData[13] = 0; 
-			mRawData[14] = 0; 
-			mRawData[15] = 1; 
+			_rawData[12] = 0; 
+			_rawData[13] = 0; 
+			_rawData[14] = 0; 
+			_rawData[15] = 1; 
 		}
 		
 		/**
@@ -229,25 +229,25 @@ package com.humboldtjs.geom
 		 */ 
 		public function transpose():void
 		{
-			var theEntry01:Number = mRawData[1];
-			var theEntry02:Number = mRawData[2];
-			var theEntry03:Number = mRawData[3];
-			var theEntry12:Number = mRawData[6];
-			var theEntry13:Number = mRawData[7];
-			var theEntry23:Number = mRawData[11];
+			var theEntry01:Number = _rawData[1];
+			var theEntry02:Number = _rawData[2];
+			var theEntry03:Number = _rawData[3];
+			var theEntry12:Number = _rawData[6];
+			var theEntry13:Number = _rawData[7];
+			var theEntry23:Number = _rawData[11];
 			
-			mRawData[1] = mRawData[4];
-			mRawData[2] = mRawData[8];
-			mRawData[3] = mRawData[12];
-			mRawData[4] = theEntry01;
-			mRawData[6] = mRawData[9];
-			mRawData[7] = mRawData[13];
-			mRawData[8] = theEntry02;
-			mRawData[9] = theEntry12;
-			mRawData[11] = mRawData[14];
-			mRawData[12] = theEntry03;
-			mRawData[13] = theEntry13;
-			mRawData[14] = theEntry23;
+			_rawData[1] = _rawData[4];
+			_rawData[2] = _rawData[8];
+			_rawData[3] = _rawData[12];
+			_rawData[4] = theEntry01;
+			_rawData[6] = _rawData[9];
+			_rawData[7] = _rawData[13];
+			_rawData[8] = theEntry02;
+			_rawData[9] = theEntry12;
+			_rawData[11] = _rawData[14];
+			_rawData[12] = theEntry03;
+			_rawData[13] = theEntry13;
+			_rawData[14] = theEntry23;
 		}
 		
 		/**
@@ -260,10 +260,10 @@ package com.humboldtjs.geom
 			var theVecZ:Number = aVector.getZ();
 			var theVecW:Number = aVector.getW();
 
-			var theNewX:Number = mRawData[0] * theVecX + mRawData[4] * theVecY + mRawData[8] * theVecZ + mRawData[12];
-			var theNewY:Number = mRawData[1] * theVecX + mRawData[5] * theVecY + mRawData[9] * theVecZ + mRawData[13];
-			var theNewZ:Number = mRawData[2] * theVecX + mRawData[6] * theVecY + mRawData[10] * theVecZ + mRawData[14];
-			var theNewW:Number = mRawData[3] * theVecX + mRawData[7] * theVecY + mRawData[11] * theVecZ + mRawData[15];
+			var theNewX:Number = _rawData[0] * theVecX + _rawData[4] * theVecY + _rawData[8] * theVecZ + _rawData[12];
+			var theNewY:Number = _rawData[1] * theVecX + _rawData[5] * theVecY + _rawData[9] * theVecZ + _rawData[13];
+			var theNewZ:Number = _rawData[2] * theVecX + _rawData[6] * theVecY + _rawData[10] * theVecZ + _rawData[14];
+			var theNewW:Number = _rawData[3] * theVecX + _rawData[7] * theVecY + _rawData[11] * theVecZ + _rawData[15];
 
 			var theVector:Vector3D = new Vector3D(theNewX, theNewY, theNewZ, theNewW);
 			return theVector;
@@ -275,10 +275,10 @@ package com.humboldtjs.geom
 		public function invert():Boolean
 		{
 			// Code is optimized ugly.
-			var theEntry00:Number = mRawData[0]; var theEntry01:Number = mRawData[1]; var theEntry02:Number = mRawData[2]; var theEntry03:Number = mRawData[3];
-			var theEntry10:Number = mRawData[4]; var theEntry11:Number = mRawData[5]; var theEntry12:Number = mRawData[6]; var theEntry13:Number = mRawData[7];
-			var theEntry20:Number = mRawData[8]; var theEntry21:Number = mRawData[9]; var theEntry22:Number = mRawData[10]; var theEntry23:Number = mRawData[11];
-			var theEntry30:Number = mRawData[12]; var theEntry31:Number = mRawData[13]; var theEntry32:Number = mRawData[14]; var theEntry33:Number = mRawData[15];
+			var theEntry00:Number = _rawData[0]; var theEntry01:Number = _rawData[1]; var theEntry02:Number = _rawData[2]; var theEntry03:Number = _rawData[3];
+			var theEntry10:Number = _rawData[4]; var theEntry11:Number = _rawData[5]; var theEntry12:Number = _rawData[6]; var theEntry13:Number = _rawData[7];
+			var theEntry20:Number = _rawData[8]; var theEntry21:Number = _rawData[9]; var theEntry22:Number = _rawData[10]; var theEntry23:Number = _rawData[11];
+			var theEntry30:Number = _rawData[12]; var theEntry31:Number = _rawData[13]; var theEntry32:Number = _rawData[14]; var theEntry33:Number = _rawData[15];
 				
 			var theCross00:Number = theEntry00 * theEntry11 - theEntry01 * theEntry10; var theCross01:Number = theEntry00 * theEntry12 - theEntry02 * theEntry10;
 			var theCross02:Number = theEntry00 * theEntry13 - theEntry03 * theEntry10; var theCross03:Number = theEntry01 * theEntry12 - theEntry02 * theEntry11;
@@ -294,22 +294,22 @@ package com.humboldtjs.geom
 				return false;
 			}
 			
-			mRawData[0] = (theEntry11 * theCross11 - theEntry12 * theCross10 + theEntry13 * theCross09) * invDet;
-			mRawData[1] = (-theEntry01 * theCross11 + theEntry02 * theCross10 - theEntry03 * theCross09) * invDet;
-			mRawData[2] = (theEntry31 * theCross05 - theEntry32 * theCross04 + theEntry33 * theCross03) * invDet;
-			mRawData[3] = (-theEntry21 * theCross05 + theEntry22 * theCross04 - theEntry23 * theCross03) * invDet;
-			mRawData[4] = (-theEntry10 * theCross11 + theEntry12 * theCross08 - theEntry13 * theCross07) * invDet;
-			mRawData[5] = (theEntry00 * theCross11 - theEntry02 * theCross08 + theEntry03 * theCross07) * invDet;
-			mRawData[6] = (-theEntry30 * theCross05 + theEntry32 * theCross02 - theEntry33 * theCross01) * invDet;
-			mRawData[7] = (theEntry20 * theCross05 - theEntry22 * theCross02 + theEntry23 * theCross01) * invDet;
-			mRawData[8] = (theEntry10 * theCross10 - theEntry11 * theCross08 + theEntry13 * theCross06) * invDet;
-			mRawData[9] = (-theEntry00 * theCross10 + theEntry01 * theCross08 - theEntry03 * theCross06) * invDet;
-			mRawData[10] = (theEntry30 * theCross04 - theEntry31 * theCross02 + theEntry33 * theCross00) * invDet;
-			mRawData[11] = (-theEntry20 * theCross04 + theEntry21 * theCross02 - theEntry23 * theCross00) * invDet;
-			mRawData[12] = (-theEntry10 * theCross09 + theEntry11 * theCross07 - theEntry12 * theCross06) * invDet;
-			mRawData[13] = (theEntry00 * theCross09 - theEntry01 * theCross07 + theEntry02 * theCross06) * invDet;
-			mRawData[14] = (-theEntry30 * theCross03 + theEntry31 * theCross01 - theEntry32 * theCross00) * invDet;
-			mRawData[15] = (theEntry20 * theCross03 - theEntry21 * theCross01 + theEntry22 * theCross00) * invDet;
+			_rawData[0] = (theEntry11 * theCross11 - theEntry12 * theCross10 + theEntry13 * theCross09) * invDet;
+			_rawData[1] = (-theEntry01 * theCross11 + theEntry02 * theCross10 - theEntry03 * theCross09) * invDet;
+			_rawData[2] = (theEntry31 * theCross05 - theEntry32 * theCross04 + theEntry33 * theCross03) * invDet;
+			_rawData[3] = (-theEntry21 * theCross05 + theEntry22 * theCross04 - theEntry23 * theCross03) * invDet;
+			_rawData[4] = (-theEntry10 * theCross11 + theEntry12 * theCross08 - theEntry13 * theCross07) * invDet;
+			_rawData[5] = (theEntry00 * theCross11 - theEntry02 * theCross08 + theEntry03 * theCross07) * invDet;
+			_rawData[6] = (-theEntry30 * theCross05 + theEntry32 * theCross02 - theEntry33 * theCross01) * invDet;
+			_rawData[7] = (theEntry20 * theCross05 - theEntry22 * theCross02 + theEntry23 * theCross01) * invDet;
+			_rawData[8] = (theEntry10 * theCross10 - theEntry11 * theCross08 + theEntry13 * theCross06) * invDet;
+			_rawData[9] = (-theEntry00 * theCross10 + theEntry01 * theCross08 - theEntry03 * theCross06) * invDet;
+			_rawData[10] = (theEntry30 * theCross04 - theEntry31 * theCross02 + theEntry33 * theCross00) * invDet;
+			_rawData[11] = (-theEntry20 * theCross04 + theEntry21 * theCross02 - theEntry23 * theCross00) * invDet;
+			_rawData[12] = (-theEntry10 * theCross09 + theEntry11 * theCross07 - theEntry12 * theCross06) * invDet;
+			_rawData[13] = (theEntry00 * theCross09 - theEntry01 * theCross07 + theEntry02 * theCross06) * invDet;
+			_rawData[14] = (-theEntry30 * theCross03 + theEntry31 * theCross01 - theEntry32 * theCross00) * invDet;
+			_rawData[15] = (theEntry20 * theCross03 - theEntry21 * theCross01 + theEntry22 * theCross00) * invDet;
 			
 			return true;
 		}
@@ -320,14 +320,14 @@ package com.humboldtjs.geom
 		 */ 
 		public function prepend(aOtherMatrix:Matrix3D):void
 		{
-			var theEntry00:Number = mRawData[0]; var theEntry01:Number = mRawData[1];
-			var theEntry02:Number = mRawData[2]; var theEntry03:Number = mRawData[3];
-			var theEntry10:Number = mRawData[4]; var theEntry11:Number = mRawData[5];
-			var theEntry12:Number = mRawData[6]; var theEntry13:Number = mRawData[7];
-			var theEntry20:Number = mRawData[8]; var theEntry21:Number = mRawData[9];
-			var theEntry22:Number = mRawData[10]; var theEntry23:Number = mRawData[11];
-			var theEntry30:Number = mRawData[12]; var theEntry31:Number = mRawData[13];
-			var theEntry32:Number = mRawData[14]; var theEntry33:Number = mRawData[15];
+			var theEntry00:Number = _rawData[0]; var theEntry01:Number = _rawData[1];
+			var theEntry02:Number = _rawData[2]; var theEntry03:Number = _rawData[3];
+			var theEntry10:Number = _rawData[4]; var theEntry11:Number = _rawData[5];
+			var theEntry12:Number = _rawData[6]; var theEntry13:Number = _rawData[7];
+			var theEntry20:Number = _rawData[8]; var theEntry21:Number = _rawData[9];
+			var theEntry22:Number = _rawData[10]; var theEntry23:Number = _rawData[11];
+			var theEntry30:Number = _rawData[12]; var theEntry31:Number = _rawData[13];
+			var theEntry32:Number = _rawData[14]; var theEntry33:Number = _rawData[15];
 				
 			var theOther00:Number = aOtherMatrix.getRawData()[0]; var theOther01:Number = aOtherMatrix.getRawData()[1];
 			var theOther02:Number = aOtherMatrix.getRawData()[2]; var theOther03:Number = aOtherMatrix.getRawData()[3];
@@ -338,22 +338,22 @@ package com.humboldtjs.geom
 			var theOther30:Number = aOtherMatrix.getRawData()[12]; var theOther31:Number = aOtherMatrix.getRawData()[13];
 			var theOther32:Number = aOtherMatrix.getRawData()[14]; var theOther33:Number = aOtherMatrix.getRawData()[15];
 			
-			mRawData[0] = theOther00 * theEntry00 + theOther01 * theEntry10 + theOther02 * theEntry20 + theOther03 * theEntry30;
-			mRawData[1] = theOther00 * theEntry01 + theOther01 * theEntry11 + theOther02 * theEntry21 + theOther03 * theEntry31;
-			mRawData[2] = theOther00 * theEntry02 + theOther01 * theEntry12 + theOther02 * theEntry22 + theOther03 * theEntry32;
-			mRawData[3] = theOther00 * theEntry03 + theOther01 * theEntry13 + theOther02 * theEntry23 + theOther03 * theEntry33;
-			mRawData[4] = theOther10 * theEntry00 + theOther11 * theEntry10 + theOther12 * theEntry20 + theOther13 * theEntry30;
-			mRawData[5] = theOther10 * theEntry01 + theOther11 * theEntry11 + theOther12 * theEntry21 + theOther13 * theEntry31;
-			mRawData[6] = theOther10 * theEntry02 + theOther11 * theEntry12 + theOther12 * theEntry22 + theOther13 * theEntry32;
-			mRawData[7] = theOther10 * theEntry03 + theOther11 * theEntry13 + theOther12 * theEntry23 + theOther13 * theEntry33;
-			mRawData[8] = theOther20 * theEntry00 + theOther21 * theEntry10 + theOther22 * theEntry20 + theOther23 * theEntry30;
-			mRawData[9] = theOther20 * theEntry01 + theOther21 * theEntry11 + theOther22 * theEntry21 + theOther23 * theEntry31;
-			mRawData[10] = theOther20 * theEntry02 + theOther21 * theEntry12 + theOther22 * theEntry22 + theOther23 * theEntry32;
-			mRawData[11] = theOther20 * theEntry03 + theOther21 * theEntry13 + theOther22 * theEntry23 + theOther23 * theEntry33;
-			mRawData[12] = theOther30 * theEntry00 + theOther31 * theEntry10 + theOther32 * theEntry20 + theOther33 * theEntry30;
-			mRawData[13] = theOther30 * theEntry01 + theOther31 * theEntry11 + theOther32 * theEntry21 + theOther33 * theEntry31;
-			mRawData[14] = theOther30 * theEntry02 + theOther31 * theEntry12 + theOther32 * theEntry22 + theOther33 * theEntry32;
-			mRawData[15] = theOther30 * theEntry03 + theOther31 * theEntry13 + theOther32 * theEntry23 + theOther33 * theEntry33;
+			_rawData[0] = theOther00 * theEntry00 + theOther01 * theEntry10 + theOther02 * theEntry20 + theOther03 * theEntry30;
+			_rawData[1] = theOther00 * theEntry01 + theOther01 * theEntry11 + theOther02 * theEntry21 + theOther03 * theEntry31;
+			_rawData[2] = theOther00 * theEntry02 + theOther01 * theEntry12 + theOther02 * theEntry22 + theOther03 * theEntry32;
+			_rawData[3] = theOther00 * theEntry03 + theOther01 * theEntry13 + theOther02 * theEntry23 + theOther03 * theEntry33;
+			_rawData[4] = theOther10 * theEntry00 + theOther11 * theEntry10 + theOther12 * theEntry20 + theOther13 * theEntry30;
+			_rawData[5] = theOther10 * theEntry01 + theOther11 * theEntry11 + theOther12 * theEntry21 + theOther13 * theEntry31;
+			_rawData[6] = theOther10 * theEntry02 + theOther11 * theEntry12 + theOther12 * theEntry22 + theOther13 * theEntry32;
+			_rawData[7] = theOther10 * theEntry03 + theOther11 * theEntry13 + theOther12 * theEntry23 + theOther13 * theEntry33;
+			_rawData[8] = theOther20 * theEntry00 + theOther21 * theEntry10 + theOther22 * theEntry20 + theOther23 * theEntry30;
+			_rawData[9] = theOther20 * theEntry01 + theOther21 * theEntry11 + theOther22 * theEntry21 + theOther23 * theEntry31;
+			_rawData[10] = theOther20 * theEntry02 + theOther21 * theEntry12 + theOther22 * theEntry22 + theOther23 * theEntry32;
+			_rawData[11] = theOther20 * theEntry03 + theOther21 * theEntry13 + theOther22 * theEntry23 + theOther23 * theEntry33;
+			_rawData[12] = theOther30 * theEntry00 + theOther31 * theEntry10 + theOther32 * theEntry20 + theOther33 * theEntry30;
+			_rawData[13] = theOther30 * theEntry01 + theOther31 * theEntry11 + theOther32 * theEntry21 + theOther33 * theEntry31;
+			_rawData[14] = theOther30 * theEntry02 + theOther31 * theEntry12 + theOther32 * theEntry22 + theOther33 * theEntry32;
+			_rawData[15] = theOther30 * theEntry03 + theOther31 * theEntry13 + theOther32 * theEntry23 + theOther33 * theEntry33;
 		}
 		
 		/**
@@ -372,31 +372,31 @@ package com.humboldtjs.geom
 			var theEntry30:Number = aOtherMatrix.getRawData()[12]; var theEntry31:Number = aOtherMatrix.getRawData()[13];
 			var theEntry32:Number = aOtherMatrix.getRawData()[14]; var theEntry33:Number = aOtherMatrix.getRawData()[15];
 			
-			var theOther00:Number = mRawData[0]; var theOther01:Number = mRawData[1];
-			var theOther02:Number = mRawData[2]; var theOther03:Number = mRawData[3];
-			var theOther10:Number = mRawData[4]; var theOther11:Number = mRawData[5];
-			var theOther12:Number = mRawData[6]; var theOther13:Number = mRawData[7];
-			var theOther20:Number = mRawData[8]; var theOther21:Number = mRawData[9];
-			var theOther22:Number = mRawData[10]; var theOther23:Number = mRawData[11];
-			var theOther30:Number = mRawData[12]; var theOther31:Number = mRawData[13];
-			var theOther32:Number = mRawData[14]; var theOther33:Number = mRawData[15];
+			var theOther00:Number = _rawData[0]; var theOther01:Number = _rawData[1];
+			var theOther02:Number = _rawData[2]; var theOther03:Number = _rawData[3];
+			var theOther10:Number = _rawData[4]; var theOther11:Number = _rawData[5];
+			var theOther12:Number = _rawData[6]; var theOther13:Number = _rawData[7];
+			var theOther20:Number = _rawData[8]; var theOther21:Number = _rawData[9];
+			var theOther22:Number = _rawData[10]; var theOther23:Number = _rawData[11];
+			var theOther30:Number = _rawData[12]; var theOther31:Number = _rawData[13];
+			var theOther32:Number = _rawData[14]; var theOther33:Number = _rawData[15];
 			
-			mRawData[0] = theOther00 * theEntry00 + theOther01 * theEntry10 + theOther02 * theEntry20 + theOther03 * theEntry30;
-			mRawData[1] = theOther00 * theEntry01 + theOther01 * theEntry11 + theOther02 * theEntry21 + theOther03 * theEntry31;
-			mRawData[2] = theOther00 * theEntry02 + theOther01 * theEntry12 + theOther02 * theEntry22 + theOther03 * theEntry32;
-			mRawData[3] = theOther00 * theEntry03 + theOther01 * theEntry13 + theOther02 * theEntry23 + theOther03 * theEntry33;
-			mRawData[4] = theOther10 * theEntry00 + theOther11 * theEntry10 + theOther12 * theEntry20 + theOther13 * theEntry30;
-			mRawData[5] = theOther10 * theEntry01 + theOther11 * theEntry11 + theOther12 * theEntry21 + theOther13 * theEntry31;
-			mRawData[6] = theOther10 * theEntry02 + theOther11 * theEntry12 + theOther12 * theEntry22 + theOther13 * theEntry32;
-			mRawData[7] = theOther10 * theEntry03 + theOther11 * theEntry13 + theOther12 * theEntry23 + theOther13 * theEntry33;
-			mRawData[8] = theOther20 * theEntry00 + theOther21 * theEntry10 + theOther22 * theEntry20 + theOther23 * theEntry30;
-			mRawData[9] = theOther20 * theEntry01 + theOther21 * theEntry11 + theOther22 * theEntry21 + theOther23 * theEntry31;
-			mRawData[10] = theOther20 * theEntry02 + theOther21 * theEntry12 + theOther22 * theEntry22 + theOther23 * theEntry32;
-			mRawData[11] = theOther20 * theEntry03 + theOther21 * theEntry13 + theOther22 * theEntry23 + theOther23 * theEntry33;
-			mRawData[12] = theOther30 * theEntry00 + theOther31 * theEntry10 + theOther32 * theEntry20 + theOther33 * theEntry30;
-			mRawData[13] = theOther30 * theEntry01 + theOther31 * theEntry11 + theOther32 * theEntry21 + theOther33 * theEntry31;
-			mRawData[14] = theOther30 * theEntry02 + theOther31 * theEntry12 + theOther32 * theEntry22 + theOther33 * theEntry32;
-			mRawData[15] = theOther30 * theEntry03 + theOther31 * theEntry13 + theOther32 * theEntry23 + theOther33 * theEntry33;
+			_rawData[0] = theOther00 * theEntry00 + theOther01 * theEntry10 + theOther02 * theEntry20 + theOther03 * theEntry30;
+			_rawData[1] = theOther00 * theEntry01 + theOther01 * theEntry11 + theOther02 * theEntry21 + theOther03 * theEntry31;
+			_rawData[2] = theOther00 * theEntry02 + theOther01 * theEntry12 + theOther02 * theEntry22 + theOther03 * theEntry32;
+			_rawData[3] = theOther00 * theEntry03 + theOther01 * theEntry13 + theOther02 * theEntry23 + theOther03 * theEntry33;
+			_rawData[4] = theOther10 * theEntry00 + theOther11 * theEntry10 + theOther12 * theEntry20 + theOther13 * theEntry30;
+			_rawData[5] = theOther10 * theEntry01 + theOther11 * theEntry11 + theOther12 * theEntry21 + theOther13 * theEntry31;
+			_rawData[6] = theOther10 * theEntry02 + theOther11 * theEntry12 + theOther12 * theEntry22 + theOther13 * theEntry32;
+			_rawData[7] = theOther10 * theEntry03 + theOther11 * theEntry13 + theOther12 * theEntry23 + theOther13 * theEntry33;
+			_rawData[8] = theOther20 * theEntry00 + theOther21 * theEntry10 + theOther22 * theEntry20 + theOther23 * theEntry30;
+			_rawData[9] = theOther20 * theEntry01 + theOther21 * theEntry11 + theOther22 * theEntry21 + theOther23 * theEntry31;
+			_rawData[10] = theOther20 * theEntry02 + theOther21 * theEntry12 + theOther22 * theEntry22 + theOther23 * theEntry32;
+			_rawData[11] = theOther20 * theEntry03 + theOther21 * theEntry13 + theOther22 * theEntry23 + theOther23 * theEntry33;
+			_rawData[12] = theOther30 * theEntry00 + theOther31 * theEntry10 + theOther32 * theEntry20 + theOther33 * theEntry30;
+			_rawData[13] = theOther30 * theEntry01 + theOther31 * theEntry11 + theOther32 * theEntry21 + theOther33 * theEntry31;
+			_rawData[14] = theOther30 * theEntry02 + theOther31 * theEntry12 + theOther32 * theEntry22 + theOther33 * theEntry32;
+			_rawData[15] = theOther30 * theEntry03 + theOther31 * theEntry13 + theOther32 * theEntry23 + theOther33 * theEntry33;
 		}
 	}
 }

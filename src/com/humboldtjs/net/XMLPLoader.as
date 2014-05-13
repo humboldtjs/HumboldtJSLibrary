@@ -8,10 +8,7 @@
 */
 package com.humboldtjs.net
 {
-	import com.humboldtjs.system.Convert;
 	import com.humboldtjs.xml.HJSXML;
-	
-	import dom.domobjects.HTMLElement;
 
 	/**
 	 * A prefix loader which loads XMLP files that have been generated using

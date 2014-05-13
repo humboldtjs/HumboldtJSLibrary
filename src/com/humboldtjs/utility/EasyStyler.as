@@ -23,12 +23,12 @@ package com.humboldtjs.utility
 	 */
 	public class EasyStyler
 	{
-		protected static var mInstance:EasyStyler;
+		protected static var _instance:EasyStyler;
 		
-		protected static var mFontEmbedStyleSheet:HTMLElement;
-		protected static var mFontEmbedList:Vector.<String>;
+		protected static var _fontEmbedStyleSheet:HTMLElement;
+		protected static var _fontEmbedList:Vector.<String>;
 
-		protected var mStyles:Object;
+		protected var _styles:Object;
 		
 		/**
 		 * Apply a previously registered style to an HTML element
@@ -38,22 +38,22 @@ package com.humboldtjs.utility
 		 */
 		public static function applyStyle(aElement:HTMLElement, aStyleName:String):void
 		{
-			applyStyleObject(aElement, getInstance().mStyles[aStyleName]);
+			applyStyleObject(aElement, getInstance()._styles[aStyleName]);
 		}
 		
 		protected static function addFontEmbed(theValue:String):void
 		{
-			if (mFontEmbedList == null) {
-				mFontEmbedList = new Vector.<String>();
+			if (_fontEmbedList == null) {
+				_fontEmbedList = new Vector.<String>();
 			}
-			if (mFontEmbedStyleSheet == null) {
-				mFontEmbedStyleSheet = document.createElement("style");
-				mFontEmbedStyleSheet.setAttribute("type", "text/css");
-				document.getElementsByTagName("head")[0].appendChild(mFontEmbedStyleSheet);
+			if (_fontEmbedStyleSheet == null) {
+				_fontEmbedStyleSheet = document.createElement("style");
+				_fontEmbedStyleSheet.setAttribute("type", "text/css");
+				document.getElementsByTagName("head")[0].appendChild(_fontEmbedStyleSheet);
 			}
 			
-			if (mFontEmbedList.indexOf(theValue) == -1) {
-				mFontEmbedList.push(theValue);
+			if (_fontEmbedList.indexOf(theValue) == -1) {
+				_fontEmbedList.push(theValue);
 			}
 			
 			updateFontEmbedStyleSheet();
@@ -62,8 +62,8 @@ package com.humboldtjs.utility
 		protected static function updateFontEmbedStyleSheet():void
 		{
 			var theStyleSheet:String = "";
-			for (var i:int = 0; i < mFontEmbedList.length; i++) {
-				var theFont:String = mFontEmbedList[i];
+			for (var i:int = 0; i < _fontEmbedList.length; i++) {
+				var theFont:String = _fontEmbedList[i];
 				theStyleSheet += "@font-face {\n" +
 					"\tfont-family:'" + theFont.substr(theFont.lastIndexOf("/") + 1) + "';\n" +
 					"\tsrc:url('" + theFont + ".eot');\n" +
@@ -79,10 +79,10 @@ package com.humboldtjs.utility
 			// Specific IE8 fix to set styles as .innerHTML is read only in IE8 for <style> nodes.
 			// http://www.phpied.com/dynamic-script-and-style-elements-in-ie/
 			// http://msdn.microsoft.com/en-us/library/ms533897%28VS.85%29.aspx
-			if (mFontEmbedStyleSheet["styleSheet"] != null) {
-				mFontEmbedStyleSheet["styleSheet"].cssText = theStyleSheet;
+			if (_fontEmbedStyleSheet["styleSheet"] != null) {
+				_fontEmbedStyleSheet["styleSheet"].cssText = theStyleSheet;
 			} else {
-				mFontEmbedStyleSheet.innerHTML = theStyleSheet;
+				_fontEmbedStyleSheet.innerHTML = theStyleSheet;
 			}
 		}
 
@@ -152,12 +152,12 @@ package com.humboldtjs.utility
 		 */
 		protected static function getInstance():EasyStyler
 		{
-			if (mInstance) {
-				return mInstance;
+			if (_instance) {
+				return _instance;
 			}
 			
-			mInstance = new EasyStyler();
-			return mInstance;
+			_instance = new EasyStyler();
+			return _instance;
 		}
 		
 		/**
@@ -174,7 +174,7 @@ package com.humboldtjs.utility
 		 */
 		public static function defineStyle(aStyleName:String, aValues:Object):void
 		{
-			getInstance().mStyles[aStyleName] = aValues;
+			getInstance()._styles[aStyleName] = aValues;
 		}
 		
 		/**
@@ -182,7 +182,7 @@ package com.humboldtjs.utility
 		 */
 		public function EasyStyler()
 		{
-			mStyles = {};
+			_styles = {};
 		}
 	}
 }

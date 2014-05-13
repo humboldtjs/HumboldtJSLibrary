@@ -22,29 +22,29 @@ package com.humboldtjs.display
 	 */
 	public class Bitmap extends DisplayObject implements ISrcDisplayObject
 	{
-		protected var mUnscaledWidth:Number = 0;
-		protected var mUnscaledHeight:Number = 0;
+		protected var _unscaledWidth:Number = 0;
+		protected var _unscaledHeight:Number = 0;
 		
 		/**
 		 * The unscaled width of the bitmap.
 		 */
-		override public function getUnscaledWidth():Number { return mUnscaledWidth; }
+		override public function getUnscaledWidth():Number { return _unscaledWidth; }
 		/**
 		 * The unscaled height of the bitmap.
 		 */
-		override public function getUnscaledHeight():Number { return mUnscaledHeight; }
+		override public function getUnscaledHeight():Number { return _unscaledHeight; }
 		
 		/**
 		 * The source URL of the bitmap.
 		 */
-		public function getSrc():String					{ return mElement.src; }
+		public function getSrc():String					{ return _element.src; }
 		/**
 		 * The source URL of the bitmap.
 		 */
 		public function setSrc(value:String):void
 		{
-			mElement.src = value;
-			if (mElement.complete)
+			_element.src = value;
+			if (_element.complete)
 				onLoadComplete();
 		}
 		
@@ -55,14 +55,14 @@ package com.humboldtjs.display
 		{
 			super();
 			
-			mElement.onload = onLoadComplete;
-			mElement.onerror = onLoadError;
-			mElement.onabort = onLoadError;
+			_element.onload = onLoadComplete;
+			_element.onerror = onLoadError;
+			_element.onabort = onLoadError;
 		}
 		
 		override protected function initializeElement():void
 		{
-			mElement = document.createElement("img");
+			_element = document.createElement("img");
 		}
 		
 		/**
@@ -71,8 +71,8 @@ package com.humboldtjs.display
 		public function clone():ISrcDisplayObject
 		{
 			var theBitmap:Bitmap = new Bitmap();
-			theBitmap.mUnscaledWidth = mUnscaledWidth;
-			theBitmap.mUnscaledHeight = mUnscaledHeight;
+			theBitmap._unscaledWidth = _unscaledWidth;
+			theBitmap._unscaledHeight = _unscaledHeight;
 			theBitmap.setSrc(getSrc());
 			
 			return theBitmap;
@@ -83,10 +83,10 @@ package com.humboldtjs.display
 		 */
 		protected function onLoadComplete():void
 		{
-			if (mElement["naturalWidth"]) {
+			if (_element["naturalWidth"]) {
 				
-				mUnscaledWidth = mElement.naturalWidth;
-				mUnscaledHeight = mElement.naturalHeight;
+				_unscaledWidth = _element.naturalWidth;
+				_unscaledHeight = _element.naturalHeight;
 
 			} else {
 				
@@ -95,20 +95,20 @@ package com.humboldtjs.display
 				// workaround for a bug where when requesting unscaled
 				// size it will use this 28x30 from the cache instead.
 				// Setting style to auto forces recalculation.
-				mElement.style.width = "auto";
-				mElement.style.height = "auto";
+				_element.style.width = "auto";
+				_element.style.height = "auto";
 				
-				document.body.appendChild(mElement);
-				if (mUnscaledWidth == 0)
-					mUnscaledWidth = Convert.toInt(mElement.width.toString());
-				if (mUnscaledHeight == 0)
-					mUnscaledHeight = Convert.toInt(mElement.height.toString());
+				document.body.appendChild(_element);
+				if (_unscaledWidth == 0)
+					_unscaledWidth = Convert.toInt(_element.width.toString());
+				if (_unscaledHeight == 0)
+					_unscaledHeight = Convert.toInt(_element.height.toString());
 
-				document.body.removeChild(mElement);
+				document.body.removeChild(_element);
 			}
 			
-			if (mParent)
-				mParent["mElement"].appendChild(mElement);
+			if (_parent)
+				_parent.getHtmlElement().appendChild(_element);
 			
 			dispatchEvent(new HJSEvent(HJSEvent.COMPLETE));
 		}

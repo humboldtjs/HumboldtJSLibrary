@@ -13,14 +13,14 @@ package com.humboldtjs.xml
 	 */
 	public class XMLSimple extends HJSXML
 	{
-		protected var mValue:String = "";
+		protected var _value:String = "";
 		
-		public function getValue():String { return mValue; }
+		public function getValue():String { return _value; }
 		
 		public function XMLSimple(aData:String)
 		{
 			super();
-			mValue = aData;
+			_value = aData;
 		}
 	}
 }

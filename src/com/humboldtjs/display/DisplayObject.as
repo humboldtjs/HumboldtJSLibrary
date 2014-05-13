@@ -23,22 +23,22 @@ package com.humboldtjs.display
 	 */
 	public class DisplayObject extends EventDispatcher
 	{
-		protected var mElement:HTMLElement;
-		protected var mClassNames:Array = null;
-		protected var mChildren:Array;
+		protected var _element:HTMLElement;
+		protected var _classNames:Array = null;
+		protected var _children:Array;
 		
-		protected var mX:Number = -999999;
-		protected var mY:Number = -999999;
-		protected var mZIndex:int = 0;
-		protected var mRight:Number = -999999;
-		protected var mBottom:Number = -999999;
-		protected var mWidth:Number = -1;
-		protected var mHeight:Number = -1;
-		protected var mPercentWidth:Number = -1;
-		protected var mPercentHeight:Number = -1;
-		protected var mAlpha:Number = 1;
-		protected var mVisible:Boolean = true;
-		protected var mParent:DisplayObject = null;
+		protected var _x:Number = -999999;
+		protected var _y:Number = -999999;
+		protected var _zIndex:int = 0;
+		protected var _right:Number = -999999;
+		protected var _bottom:Number = -999999;
+		protected var _width:Number = -1;
+		protected var _height:Number = -1;
+		protected var _percentWidth:Number = -1;
+		protected var _percentHeight:Number = -1;
+		protected var _alpha:Number = 1;
+		protected var _visible:Boolean = true;
+		protected var _parent:DisplayObject = null;
 		
 		/**
 		 * Add a classname to the HTML element used to render this displayobject.
@@ -48,12 +48,12 @@ package com.humboldtjs.display
 		 */
 		public function addClassName(aClassName:String):void
 		{
-			if (mClassNames == null) mClassNames = new Array();
-			if (mClassNames.indexOf(aClassName) == -1) {
-				mClassNames.push(aClassName);
+			if (_classNames == null) _classNames = new Array();
+			if (_classNames.indexOf(aClassName) == -1) {
+				_classNames.push(aClassName);
 			}
-			if (mElement != null) {
-				mElement.className = mClassNames.join(" ");
+			if (_element != null) {
+				_element.className = _classNames.join(" ");
 			}
 		}
 		
@@ -64,12 +64,12 @@ package com.humboldtjs.display
 		 */
 		public function removeClassName(aClassName:String):void
 		{
-			if (mClassNames == null) mClassNames = new Array();
-			if (mClassNames.indexOf(aClassName) != -1) {
-				mClassNames.splice(mClassNames.indexOf(aClassName), 1);
+			if (_classNames == null) _classNames = new Array();
+			if (_classNames.indexOf(aClassName) != -1) {
+				_classNames.splice(_classNames.indexOf(aClassName), 1);
 			}
-			if (mElement != null) {
-				mElement.className = mClassNames.join(" ");
+			if (_element != null) {
+				_element.className = _classNames.join(" ");
 			}
 		}
 		
@@ -78,13 +78,13 @@ package com.humboldtjs.display
 		 */
 		protected function setParent(aParent:DisplayObject):void
 		{
-			mParent = aParent;
+			_parent = aParent;
 		}
 		
 		/**
 		 * The current instance's parent DisplayObject
 		 */
-		public function getParent():DisplayObject { return mParent; }
+		public function getParent():DisplayObject { return _parent; }
 		
 		/**
 		 * A reference to the Stage object if we can find it. If not will return null
@@ -118,117 +118,117 @@ package com.humboldtjs.display
 		/**
 		 * The z-index
 		 */
-		public function getZIndex():int { return mZIndex; }
+		public function getZIndex():int { return _zIndex; }
 		/**
 		 * The z-index
 		 */
 		public function setZIndex(value:int):void
 		{
-			if (mZIndex == value) return;
-			mZIndex = value;
-			mElement.style.zIndex = "" + value;
+			if (_zIndex == value) return;
+			_zIndex = value;
+			_element.style.zIndex = "" + value;
 		}
 		
 		/**
 		 * The visibility
 		 */
-		public function getVisible():Boolean { return mVisible; }
+		public function getVisible():Boolean { return _visible; }
 		/**
 		 * The visibility
 		 */
 		public function setVisible(value:Boolean):void
 		{
-			if (mVisible == value) return;
-			mVisible = value;
-			mElement.style.display = mVisible ? "block" : "none";
+			if (_visible == value) return;
+			_visible = value;
+			_element.style.display = _visible ? "block" : "none";
 		}
 		
 		/**
 		 * The opacity
 		 */
-		public function getAlpha():Number { return mAlpha; }
+		public function getAlpha():Number { return _alpha; }
 		/**
 		 * The opacity
 		 */
 		public function setAlpha(value:Number):void
 		{
-			if (mAlpha == value) return;
-			mAlpha = value;
-			mElement.style.opacity = mAlpha.toFixed(1);
-			mElement.style.filter = "alpha(opacity=" + Math.round(mAlpha * 100) + ")";
-			if (mAlpha == 0) {
-				mElement.style.display = "none";
+			if (_alpha == value) return;
+			_alpha = value;
+			_element.style.opacity = _alpha.toFixed(1);
+			_element.style.filter = "alpha(opacity=" + Math.round(_alpha * 100) + ")";
+			if (_alpha == 0) {
+				_element.style.display = "none";
 			} else {
-				mElement.style.display = "block";
+				_element.style.display = "block";
 			}
 		}
 		
 		/**
 		 * The x position (left)
 		 */
-		public function getX():Number { return mX; }
+		public function getX():Number { return _x; }
 		/**
 		 * The x position (left)
 		 */
 		public function setX(value:Number):void
 		{
-			if (mX == value) return;
-			mX = value;
-			if (isNaN(mX))
-				mElement.style.left = null;
+			if (_x == value) return;
+			_x = value;
+			if (isNaN(_x))
+				_element.style.left = null;
 			else
-				mElement.style.left = mX + "px";
+				_element.style.left = _x + "px";
 		}
 		
 		/**
 		 * The right position
 		 */
-		public function getRight():Number { return mRight; }
+		public function getRight():Number { return _right; }
 		/**
 		 * The right position
 		 */
 		public function setRight(value:Number):void
 		{
-			if (mRight == value) return;
-			mRight = value;
-			if (isNaN(mRight))
-				mElement.style.right = null;
+			if (_right == value) return;
+			_right = value;
+			if (isNaN(_right))
+				_element.style.right = null;
 			else
-				mElement.style.right = mRight + "px";
+				_element.style.right = _right + "px";
 		}
 		
 		/**
 		 * The y position (top)
 		 */
-		public function getY():Number { return mY; }
+		public function getY():Number { return _y; }
 		/**
 		 * The y position (top)
 		 */
 		public function setY(value:Number):void
 		{
-			if (mY == value) return;
-			mY = value;
-			if (isNaN(mY))
-				mElement.style.top = null;
+			if (_y == value) return;
+			_y = value;
+			if (isNaN(_y))
+				_element.style.top = null;
 			else
-				mElement.style.top = mY + "px";
+				_element.style.top = _y + "px";
 		}
 		
 		/**
 		 * The bottom position
 		 */
-		public function getBottom():Number { return mBottom; }
+		public function getBottom():Number { return _bottom; }
 		/**
 		 * The bottom position
 		 */
 		public function setBottom(value:Number):void
 		{
-			if (mBottom == value) return;
-			mBottom = value;
-			if (isNaN(mBottom))
-				mElement.style.bottom = null;
+			if (_bottom == value) return;
+			_bottom = value;
+			if (isNaN(_bottom))
+				_element.style.bottom = null;
 			else
-				mElement.style.bottom = mBottom + "px";
+				_element.style.bottom = _bottom + "px";
 		}
 		
 		/**
@@ -256,93 +256,93 @@ package com.humboldtjs.display
 		/**
 		 * The unscaledWidth
 		 */
-		public function getUnscaledWidth():Number { return mElement.clientWidth; }
+		public function getUnscaledWidth():Number { return _element.clientWidth; }
 		/**
 		 * The unscaledHeight
 		 */
-		public function getUnscaledHeight():Number { return mElement.clientHeight; }
+		public function getUnscaledHeight():Number { return _element.clientHeight; }
 		
 		/**
 		 * The width
 		 */
-		public function getWidth():Number { return Math.max(0, mWidth); }
+		public function getWidth():Number { return Math.max(0, _width); }
 		/**
 		 * The width
 		 */
 		public function setWidth(value:Number):void
 		{
-			if (mWidth == value) return;
-			mWidth = value;
-			mPercentWidth = NaN;
-			if (isNaN(mWidth))
-				mElement.style.width = null;
+			if (_width == value) return;
+			_width = value;
+			_percentWidth = NaN;
+			if (isNaN(_width))
+				_element.style.width = null;
 			else
-				mElement.style.width = mWidth + "px";
+				_element.style.width = _width + "px";
 		}
 		
 		/**
 		 * The height
 		 */
-		public function getHeight():Number { return Math.max(0, mHeight); }
+		public function getHeight():Number { return Math.max(0, _height); }
 		/**
 		 * The height
 		 */
 		public function setHeight(value:Number):void
 		{
-			if (mHeight == value) return;
-			mHeight = value;
-			mPercentHeight = NaN;
-			if (isNaN(mHeight))
-				mElement.style.height = null;
+			if (_height == value) return;
+			_height = value;
+			_percentHeight = NaN;
+			if (isNaN(_height))
+				_element.style.height = null;
 			else
-				mElement.style.height = mHeight + "px";
+				_element.style.height = _height + "px";
 		}
 		
 		/**
 		 * The width as a percentage
 		 */
-		public function getPercentWidth():Number { return Math.max(0, mPercentWidth); }
+		public function getPercentWidth():Number { return Math.max(0, _percentWidth); }
 		/**
 		 * The width as a percentage
 		 */
 		public function setPercentWidth(value:Number):void
 		{
-			if (mPercentWidth == value) return;
-			mPercentWidth = value;
-			mWidth = NaN;
-			if (isNaN(mPercentWidth))
-				mElement.style.width = null;
+			if (_percentWidth == value) return;
+			_percentWidth = value;
+			_width = NaN;
+			if (isNaN(_percentWidth))
+				_element.style.width = null;
 			else
-				mElement.style.width = mPercentWidth + "%";
+				_element.style.width = _percentWidth + "%";
 		}
 		
 		/**
 		 * The height as a percentage
 		 */
-		public function getPercentHeight():Number { return Math.max(0, mPercentHeight); }
+		public function getPercentHeight():Number { return Math.max(0, _percentHeight); }
 		/**
 		 * The height as a percentage
 		 */
 		public function setPercentHeight(value:Number):void
 		{
-			if (mPercentHeight == value) return;
-			mPercentHeight = value;
-			mHeight = NaN;
-			if (isNaN(mPercentHeight))
-				mElement.style.height = null;
+			if (_percentHeight == value) return;
+			_percentHeight = value;
+			_height = NaN;
+			if (isNaN(_percentHeight))
+				_element.style.height = null;
 			else
-				mElement.style.height = mPercentHeight + "%";
+				_element.style.height = _percentHeight + "%";
 		}
 		
 		/**
 		 * The DisplayObject's HTMLElement
 		 */
-		public function getHtmlElement():HTMLElement { return mElement; }
+		public function getHtmlElement():HTMLElement { return _element; }
 		
 		/**
 		 * The number of children this DisplayObject has
 		 */
-		public function getNumChildren():int { return mChildren.length; }
+		public function getNumChildren():int { return _children.length; }
 		
 		/**
 		 * @constructor
@@ -354,25 +354,25 @@ package com.humboldtjs.display
 			initializeElement();
 			initializeStyle();
 			
-			mChildren = new Array();
+			_children = new Array();
 		}
 		
 		protected function initializeElement():void
 		{
-			mElement = document.createElement("div");
+			_element = document.createElement("div");
 		}
 		
 		protected function initializeStyle():void
 		{
-			if (mClassNames == null) mClassNames = new Array();
-			if (mClassNames.length == 0) {
-				mElement.style.position = "absolute";
-				mElement.style.zIndex = "0";
+			if (_classNames == null) _classNames = new Array();
+			if (_classNames.length == 0) {
+				_element.style.position = "absolute";
+				_element.style.zIndex = "0";
 			
 				setX(0);
 				setY(0);
 			} else {
-				mElement.className = mClassNames.join(" ");
+				_element.className = _classNames.join(" ");
 			}
 		}
 		
@@ -384,20 +384,20 @@ package com.humboldtjs.display
 		 */
 		public function addChild(aChild:DisplayObject):void
 		{
-			var theIndex:int = mChildren.indexOf(aChild);
+			var theIndex:int = _children.indexOf(aChild);
 
 			// If the element already exists as a child, we first remove it
 			// this makes sure that the child is added at the top later
 			if (theIndex != -1) {
-				if (theIndex != mChildren.length - 1) {
-					mChildren.splice(theIndex, 1);
+				if (theIndex != _children.length - 1) {
+					_children.splice(theIndex, 1);
 				} else {
 					return;
 				}
 			}
 			
-			mChildren.push(aChild);
-			mElement.appendChild(aChild.getHtmlElement());
+			_children.push(aChild);
+			_element.appendChild(aChild.getHtmlElement());
 			
 			aChild.setParent(this);
 		}
@@ -412,13 +412,13 @@ package com.humboldtjs.display
 		 */
 		public function addChildAt(aChild:DisplayObject, aIndex:int):void
 		{
-			var theIndex:int = mChildren.indexOf(aChild);
+			var theIndex:int = _children.indexOf(aChild);
 
 			// If the element already exists as a child, we first remove it
 			// this makes sure that the child is added at the top later
 			if (theIndex != -1) {
-				if (theIndex != mChildren.length - 1) {
-					mChildren.splice(theIndex, 1);
+				if (theIndex != _children.length - 1) {
+					_children.splice(theIndex, 1);
 				} else {
 					return;
 				}
@@ -426,14 +426,14 @@ package com.humboldtjs.display
 
 			// If the position to add the child at is too high (larger than
 			// the current number of children) then just add it at the top
-			if (aIndex >= mChildren.length) {
+			if (aIndex >= _children.length) {
 				addChild(aChild);
 				return;
 			}
 			
 			// Otherwise add it at the requested position
-			mChildren.splice(aIndex, 0, aChild);
-			mElement.insertBefore(aChild.getHtmlElement(), mElement.childNodes[aIndex]);
+			_children.splice(aIndex, 0, aChild);
+			_element.insertBefore(aChild.getHtmlElement(), _element.childNodes[aIndex]);
 			
 			aChild.setParent(this);
 		}
@@ -445,9 +445,9 @@ package com.humboldtjs.display
 		 */
 		public function removeChild(aChild:DisplayObject):void
 		{
-			if (mChildren.indexOf(aChild) == -1) return;
+			if (_children.indexOf(aChild) == -1) return;
 			
-			removeChildAt(mChildren.indexOf(aChild));
+			removeChildAt(_children.indexOf(aChild));
 		}
 		
 		/**
@@ -457,10 +457,10 @@ package com.humboldtjs.display
 		 */
 		public function removeChildAt(aIndex:int):void
 		{
-			var theChild:DisplayObject = mChildren[aIndex];
+			var theChild:DisplayObject = _children[aIndex];
 			
-			mChildren.splice(aIndex, 1);
-			mElement.removeChild(theChild.getHtmlElement());
+			_children.splice(aIndex, 1);
+			_element.removeChild(theChild.getHtmlElement());
 			
 			theChild.setParent(null);
 		}
@@ -473,7 +473,7 @@ package com.humboldtjs.display
 		 */
 		public function getChildAt(aIndex:int):DisplayObject
 		{
-			return mChildren[aIndex];
+			return _children[aIndex];
 		}
 	}
 }

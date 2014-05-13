@@ -15,31 +15,31 @@ package com.humboldtjs.xml
 	 */
 	public class XMLComplex extends HJSXML
 	{
-		protected var mName:String;
-		protected var mAt:Vector.<XMLAttribute>;
-		protected var mValue:Vector.<HJSXML>;
+		protected var _name:String;
+		protected var _at:Vector.<XMLAttribute>;
+		protected var _value:Vector.<HJSXML>;
 		
 		/**
 		 * The node name
 		 */
-		override public function getName():String { return mName; };
+		override public function getName():String { return _name; };
 		/**
 		 * A list of children of this node
 		 */
-		override public function getChildren():Vector.<HJSXML> { return mValue; }
+		override public function getChildren():Vector.<HJSXML> { return _value; }
 		/**
 		 * A list of attributes of this node
 		 */
-		override public function getAttributes():Vector.<XMLAttribute> { return mAt; }
+		override public function getAttributes():Vector.<XMLAttribute> { return _at; }
 		
 		/**
 		 * @constructor
 		 */
 		public function XMLComplex(aName:String = "", aAt:Vector.<XMLAttribute> = null, aValue:Vector.<HJSXML> = null)
 		{
-			mName = aName;
+			_name = aName;
 			
-			mValue = new Vector.<HJSXML>();
+			_value = new Vector.<HJSXML>();
 			if (aValue != null) {
 				for (var i:int = 0; i < aValue.length; i++) {
 					
@@ -47,26 +47,26 @@ package com.humboldtjs.xml
 					// loaded from an XMLP then it is still only an object
 					// structure and needs to be processed first
 					if (aValue[i] is HJSXML) {
-						mValue.push(aValue[i]);
+						_value.push(aValue[i]);
 					} else {
 						if (typeof aValue[i] !== "undefined")
-							mValue.push(processXML(aValue[i]));
+							_value.push(processXML(aValue[i]));
 					}
 				}
 			}
 			
-			mAt = new Vector.<XMLAttribute>();
-			if (mAt != null) {
+			_at = new Vector.<XMLAttribute>();
+			if (_at != null) {
 				for (var key:String in aAt) {
 					// Each value should be a XMLAttribute, but if the file was
 					// loaded from an XMLP then it is still only a key value
 					// pair in an object structure and the XMLAttribute needs
 					// to be created first
 					if (aAt[key] is XMLAttribute) {
-						mAt.push(aAt[key]);
+						_at.push(aAt[key]);
 					} else {
 						var untyped:* = aAt[key];
-						mAt.push(new XMLAttribute(key, untyped));
+						_at.push(new XMLAttribute(key, untyped));
 					}
 				}
 			}

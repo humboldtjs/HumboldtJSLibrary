@@ -16,14 +16,14 @@ package com.humboldtjs.events
 	 */
 	public class EventDispatcher implements IEventDispatcher
 	{
-		protected var mListeners:Array;
+		protected var _listeners:Array;
 		
 		/**
 		 * @constructor
 		 */
 		public function EventDispatcher()
 		{
-			mListeners = [];
+			_listeners = [];
 		}
 		
 		/**
@@ -42,8 +42,8 @@ package com.humboldtjs.events
 
 			// First check if the event is already registered. If so skip
 			// adding it again
-			for (var i:int = mListeners.length - 1; i >= 0; i--) {
-				theListener = mListeners[i];
+			for (var i:int = _listeners.length - 1; i >= 0; i--) {
+				theListener = _listeners[i];
 
 				// An EventFunction is similar to a normal Function, but is bound
 				// to an instance, and has a couple of properties that can be
@@ -58,7 +58,7 @@ package com.humboldtjs.events
 			// Store the listener that is being registered, so we can remove it
 			// again later.
 			theListener = {t: aType, e: theIn, s: theIn.s, f: theIn.f};
-			mListeners.push(theListener);
+			_listeners.push(theListener);
 		}
 		
 		/**
@@ -71,8 +71,8 @@ package com.humboldtjs.events
 		{
 			var theListener:Object;
 			
-			for (var i:int = mListeners.length - 1; i >= 0; i--) {
-				theListener = mListeners[i];
+			for (var i:int = _listeners.length - 1; i >= 0; i--) {
+				theListener = _listeners[i];
 				if (theListener.t == aType) return true;
 			}
 			
@@ -92,8 +92,8 @@ package com.humboldtjs.events
 			
 			// Loop through all registered listeners and remove it if it has
 			// a matching event
-			for (var i:int = mListeners.length - 1; i >= 0; i--) {
-				theListener = mListeners[i];
+			for (var i:int = _listeners.length - 1; i >= 0; i--) {
+				theListener = _listeners[i];
 				
 				// An EventFunction is similar to a normal Function, but is bound
 				// to an instance, and has a couple of properties that can be
@@ -104,7 +104,7 @@ package com.humboldtjs.events
 					theListener.s == theIn.s &&
 					theListener.f == theIn.f) {
 					
-					mListeners.splice(i, 1);
+					_listeners.splice(i, 1);
 				}
 			}
 		}
@@ -124,11 +124,11 @@ package com.humboldtjs.events
 			var theType:String = aEvent.getType();
 			
 			// Set the currentTarget to the instance dispatching the event
-			aEvent["mCurrentTarget"] = this;
+			aEvent["_currentTarget"] = this;
 
 			// Operate on a copy, because listeners may be modified in the
 			// listening callback
-			var theListeners:Array = mListeners.slice();
+			var theListeners:Array = _listeners.slice();
 			// Loop through all listeners that might be interested in this event
 			for (var i:int = theListeners.length - 1; i >= 0; i--) {
 				theListener = theListeners[i];
@@ -138,7 +138,7 @@ package com.humboldtjs.events
 					
 					// Check whether stop immediate propagation has been called
 					// in the last listener function
-					if (aEvent["mStopImmediatePropagation"] == true) return;
+					if (aEvent["_stopImmediatePropagation"] == true) return;
 				}
 			}
 		}

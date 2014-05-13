@@ -13,34 +13,34 @@ package com.humboldtjs.geom
 	 */ 
 	public class Rectangle
 	{
-		protected var mX:Number;
-		protected var mY:Number;
-		protected var mWidth:Number;
-		protected var mHeight:Number;
+		protected var _x:Number;
+		protected var _y:Number;
+		protected var _width:Number;
+		protected var _height:Number;
 
-		public function getX():Number												{ return mX; }
-		public function setX(aValue:Number):void									{ mX = aValue; }
+		public function getX():Number												{ return _x; }
+		public function setX(aValue:Number):void									{ _x = aValue; }
 
-		public function getY():Number												{ return mY; }
-		public function setY(aValue:Number):void									{ mY = aValue; }
+		public function getY():Number												{ return _y; }
+		public function setY(aValue:Number):void									{ _y = aValue; }
 
-		public function getWidth():Number											{ return mWidth; }
-		public function setWidth(aValue:Number):void								{ mWidth = aValue; }
+		public function getWidth():Number											{ return _width; }
+		public function setWidth(aValue:Number):void								{ _width = aValue; }
 
-		public function getHeight():Number											{ return mHeight; }
-		public function setHeight(aValue:Number):void								{ mHeight = aValue; }
+		public function getHeight():Number											{ return _height; }
+		public function setHeight(aValue:Number):void								{ _height = aValue; }
 
 		public function Rectangle(aX:Number, aY:Number, aWidth:Number, aHeight:Number)
 		{
-			mX = aX;
-			mY = aY;
-			mWidth = aWidth;
-			mHeight = aHeight;
+			_x = aX;
+			_y = aY;
+			_width = aWidth;
+			_height = aHeight;
 		}
 		
 		public function clone():Rectangle
 		{
-			return new Rectangle(mX, mY, mWidth, mHeight);
+			return new Rectangle(_x, _y, _width, _height);
 		}
 	}
 }

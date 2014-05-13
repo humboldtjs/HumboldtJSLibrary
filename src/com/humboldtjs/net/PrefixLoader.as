@@ -30,34 +30,34 @@ package com.humboldtjs.net
 	 */
 	public class PrefixLoader extends EventDispatcher
 	{
-		protected static var mLoadingQueue:Vector.<PrefixLoader> = new Vector.<PrefixLoader>();
-		protected static var mIsLoading:Boolean = false;
+		protected static var _loadingQueue:Vector.<PrefixLoader> = new Vector.<PrefixLoader>();
+		protected static var _isLoading:Boolean = false;
 		
-		protected var mContent:*;
-		protected var mScript:HTMLScriptElement;
-		protected var mPrefix:String;	
-		protected var mURLRequest:URLRequest;
-		protected var mInternalId:String;
+		protected var _content:*;
+		protected var _script:HTMLScriptElement;
+		protected var _prefix:String;	
+		protected var _URLRequest:URLRequest;
+		protected var _internalId:String;
 		
 		/**
 		 * The JSONP prefix to use
 		 */
-		public function getPrefix():String				{ return mPrefix; }
+		public function getPrefix():String				{ return _prefix; }
 		/**
 		 * The JSONP prefix to use
 		 */
-		public function setPrefix(aValue:String):void	{ mPrefix = aValue; }
+		public function setPrefix(aValue:String):void	{ _prefix = aValue; }
 
 		/**
 		 * The unique internal ID of this PrefixLoader. Is used to link the
 		 * JSONP script back to this specific instance of PrefixLoader.
 		 */
-		public function getInternalId():String			{ return mInternalId; }
+		public function getInternalId():String			{ return _internalId; }
 		
 		/**
 		 * The loaded content
 		 */
-		public function getContent():*				{ return mContent; }
+		public function getContent():*				{ return _content; }
 		
 		/**
 		 * @constructor
@@ -65,12 +65,12 @@ package com.humboldtjs.net
 		public function PrefixLoader()
 		{
 			super();
-			mInternalId = InternalId.generateInternalId("PrefixLoader");
-			mPrefix = "parse";
+			_internalId = InternalId.generateInternalId("PrefixLoader");
+			_prefix = "parse";
 			
-			mScript = document.createElement("script") as HTMLScriptElement;
+			_script = document.createElement("script") as HTMLScriptElement;
 
-			mContent = {};
+			_content = {};
 		}
 		
 		/**
@@ -79,23 +79,23 @@ package com.humboldtjs.net
 		 */
 		public function close():void
 		{
-			if (mLoadingQueue.indexOf(this) != -1)
-				mLoadingQueue.splice(mLoadingQueue.indexOf(this), 1);
+			if (_loadingQueue.indexOf(this) != -1)
+				_loadingQueue.splice(_loadingQueue.indexOf(this), 1);
 
 			// Remove the old script
 			var theHead:HTMLElement = document.getElementsByTagName("head")[0];
-			if (mScript.parentNode == theHead)
-				theHead.removeChild(mScript);
+			if (_script.parentNode == theHead)
+				theHead.removeChild(_script);
 
-			mScript["src"] = "";
+			_script["src"] = "";
 
 			// And clear the content
-			mContent = null;
+			_content = null;
 			
 			// We create a new script element because IE9 refuses to reuse
 			// the same script element; it will load the new script, but
 			// never execute its content
-			mScript = document.createElement("script") as HTMLScriptElement;
+			_script = document.createElement("script") as HTMLScriptElement;
 		}
 		
 		/**
@@ -107,14 +107,14 @@ package com.humboldtjs.net
 		 */
 		public function load(request:URLRequest):void
 		{
-			mURLRequest = request;
+			_URLRequest = request;
 			
-			if (mIsLoading) {
+			if (_isLoading) {
 				// If we're already loading then make sure this loader is on
 				// the queue of stuff to load, and return
 				
-				if (mLoadingQueue.indexOf(this) == -1)
-					mLoadingQueue.push(this);
+				if (_loadingQueue.indexOf(this) == -1)
+					_loadingQueue.push(this);
 				return;
 			}
 			
@@ -130,17 +130,17 @@ package com.humboldtjs.net
 			
 			// We store the internal ID in the script to be able to do
 			// some smart stuff with that in the future
-			mScript["src"] = mURLRequest.getUrl();
-			mScript.id = getInternalId();
+			_script["src"] = _URLRequest.getUrl();
+			_script.id = getInternalId();
 
 			// Create the callback on the prefix
 			window[getPrefix()] = doCallback;
 
-			mIsLoading = true;
+			_isLoading = true;
 			
 			// And add the script to the head to start loading
 			var theHead:HTMLElement = document.getElementsByTagName("head")[0];
-			theHead.appendChild(mScript);
+			theHead.appendChild(_script);
 		}
 		
 		/**
@@ -157,9 +157,9 @@ package com.humboldtjs.net
 		protected function doCallback(aValue:*):void
 		{
 			unload();
-			mIsLoading = false;
+			_isLoading = false;
 			
-			mContent = aValue;
+			_content = aValue;
 			
 			// Load the next item if we have any of those.
 			loadNextIfAvailable();
@@ -173,8 +173,8 @@ package com.humboldtjs.net
 		 */
 		protected function loadNextIfAvailable():void
 		{
-			if (mLoadingQueue.length > 0) {
-				var thePrefixLoader:PrefixLoader = mLoadingQueue.shift();
+			if (_loadingQueue.length > 0) {
+				var thePrefixLoader:PrefixLoader = _loadingQueue.shift();
 				thePrefixLoader.tryLoad();
 			}
 		}

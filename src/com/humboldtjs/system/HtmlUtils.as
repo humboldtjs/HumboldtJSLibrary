@@ -22,7 +22,7 @@ package com.humboldtjs.system
 	 */
 	public class HtmlUtils
 	{
-		protected static var mListeners:Array = null;
+		protected static var _listeners:Array = null;
 		
 		/**
 		 * Given an Event triggered by the DOM will return the position of the
@@ -210,14 +210,14 @@ package com.humboldtjs.system
 		{
 			var theIn:* = aFunction;
 
-			if (mListeners == null) mListeners = [];
+			if (_listeners == null) _listeners = [];
 			
 			var theListener:Object = null;
 			
 			// First check if the event is already registered. If so skip
 			// adding it again
-			for (var i:int = mListeners.length - 1; i >= 0; i--) {
-				theListener = mListeners[i];
+			for (var i:int = _listeners.length - 1; i >= 0; i--) {
+				theListener = _listeners[i];
 				
 				// An EventFunction is similar to a normal Function, but is bound
 				// to an instance, and has a couple of properties that can be
@@ -233,7 +233,7 @@ package com.humboldtjs.system
 			// Store the listener that is being registered, so we can remove it
 			// again later.
 			theListener = {t: aType, e: theIn, s: theIn.s, f: theIn.f, l: aElement};
-			mListeners.push(theListener);
+			_listeners.push(theListener);
 
 			// Some browsers use addEventListener and others use attachEvent so
 			// we do a quick check and use the appropriate one
@@ -254,12 +254,12 @@ package com.humboldtjs.system
 		 */
 		public static function hasHtmlEventListener(aElement:Object, aType:String):Boolean
 		{
-			if (mListeners == null) mListeners = [];
+			if (_listeners == null) _listeners = [];
 			
 			var theListener:Object = null;
 			
-			for (var i:int = mListeners.length - 1; i >= 0; i--) {
-				theListener = mListeners[i];
+			for (var i:int = _listeners.length - 1; i >= 0; i--) {
+				theListener = _listeners[i];
 				if (theListener.t == aType &&
 					theListener.l == aElement) return true;
 			}
@@ -280,14 +280,14 @@ package com.humboldtjs.system
 		{
 			var theIn:* = aFunction;
 			
-			if (mListeners == null) mListeners = [];
+			if (_listeners == null) _listeners = [];
 			
 			var theListener:Object = null;
 			
 			// Loop through all registered listeners and remove it if it has
 			// a matching event
-			for (var i:int = mListeners.length - 1; i >= 0; i--) {
-				theListener = mListeners[i];
+			for (var i:int = _listeners.length - 1; i >= 0; i--) {
+				theListener = _listeners[i];
 
 				// An EventFunction is similar to a normal Function, but is bound
 				// to an instance, and has a couple of properties that can be
@@ -299,7 +299,7 @@ package com.humboldtjs.system
 					theListener.f == theIn.f &&
 					theListener.l == aElement) {
 					
-					mListeners.splice(i, 1);
+					_listeners.splice(i, 1);
 					i = 0;
 				}
 			}

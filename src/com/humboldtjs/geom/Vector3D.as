@@ -13,31 +13,31 @@ package com.humboldtjs.geom
 	 */
 	public class Vector3D
 	{
-		private var mX:Number;
-		private var mY:Number;
-		private var mZ:Number;
-		private var mW:Number;
+		private var _x:Number;
+		private var _y:Number;
+		private var _z:Number;
+		private var _w:Number;
 		
 		public static const DEGREES_TO_RADIANS:Number = Math.PI / 180;
 
-		public function getX():Number				{ return mX; }
-		public function setX(value:Number):void		{ mX = value; }
+		public function getX():Number				{ return _x; }
+		public function setX(value:Number):void		{ _x = value; }
 		
-		public function getY():Number				{ return mY; }
-		public function setY(value:Number):void		{ mY = value; }
+		public function getY():Number				{ return _y; }
+		public function setY(value:Number):void		{ _y = value; }
 		
-		public function getZ():Number				{ return mZ; }
-		public function setZ(value:Number):void		{ mZ = value; }
+		public function getZ():Number				{ return _z; }
+		public function setZ(value:Number):void		{ _z = value; }
 
-		public function getW():Number				{ return mW; }
-		public function setW(value:Number):void		{ mW = value; }
+		public function getW():Number				{ return _w; }
+		public function setW(value:Number):void		{ _w = value; }
 		
 		public function Vector3D(x:Number = 0, y:Number = 0, z:Number = 0, w:Number = 0)
 		{
-			mX = x;
-			mY = y;
-			mZ = z;
-			mW = w;
+			_x = x;
+			_y = y;
+			_z = z;
+			_w = w;
 		}
 		
 		/**
@@ -45,7 +45,7 @@ package com.humboldtjs.geom
 		 */
 		public function length():Number
 		{
-			return Math.sqrt(mX * mX + mY * mY + mZ * mZ);
+			return Math.sqrt(_x * _x + _y * _y + _z * _z);
 		}
 		
 		/**
@@ -53,9 +53,9 @@ package com.humboldtjs.geom
 		 */
 		public function calculateDistanceTo(aVector:Vector3D):Number
 		{
-			var theDX:Number = aVector.mX - mX;
-			var theDY:Number = aVector.mY - mY;
-			var theDZ:Number = aVector.mZ - mZ;
+			var theDX:Number = aVector._x - _x;
+			var theDY:Number = aVector._y - _y;
+			var theDZ:Number = aVector._z - _z;
 
 			return Math.sqrt(theDX * theDX + theDY * theDY + theDZ * theDZ);
 		}
@@ -72,9 +72,9 @@ package com.humboldtjs.geom
 			var sz:Number = Math.sin(aZ);
 			var cz:Number = Math.cos(aZ);
 			
-			var theNewX:Number = mX;
-			var theNewY:Number = mY;
-			var theNewZ:Number = mZ;
+			var theNewX:Number = _x;
+			var theNewY:Number = _y;
+			var theNewZ:Number = _z;
 			
 			// rotation around X
 			var theNewYPrime:Number = cx * theNewY - sx * theNewZ;
@@ -91,9 +91,9 @@ package com.humboldtjs.geom
 			theNewY = sz * theNewX + cz * theNewY;
 			theNewX = theNewXPrime;
 			
-			mX = theNewX;
-			mY = theNewY;
-			mZ = theNewZ;
+			_x = theNewX;
+			_y = theNewY;
+			_z = theNewZ;
 		}
 		
 		/**
@@ -108,9 +108,9 @@ package com.humboldtjs.geom
 			var sz:Number = Math.sin(aZ);
 			var cz:Number = Math.cos(aZ);
 			
-			var theNewX:Number = mX;
-			var theNewY:Number = mY;
-			var theNewZ:Number = mZ;
+			var theNewX:Number = _x;
+			var theNewY:Number = _y;
+			var theNewZ:Number = _z;
 			
 			// Rotate with transposed Z matrix.
 			theNewXPrime = cz * theNewX + sz * theNewY;
@@ -127,9 +127,9 @@ package com.humboldtjs.geom
 			theNewZ = -sx * theNewY + cx * theNewZ;
 			theNewY = theNewYPrime;
 
-			mX = theNewX;
-			mY = theNewY;
-			mZ = theNewZ;
+			_x = theNewX;
+			_y = theNewY;
+			_z = theNewZ;
 		}
 		
 		/**
@@ -146,9 +146,9 @@ package com.humboldtjs.geom
 		 */
 		public function translate(aX:Number, aY:Number, aZ:Number):void
 		{
-			mX += aX;
-			mY += aY;
-			mZ += aZ;
+			_x += aX;
+			_y += aY;
+			_z += aZ;
 		}
 		
 		/**
@@ -164,9 +164,9 @@ package com.humboldtjs.geom
 		 */
 		public function scale(aX:Number, aY:Number, aZ:Number):void
 		{
-			mX *= aX;
-			mY *= aY;
-			mZ *= aZ;
+			_x *= aX;
+			_y *= aY;
+			_z *= aZ;
 		}
 		
 		/**
@@ -191,9 +191,9 @@ package com.humboldtjs.geom
 		public static function crossProduct(aVector1:Vector3D, aVector2:Vector3D):Vector3D
 		{
 			var theVector:Vector3D = new Vector3D(0, 0, 0);
-			theVector.mX = aVector1.mY * aVector2.mZ - aVector1.mZ * aVector2.mY;
-			theVector.mY = aVector1.mZ * aVector2.mX - aVector1.mX * aVector2.mZ;
-			theVector.mZ = aVector1.mX * aVector2.mY - aVector1.mY * aVector2.mX;
+			theVector._x = aVector1._y * aVector2._z - aVector1._z * aVector2._y;
+			theVector._y = aVector1._z * aVector2._x - aVector1._x * aVector2._z;
+			theVector._z = aVector1._x * aVector2._y - aVector1._y * aVector2._x;
 			
 			return theVector;
 		}
@@ -204,9 +204,9 @@ package com.humboldtjs.geom
 		public static function vector(aVector1:Vector3D, aVector2:Vector3D):Vector3D
 		{
 			var theVector:Vector3D = new Vector3D(0, 0, 0);
-			theVector.mX = aVector2.mX - aVector1.mX;
-			theVector.mY = aVector2.mY - aVector1.mY;
-			theVector.mZ = aVector2.mZ - aVector1.mZ;
+			theVector._x = aVector2._x - aVector1._x;
+			theVector._y = aVector2._y - aVector1._y;
+			theVector._z = aVector2._z - aVector1._z;
 			
 			return theVector;
 		}
@@ -216,19 +216,19 @@ package com.humboldtjs.geom
 		 */
 		public function assignFromVector3D(aVector3D:Vector3D):void
 		{
-			mX = aVector3D.mX;
-			mY = aVector3D.mY;
-			mZ = aVector3D.mZ;
+			_x = aVector3D._x;
+			_y = aVector3D._y;
+			_z = aVector3D._z;
 		}
 		
 		public function clone():Vector3D
 		{
-			return new Vector3D(mX, mY, mZ);
+			return new Vector3D(_x, _y, _z);
 		}
 		
 		public function toString():String
 		{
-			return "[ " + mX + ", " + mY + ", " + mZ + " ]";
+			return "[ " + _x + ", " + _y + ", " + _z + " ]";
 		}
 	}
 }

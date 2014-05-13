@@ -24,53 +24,53 @@ package com.humboldtjs.net
 		public static const METHOD_GET:String = "get";
 		public static const METHOD_POST:String = "post";
 		
-		protected var mContentType:String = "image";
-		protected var mData:Object;
-		protected var mMethod:String = "get";
-		protected var mUrl:String = "";
+		protected var _contentType:String = "image";
+		protected var _data:Object;
+		protected var _method:String = "get";
+		protected var _url:String = "";
 		
 		/**
 		 * The content type to request
 		 */
-		public function getContentType():String				{ return mContentType; }
+		public function getContentType():String				{ return _contentType; }
 		/**
 		 * The content type to request
 		 */
-		public function setContentType(value:String):void	{ mContentType = value; }
+		public function setContentType(value:String):void	{ _contentType = value; }
 
 		/**
 		 * The data object to send with the request
 		 */
-		public function getData():Object					{ return mData; }
+		public function getData():Object					{ return _data; }
 		/**
 		 * The data object to send with the request
 		 */
-		public function setData(value:Object):void			{ mData = value; }
+		public function setData(value:Object):void			{ _data = value; }
 		
 		/**
 		 * The method to do the request with (either METHOD_GET or METHOD_POST)
 		 */
-		public function getMethod():String					{ return mMethod; }
+		public function getMethod():String					{ return _method; }
 		/**
 		 * The method to do the request with (either METHOD_GET or METHOD_POST)
 		 */
-		public function setMethod(value:String):void 		{ mMethod = value; }
+		public function setMethod(value:String):void 		{ _method = value; }
 		
 		/**
 		 * The URL to request
 		 */
-		public function getUrl():String						{ return mUrl; }
+		public function getUrl():String						{ return _url; }
 		/**
 		 * The URL to request
 		 */
-		public function setUrl(value:String):void			{ mUrl = value; }
+		public function setUrl(value:String):void			{ _url = value; }
 		
 		/**
 		 * @constructor
 		 */
 		public function URLRequest(aUrl:String)
 		{
-			mData = {};
+			_data = {};
 			
 			setUrl(aUrl);
 		}

@@ -24,10 +24,10 @@ package com.humboldtjs.utility
 	 */
 	public class Animator
 	{
-		protected var mObject:*;
-		protected var mElement:HTMLElement;
-		protected var mAnimationMap:Array;
-		protected var mHasEventListener:Boolean = false;
+		protected var _object:*;
+		protected var _element:HTMLElement;
+		protected var _animationMap:Array;
+		protected var _hasEventListener:Boolean = false;
 		
 		public var ease:Function;
 		
@@ -37,13 +37,13 @@ package com.humboldtjs.utility
 		public function Animator(aElement:*)
 		{
 			if (typeof aElement["getHtmlElement"] == "function") {
-				mObject = aElement;
-				mElement = aElement.getHtmlElement();
+				_object = aElement;
+				_element = aElement.getHtmlElement();
 			} else {
-				mObject = null;
-				mElement = aElement;
+				_object = null;
+				_element = aElement;
 			}
-			mAnimationMap = [];
+			_animationMap = [];
 			ease = Sine.ease;
 		}
 		
@@ -80,19 +80,19 @@ package com.humboldtjs.utility
 			
 			var theGetter:String = "get" + theTestProperty.substr(0, 1).toUpperCase() + theTestProperty.substr(1);
 			var theSetter:String = "set" + theTestProperty.substr(0, 1).toUpperCase() + theTestProperty.substr(1);
-			if (mObject != null &&
-				typeof mObject[theGetter] == "function" &&
-				typeof mObject[theSetter] == "function") {
+			if (_object != null &&
+				typeof _object[theGetter] == "function" &&
+				typeof _object[theSetter] == "function") {
 				isFunction = true;
 			}
 			
 			if (isFunction) {
-				theStart = mObject[theGetter]();
+				theStart = _object[theGetter]();
 			} else {
 				if (theTestProperty == "opacity" || theTestProperty == "autoOpacity" || theTestProperty == "alpha" || theTestProperty == "autoAlpha")
 					theTestProperty = "opacity";
 				try {
-					theStart = parseFloat(mElement.style[theTestProperty].toString().split(aPostFix).join("").split(aPreFix).join(""));
+					theStart = parseFloat(_element.style[theTestProperty].toString().split(aPostFix).join("").split(aPreFix).join(""));
 				} catch(e:Error) {}
 			}
 			
@@ -107,7 +107,7 @@ package com.humboldtjs.utility
 			if (theTestProperty == "opacity") {
 				var theDisplayState:String = "block";
 				try {
-					theDisplayState = mElement.style.display;
+					theDisplayState = _element.style.display;
 				} catch(e:Error) {}
 				
 				theStart = theDisplayState == "none" ? 0 : theStart;
@@ -117,9 +117,9 @@ package com.humboldtjs.utility
 			// property
 			var theAnimation:Object = {};
 			var theAnimationExists:Boolean = false;
-			for (var i:int = 0; i < mAnimationMap.length; i++) {
-				if (mAnimationMap[i].property == aProperty) {
-					theAnimation = mAnimationMap[i];
+			for (var i:int = 0; i < _animationMap.length; i++) {
+				if (_animationMap[i].property == aProperty) {
+					theAnimation = _animationMap[i];
 					theAnimationExists = true;
 				}
 			}
@@ -149,12 +149,12 @@ package com.humboldtjs.utility
 			// If it already existed we just updated the existing animation
 			// otherwise we have to add it to the animation map
 			if (!theAnimationExists)
-				mAnimationMap.push(theAnimation);
+				_animationMap.push(theAnimation);
 			
 			// And we make sure the animation is actually started
-			if (!mHasEventListener) {
+			if (!_hasEventListener) {
 				Stage.getInstance().addEventListener(HJSEvent.ENTER_FRAME, animationLoop);
-				mHasEventListener = true;
+				_hasEventListener = true;
 			}
 		}
 		
@@ -163,12 +163,12 @@ package com.humboldtjs.utility
 		 */
 		public function stop():void
 		{
-			for (var i:int = mAnimationMap.length - 1; i >= 0; i--) {
-				mAnimationMap.splice(i, 1);				
+			for (var i:int = _animationMap.length - 1; i >= 0; i--) {
+				_animationMap.splice(i, 1);				
 			}
 			
 			Stage.getInstance().removeEventListener(HJSEvent.ENTER_FRAME, animationLoop);
-			mHasEventListener = false;
+			_hasEventListener = false;
 		}
 		
 		/**
@@ -177,9 +177,9 @@ package com.humboldtjs.utility
 		protected function animationLoop(aEvent:HJSEvent):void
 		{
 			// Loop through the current map of running animations
-			for (var i:int = mAnimationMap.length - 1; i >= 0; i--) {
+			for (var i:int = _animationMap.length - 1; i >= 0; i--) {
 				
-				var theAnimation:Object = mAnimationMap[i];
+				var theAnimation:Object = _animationMap[i];
 				// Increment the time position
 				theAnimation.position = ((new Date()).getTime() / 1000 - theAnimation.time) / theAnimation.duration;
 				if (theAnimation.position < 0) theAnimation.position = 0;
@@ -191,20 +191,20 @@ package com.humboldtjs.utility
 				theValue = Math.round(theValue * theAnimation.roundFactor) / theAnimation.roundFactor;
 				
 				if (theAnimation.isFunction) {
-					mObject[theAnimation.property](theValue);
+					_object[theAnimation.property](theValue);
 				} else {
 					theValue = theAnimation.preFix + theValue.toString() + theAnimation.postFix;
 					
 					var theObject:Object = {};
 					theObject[theAnimation.property] = theValue;
 					
-					EasyStyler.applyStyleObject(mElement, theObject);
+					EasyStyler.applyStyleObject(_element, theObject);
 				}
 				
 				// If the animation is done, remove it from the list and
 				// call the complete function
 				if (theAnimation.position >= 1) {
-					mAnimationMap.splice(i, 1);
+					_animationMap.splice(i, 1);
 					if (theAnimation.complete) {
 						theAnimation.complete();
 					}
@@ -213,9 +213,9 @@ package com.humboldtjs.utility
 			
 			// And if there is anything more to animate call the animation loop
 			// again after a short while.
-			if (mAnimationMap.length == 0) {
+			if (_animationMap.length == 0) {
 				Stage.getInstance().removeEventListener(HJSEvent.ENTER_FRAME, animationLoop);
-				mHasEventListener = false;
+				_hasEventListener = false;
 			}
 		}
 	}

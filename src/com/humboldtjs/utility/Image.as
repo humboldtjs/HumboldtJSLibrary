@@ -27,50 +27,50 @@ package com.humboldtjs.utility
 	 */
 	public class Image extends DisplayObject
 	{
-		protected var mContent:DisplayObject;
-		protected var mContentWidth:int;
-		protected var mContentHeight:int;
-		protected var mBitmapCache:Canvas;
+		protected var _content:DisplayObject;
+		protected var _contentWidth:int;
+		protected var _contentHeight:int;
+		protected var _bitmapCache:Canvas;
 		
-		protected var mLoader:Loader;
-		protected var mTimer:int = -1;
+		protected var _loader:Loader;
+		protected var _timer:int = -1;
 		
-		protected var mSource:String = "";
+		protected var _source:String = "";
 		
 		/**
 		 * The source URL of the image to display
 		 */
-		public function getSource():String { return mSource; }
+		public function getSource():String { return _source; }
 		/**
 		 * The source URL of the image to display
 		 */
 		public function setSource(value:String):void
 		{
-			if (mSource != value) {
+			if (_source != value) {
 				// If a timer was running make sure to cancel it
-				if (mTimer != -1) {
-					window.clearTimeout(mTimer);
-					mTimer = -1;
+				if (_timer != -1) {
+					window.clearTimeout(_timer);
+					_timer = -1;
 				}
 				
-				mSource = value;
+				_source = value;
 				
 				// Remove the old image
-				removeChild(mContent);
-				mContent = null;
-				mContentWidth = 0;
-				mContentHeight = 0;
+				removeChild(_content);
+				_content = null;
+				_contentWidth = 0;
+				_contentHeight = 0;
 				
 				// And cancel the old loader
-				mLoader.close();
+				_loader.close();
 				
 				// And finally load the new image
-				mLoader.load(new URLRequest(mSource));
+				_loader.load(new URLRequest(_source));
 			} else {
 				// If the value was the same and it was already loaded we
 				// dispatch another HJSEvent.COMPLETE to notify any listening
 				// component
-				if (mContentWidth != 0 && mContentHeight != 0)
+				if (_contentWidth != 0 && _contentHeight != 0)
 					dispatchEvent(new HJSEvent(HJSEvent.COMPLETE));
 			}
 		}
@@ -87,12 +87,12 @@ package com.humboldtjs.utility
 			// slow, so we draw to an unscaled canvas and hide the image itself
 			// which makes everything super fast again.
 			if (Capabilities.getHasCanvasSupport()) {
-				mBitmapCache = new Canvas();
-				mBitmapCache.setWidth(100);
-				mBitmapCache.setHeight(100);
-				addChild(mBitmapCache);
+				_bitmapCache = new Canvas();
+				_bitmapCache.setWidth(100);
+				_bitmapCache.setHeight(100);
+				addChild(_bitmapCache);
 			} else {
-				mBitmapCache = null;
+				_bitmapCache = null;
 			}
 			
 			setPercentWidth(100);
@@ -103,10 +103,10 @@ package com.humboldtjs.utility
 			// element resize anyway.
 			HtmlUtils.addHtmlEventListener(window, "resize", onResize);
 			
-			mContent = null;
+			_content = null;
 			
-			mLoader = new Loader();
-			mLoader.addEventListener(HJSEvent.COMPLETE, onLoadComplete);
+			_loader = new Loader();
+			_loader.addEventListener(HJSEvent.COMPLETE, onLoadComplete);
 		}
 		
 		/**
@@ -118,34 +118,34 @@ package com.humboldtjs.utility
 		{
 			// If we don't have a size yet, we'll just delay processing until
 			// we do
-			if (mElement.clientWidth == 0 || mElement.clientHeight == 0) {
+			if (_element.clientWidth == 0 || _element.clientHeight == 0) {
 				window.setTimeout(onResize, 100);
 				return;
 			}
 			
-			if (mContent != null) {
+			if (_content != null) {
 
 				// Let's scale to fill using the ScaleUtility
-				var theScale:Number = ScaleUtility.calculateScaleFor(mContentWidth, mContentHeight, mElement.clientWidth, mElement.clientHeight, ScaleUtility.SCALE_FILL);
+				var theScale:Number = ScaleUtility.calculateScaleFor(_contentWidth, _contentHeight, _element.clientWidth, _element.clientHeight, ScaleUtility.SCALE_FILL);
 				
-				if (mBitmapCache != null) {
+				if (_bitmapCache != null) {
 					// If we have a bitmap cache (meaning we have Canvas support)
 					// set it to the new size, and update the image
-					mBitmapCache.setWidth(mElement.clientWidth);
-					mBitmapCache.setHeight(mElement.clientHeight);
-					mContent.setX(-3000);
-					mContent.setY(-3000);
+					_bitmapCache.setWidth(_element.clientWidth);
+					_bitmapCache.setHeight(_element.clientHeight);
+					_content.setX(-3000);
+					_content.setY(-3000);
 					
-					var theContext:CanvasRenderingContext2D = mBitmapCache.getContext2D();
-					theContext.drawImage(mContent.getHtmlElement(), 0, 0, mContentWidth, mContentHeight, ((mElement.clientWidth - mContentWidth * theScale) / 2), ((mElement.clientHeight - mContentHeight * theScale) / 2), mContentWidth * theScale, mContentHeight * theScale);
-					mContent.getHtmlElement().style.display = "none";
+					var theContext:CanvasRenderingContext2D = _bitmapCache.getContext2D();
+					theContext.drawImage(_content.getHtmlElement(), 0, 0, _contentWidth, _contentHeight, ((_element.clientWidth - _contentWidth * theScale) / 2), ((_element.clientHeight - _contentHeight * theScale) / 2), _contentWidth * theScale, _contentHeight * theScale);
+					_content.getHtmlElement().style.display = "none";
 				} else {
 					// Otherwise just put the image in the right position at
 					// the right size (will be slower though)
-					mContent.setWidth(mContentWidth * theScale);
-					mContent.setHeight(mContentHeight * theScale);
-					mContent.setX((mElement.clientWidth - mContentWidth * theScale) / 2);
-					mContent.setY((mElement.clientHeight - mContentHeight * theScale) / 2);
+					_content.setWidth(_contentWidth * theScale);
+					_content.setHeight(_contentHeight * theScale);
+					_content.setX((_element.clientWidth - _contentWidth * theScale) / 2);
+					_content.setY((_element.clientHeight - _contentHeight * theScale) / 2);
 				}
 			}
 		}
@@ -156,25 +156,25 @@ package com.humboldtjs.utility
 		protected function onLoadComplete(aEvent:HJSEvent):void
 		{
 			// Put the loaded content on the screen
-			mContent = mLoader.getContent();
-			addChild(mContent);
+			_content = _loader.getContent();
+			addChild(_content);
 
-			if (mBitmapCache)
-				addChild(mBitmapCache); // make sure the bitmapcache is above the image
+			if (_bitmapCache)
+				addChild(_bitmapCache); // make sure the bitmapcache is above the image
 			
 			// Store the original size. This is used later when calculating
 			// the scale to fill
-			mContentWidth = mContent.getHtmlElement().clientWidth;
-			mContentHeight = mContent.getHtmlElement().clientHeight;
+			_contentWidth = _content.getHtmlElement().clientWidth;
+			_contentHeight = _content.getHtmlElement().clientHeight;
 			
 			// If for whatever reason the size isn't available yet (can sometimes
 			// happen when the load has completed but the DOM hasn't been recalculated
 			// properly yet) we'll try again until it is.
-			if (mContentWidth == 0 || mContentHeight == 0) {
-				mTimer = window.setTimeout(onLoadComplete, 100);
+			if (_contentWidth == 0 || _contentHeight == 0) {
+				_timer = window.setTimeout(onLoadComplete, 100);
 				return;
 			}
-			mTimer = -1;
+			_timer = -1;
 
 			// Re-layout the component now that everything is done
 			onResize(null);

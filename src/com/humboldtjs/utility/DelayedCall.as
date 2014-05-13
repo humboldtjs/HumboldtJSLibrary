@@ -15,7 +15,7 @@ package com.humboldtjs.utility
 	 */
 	public class DelayedCall
 	{
-		protected static var mTimers:Array = new Array();
+		protected static var _timers:Array = new Array();
 		
 		/**
 		 * Call the EventFunction after a certain time.
@@ -30,7 +30,7 @@ package com.humboldtjs.utility
 			
 			var theTimer:int = window.setTimeout(aFunction, aTime);
 			
-			mTimers.push({t:theTimer, f:aFunction});
+			_timers.push({t:theTimer, f:aFunction});
 		}
 		
 		/**
@@ -41,8 +41,8 @@ package com.humboldtjs.utility
 		public static function hasCall(aFunction:Function):Boolean
 		{
 			var theIn:* = aFunction;
-			for (var i:int = 0; i < mTimers.length; i++) {
-				var theF:* = mTimers[i].f;
+			for (var i:int = 0; i < _timers.length; i++) {
+				var theF:* = _timers[i].f;
 				if (theF.s == theIn.s && theF.f == theIn.f) return true;
 			}
 			
@@ -59,10 +59,10 @@ package com.humboldtjs.utility
 		public static function cancelCall(aFunction:Function):void
 		{
 			var theIn:* = aFunction;
-			for (var i:int = mTimers.length - 1; i >= 0; i--) {
-				var theF:* = mTimers[i].f;
+			for (var i:int = _timers.length - 1; i >= 0; i--) {
+				var theF:* = _timers[i].f;
 				if (theF.s == theIn.s && theF.f == theIn.f) 
-					mTimers.splice(i, 1);
+					_timers.splice(i, 1);
 			}
 		}
 		

@@ -20,25 +20,25 @@ package com.humboldtjs.display
 	 */
 	public class Loader extends DisplayObject
 	{
-		protected var mContent:DisplayObject;
-		protected var mSrc:String = "";
-		protected var mComplete:Boolean = false;
-		protected var mFarEnough:Boolean = false;
+		protected var _content:DisplayObject;
+		protected var _src:String = "";
+		protected var _complete:Boolean = false;
+		protected var _farEnough:Boolean = false;
 		
 		/**
 		 * If loading was complete returns the loaded content
 		 */
-		public function getContent():DisplayObject	{ return (mSrc !== "") ? mContent : null; }
+		public function getContent():DisplayObject	{ return (_src !== "") ? _content : null; }
 		
 		/**
 		 * Check if loading has completed
 		 */
-		public function getComplete():Boolean { return mComplete; }
+		public function getComplete():Boolean { return _complete; }
 		
 		/**
 		 * Check if loading is far enough to use the asset
 		 */
-		public function getFarEnough():Boolean { return mFarEnough; }
+		public function getFarEnough():Boolean { return _farEnough; }
 		
 		/**
 		 * @constructor
@@ -54,15 +54,15 @@ package com.humboldtjs.display
 		 */
 		public function close():void
 		{
-			mSrc = "";
+			_src = "";
 			// If we have content
-			if (mContent) {
+			if (_content) {
 				// Clean up the old listeners
-				mContent.removeEventListener(HJSEvent.COMPLETE, onLoadComplete);
-				mContent.removeEventListener(HJSEvent.FAR_ENOUGH, onFarEnough);
-				mContent.removeEventListener(HJSEvent.IO_ERROR, onLoadError);
+				_content.removeEventListener(HJSEvent.COMPLETE, onLoadComplete);
+				_content.removeEventListener(HJSEvent.FAR_ENOUGH, onFarEnough);
+				_content.removeEventListener(HJSEvent.IO_ERROR, onLoadError);
 				// And clear the content
-				mContent = null;
+				_content = null;
 			}
 		}
 		
@@ -73,32 +73,32 @@ package com.humboldtjs.display
 		{
 			unload();
 			
-			mSrc = request.getUrl();
+			_src = request.getUrl();
 			
 			// Based on the content type we create either a new Bitmap or Video
 			switch(request.getContentType()) {
 				case URLRequest.CONTENTTYPE_VIDEO:
-					mContent = new Video();
+					_content = new Video();
 					break;
 				case URLRequest.CONTENTTYPE_AUDIO:
-					mContent = new Audio();
+					_content = new Audio();
 					break;
 				case URLRequest.CONTENTTYPE_IMAGE:
 				default:
-					mContent = new Bitmap();
+					_content = new Bitmap();
 					break;
 			}
 			
 			// Must be added to DOM before loading in order for mobile to load video
-			addChild(mContent);
+			addChild(_content);
 			
 			// Listener for the complete event
-			mContent.addEventListener(HJSEvent.COMPLETE, onLoadComplete);
-			mContent.addEventListener(HJSEvent.FAR_ENOUGH, onFarEnough);
-			mContent.addEventListener(HJSEvent.IO_ERROR, onLoadError);
+			_content.addEventListener(HJSEvent.COMPLETE, onLoadComplete);
+			_content.addEventListener(HJSEvent.FAR_ENOUGH, onFarEnough);
+			_content.addEventListener(HJSEvent.IO_ERROR, onLoadError);
 			
 			// And start loading
-			(mContent as ISrcDisplayObject).setSrc(mSrc);
+			(_content as ISrcDisplayObject).setSrc(_src);
 		}
 		
 		/**
@@ -114,8 +114,8 @@ package com.humboldtjs.display
 		 */
 		protected function onLoadComplete(aEvent:HJSEvent):void
 		{
-			if (!mComplete) {
-				mComplete = true;
+			if (!_complete) {
+				_complete = true;
 				onFarEnough(null);
 				dispatchEvent(new HJSEvent(HJSEvent.COMPLETE));
 			}
@@ -123,8 +123,8 @@ package com.humboldtjs.display
 		
 		protected function onFarEnough(aEvent:HJSEvent):void
 		{
-			if (!mFarEnough) {
-				mFarEnough = true;
+			if (!_farEnough) {
+				_farEnough = true;
 				dispatchEvent(new HJSEvent(HJSEvent.FAR_ENOUGH));
 			}
 		}

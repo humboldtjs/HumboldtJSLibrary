@@ -13,7 +13,7 @@ package com.humboldtjs.system
 	 */
 	public class InternalId
 	{
-		protected static var mInternalCounter:int = 0;
+		protected static var _internalCounter:int = 0;
 		
 		public function InternalId()
 		{
@@ -26,8 +26,8 @@ package com.humboldtjs.system
 		 */
 		public static function generateInternalId(aPrefix:String):String
 		{
-			var theId:String = aPrefix + "_@" + mInternalCounter;
-			mInternalCounter++;
+			var theId:String = aPrefix + "_@" + _internalCounter;
+			_internalCounter++;
 			
 			return theId;
 		}

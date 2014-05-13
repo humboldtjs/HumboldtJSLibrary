@@ -19,19 +19,19 @@ package com.humboldtjs.events
 		public static const IO_ERROR:String = "error";
 		public static const ENTER_FRAME:String = "enterFrame";
 		
-		protected var mType:String;
-		protected var mCurrentTarget:EventDispatcher;				// Should always be an EventDispatcher, but made Object to be more flexible in the future
-		protected var mIsDefaultPrevented:Boolean;
-		protected var mStopImmediatePropagation:Boolean;
+		protected var _type:String;
+		protected var _currentTarget:EventDispatcher;				// Should always be an EventDispatcher, but made Object to be more flexible in the future
+		protected var _isDefaultPrevented:Boolean;
+		protected var _stopImmediatePropagation:Boolean;
 		
 		/**
 		 * The event type
 		 */
-		public function getType():String					{ return mType; }
+		public function getType():String					{ return _type; }
 		/**
 		 * The event type
 		 */
-		public function setType(value:String):void			{ mType = value; }
+		public function setType(value:String):void			{ _type = value; }
 		
 		/**
 		 * Whether the event is cancelable
@@ -41,15 +41,15 @@ package com.humboldtjs.events
 		/**
 		 * The current target from which the event was sent
 		 */
-		public function getCurrentTarget():EventDispatcher	{ return mCurrentTarget; }
+		public function getCurrentTarget():EventDispatcher	{ return _currentTarget; }
 		
 		/**
 		 * @constructor
 		 */
 		public function HJSEvent(aType:String)
 		{
-			mIsDefaultPrevented = false;
-			mStopImmediatePropagation = false;
+			_isDefaultPrevented = false;
+			_stopImmediatePropagation = false;
 			setType(aType);
 		}
 		
@@ -59,7 +59,7 @@ package com.humboldtjs.events
 		 */
 		public function preventDefault():void
 		{
-			mIsDefaultPrevented = true;
+			_isDefaultPrevented = true;
 		}
 		
 		/**
@@ -67,7 +67,7 @@ package com.humboldtjs.events
 		 */
 		public function isDefaultPrevented():Boolean
 		{
-			return mIsDefaultPrevented;
+			return _isDefaultPrevented;
 		}
 		
 		/**
@@ -77,7 +77,7 @@ package com.humboldtjs.events
 		 */
 		public function stopImmediatePropagation():void
 		{
-			mStopImmediatePropagation = true;
+			_stopImmediatePropagation = true;
 		}
 	}
 }

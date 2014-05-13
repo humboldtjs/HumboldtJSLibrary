@@ -24,7 +24,7 @@ package com.humboldtjs.display
 		 */
 		public function getContext2D():CanvasRenderingContext2D
 		{
-			return mElement.getContext("2d");
+			return _element.getContext("2d");
 		}
 		
 		/**
@@ -32,9 +32,9 @@ package com.humboldtjs.display
 		 */
 		override public function setWidth(value:Number):void
 		{
-			if (mWidth == value) return;
-			mWidth = value;
-			mElement.width = value.toString();
+			if (_width == value) return;
+			_width = value;
+			_element.width = value.toString();
 		}
 		
 		/**
@@ -42,9 +42,9 @@ package com.humboldtjs.display
 		 */
 		override public function setHeight(value:Number):void
 		{
-			if (mHeight == value) return;
-			mHeight = value;
-			mElement.height = value.toString();
+			if (_height == value) return;
+			_height = value;
+			_element.height = value.toString();
 		}
 		
 		/**
@@ -63,12 +63,12 @@ package com.humboldtjs.display
 			// This is to make Canvas's non-clickable. This is done mainly to allow a convas
 			// to draw over other elements and be pretty much ignored. However this may not
 			// always be what you want, if so be sure to delete the pointerEvents property
-			mElement.style.pointerEvents = "none";
+			_element.style.pointerEvents = "none";
 		}
 
 		override protected function initializeElement():void
 		{
-			mElement = document.createElement("canvas");
+			_element = document.createElement("canvas");
 		}
 	}
 }

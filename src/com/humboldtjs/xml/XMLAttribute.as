@@ -13,25 +13,25 @@ package com.humboldtjs.xml
 	 */
 	public class XMLAttribute
 	{
-		protected var mName:String;
-		protected var mValue:String;
+		protected var _name:String;
+		protected var _value:String;
 		
 		/**
 		 * The attribute's name
 		 */
-		public function getName():String { return mName; }
+		public function getName():String { return _name; }
 		/**
 		 * The attribute's value
 		 */
-		public function getValue():String { return mValue; }
+		public function getValue():String { return _value; }
 		
 		/**
 		 * @constructor
 		 */
 		public function XMLAttribute(aName:String, aValue:String)
 		{
-			mName = aName;
-			mValue = aValue;
+			_name = aName;
+			_value = aValue;
 		}
 	}
 }

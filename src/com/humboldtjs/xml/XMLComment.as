@@ -13,12 +13,12 @@ package com.humboldtjs.xml
 	 */
 	public class XMLComment extends HJSXML
 	{
-		protected var mComment:String = "";
+		protected var _comment:String = "";
 		
 		/**
 		 * The string content of the comment
 		 */
-		public function getComment():String { return mComment; }
+		public function getComment():String { return _comment; }
 		
 		/**
 		 * @constructor
@@ -26,7 +26,7 @@ package com.humboldtjs.xml
 		public function XMLComment(aComment:String)
 		{
 			super();
-			mComment = aComment;
+			_comment = aComment;
 		}
 	}
 }

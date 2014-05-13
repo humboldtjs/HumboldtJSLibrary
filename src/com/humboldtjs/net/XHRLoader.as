@@ -41,9 +41,9 @@ package com.humboldtjs.net
 		/** The XMLHttpRequest is done */
 		public static const XHR_DONE:int = 4;
 		
-		protected var mRequest:XMLHttpRequest;
-		protected var mContent:*;
-		protected var mContentType:String = "";
+		protected var _request:XMLHttpRequest;
+		protected var _content:*;
+		protected var _contentType:String = "";
 		
 		/**
 		 * Returns a browser-independent XMLHttpRequest object which can be used
@@ -82,7 +82,7 @@ package com.humboldtjs.net
 		/**
 		 * The loaded content
 		 */
-		public function getContent():*				{ return mContent; }
+		public function getContent():*				{ return _content; }
 
 		/**
 		 * @constructor
@@ -90,8 +90,8 @@ package com.humboldtjs.net
 		public function XHRLoader()
 		{
 			super();
-			mRequest = getXMLHttpRequestObject();
-			mContentType = URLRequest.CONTENTTYPE_TEXT;
+			_request = getXMLHttpRequestObject();
+			_contentType = URLRequest.CONTENTTYPE_TEXT;
 		}
 		
 		/**
@@ -99,7 +99,7 @@ package com.humboldtjs.net
 		 */
 		public function close():void
 		{
-			mRequest.abort();
+			_request.abort();
 		}
 		
 		/**
@@ -107,10 +107,10 @@ package com.humboldtjs.net
 		 */
 		public function load(request:URLRequest):void
 		{
-			mContentType = request.getContentType();
-			mRequest.open(request.getMethod(), request.getUrl(), true);
-			mRequest["onreadystatechange"] = onReadyStateChange;
-			mRequest.send(request.getData());
+			_contentType = request.getContentType();
+			_request.open(request.getMethod(), request.getUrl(), true);
+			_request["onreadystatechange"] = onReadyStateChange;
+			_request.send(request.getData());
 		}
 		
 		/**
@@ -123,17 +123,17 @@ package com.humboldtjs.net
 		
 		protected function onReadyStateChange():void
 		{
-			if (mRequest.readyState == XHR_DONE) {
+			if (_request.readyState == XHR_DONE) {
 
-				var theResponseText:String = mRequest.responseText;
-				var theResponseXML:HTMLElement = mRequest.responseXML;
+				var theResponseText:String = _request.responseText;
+				var theResponseXML:HTMLElement = _request.responseXML;
 
 				// If the requested response type is XML and the actual
 				// response is null or empty, it means either the XML was
 				// malformed OR the XML wasn't parsed. This second issue
 				// happens on IE6.0 when the XML is loaded from the local
 				// filesystem, and some other cache edge-cases.
-				if (mContentType == URLRequest.CONTENTTYPE_XML && (theResponseXML == null || theResponseXML.childNodes.length == 0) && theResponseText != "") {
+				if (_contentType == URLRequest.CONTENTTYPE_XML && (theResponseXML == null || theResponseXML.childNodes.length == 0) && theResponseText != "") {
 
 					// Some of the code below will not return an XMLDocument
 					// but just something which behaves the same. This var is
@@ -157,10 +157,10 @@ package com.humboldtjs.net
 				}
 				
 				// Set the return content to the appropriate type
-				if (mContentType == URLRequest.CONTENTTYPE_XML) {
-					mContent = theResponseXML;
+				if (_contentType == URLRequest.CONTENTTYPE_XML) {
+					_content = theResponseXML;
 				} else {
-					mContent = theResponseText;
+					_content = theResponseText;
 				}
 				
 				// And we're done

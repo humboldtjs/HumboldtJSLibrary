@@ -22,24 +22,23 @@ package com.humboldtjs.display
 	{
 		protected static const MAX_DELAY:Number = 1000;
 		
-		protected static var mStage:Stage;
+		protected static var _stage:Stage;
 		
-		protected var mFrameRate:Number = 25;
-		protected var mFrameDelay:Number = 40; // 1000 / 25
-		protected var mHasFrameListener:Boolean = false; 
-		
-		protected var mRequestAnimationFrame:String;
+		protected var _frameRate:Number = 25;
+		protected var _frameDelay:Number = 40; // 1000 / 25
+		protected var _hasFrameListener:Boolean = false; 
+		protected var _requestAnimationFrame:String;
 		
 		/**
 		 * Get's access to the application stage object
 		 */
 		public static function getInstance():Stage
 		{
-			if (mStage)
-				return mStage;
+			if (_stage)
+				return _stage;
 			
-			mStage = new Stage();
-			return mStage;
+			_stage = new Stage();
+			return _stage;
 		}
 		
 		/**
@@ -56,8 +55,8 @@ package com.humboldtjs.display
 		 */
 		public function getFrameRate():Number
 		{
-			if (mRequestAnimationFrame != "") return 60;
-			return mFrameRate;
+			if (_requestAnimationFrame != "") return 60;
+			return _frameRate;
 		}
 		
 		/**
@@ -65,8 +64,8 @@ package com.humboldtjs.display
 		 */
 		public function setFrameRate(value:Number):void
 		{
-			mFrameRate = value;
-			mFrameDelay = 1000 / mFrameRate;
+			_frameRate = value;
+			_frameDelay = 1000 / _frameRate;
 		}
 		
 		/**
@@ -76,13 +75,13 @@ package com.humboldtjs.display
 		{
 			super();
 			
-			mElement = document.body;
+			_element = document.body;
 		
-			mRequestAnimationFrame = "";
+			_requestAnimationFrame = "";
 			
 			var theFunctions:Array = new Array("requestAnimationFrame", "webkitRequestAnimationFrame", "mozRequestAnimationFrame", "oRequestAnimationFrame", "msRequestAnimationFrame");
 			for (var i:int = 0; i < theFunctions.length; i++) {
-				if (window[theFunctions[i]] != null) mRequestAnimationFrame = theFunctions[i];
+				if (window[theFunctions[i]] != null) _requestAnimationFrame = theFunctions[i];
 			}
 
 			// start the frame loop
@@ -98,7 +97,7 @@ package com.humboldtjs.display
 		override public function addEventListener(aType:String, aFunction:Function):void
 		{
 			if (aType == HJSEvent.ENTER_FRAME)
-				mHasFrameListener = true;
+				_hasFrameListener = true;
 			
 			super.addEventListener(aType, aFunction);
 		}
@@ -113,7 +112,7 @@ package com.humboldtjs.display
 			super.removeEventListener(aType, aFunction);
 			
 			if (aType == HJSEvent.ENTER_FRAME && !hasEventListener(HJSEvent.ENTER_FRAME))
-				mHasFrameListener = false;
+				_hasFrameListener = false;
 		}
 		
 		/**
@@ -121,21 +120,21 @@ package com.humboldtjs.display
 		 */
 		protected function doFrameLoop():void
 		{
-			if (mHasFrameListener)
+			if (_hasFrameListener)
 				dispatchEvent(new HJSEvent(HJSEvent.ENTER_FRAME));
 			
-			if (mRequestAnimationFrame == "") {
-				window.setTimeout(doFrameLoop, mFrameDelay);
+			if (_requestAnimationFrame == "") {
+				window.setTimeout(doFrameLoop, _frameDelay);
 			} else {
-				window[mRequestAnimationFrame](doFrameLoop);
+				window[_requestAnimationFrame](doFrameLoop);
 			}
 		}
 		
 		protected function kickRequestAnimationFrame():void
 		{
-			if (mRequestAnimationFrame != "") {
+			if (_requestAnimationFrame != "") {
 				window.setTimeout(kickRequestAnimationFrame, MAX_DELAY);
-				window[mRequestAnimationFrame](doNothing);
+				window[_requestAnimationFrame](doNothing);
 			}
 		}
 		

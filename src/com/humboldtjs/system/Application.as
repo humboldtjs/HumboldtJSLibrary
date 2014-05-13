@@ -23,10 +23,10 @@ package com.humboldtjs.system
 	 */
 	public class Application extends DisplayObject
 	{
-		protected var mApplicationRoot:HTMLElement;
-		protected var mFullScreen:Boolean = false;
-		protected var mStage:Stage;
-		protected var mHJSAppId:* = null;
+		protected var _applicationRoot:HTMLElement;
+		protected var _fullScreen:Boolean = false;
+		protected var _stage:Stage;
+		protected var _HJSAppId:* = null;
 		
 		/**
 		 * Whether the application should run fullscreen or not. Does not work
@@ -35,7 +35,7 @@ package com.humboldtjs.system
 		 * 
 		 * @see com.humboldtjs.system.Capabilities
 		 */
-		public function getFullScreen():Boolean { return mFullScreen; }
+		public function getFullScreen():Boolean { return _fullScreen; }
 		/**
 		 * Whether the application should run fullscreen or not. Does not work
 		 * in all browsers. Use Capabilities.getHasFullScreen() to test whether
@@ -45,10 +45,10 @@ package com.humboldtjs.system
 		 */
 		public function setFullScreen(value:Boolean):void
 		{
-			if (mFullScreen != value) {
-				mFullScreen = value;
+			if (_fullScreen != value) {
+				_fullScreen = value;
 				
-				if (mFullScreen) {
+				if (_fullScreen) {
 					
 					// if fullscreen is possible first attempt to do it the
 					// standards way, otherwise fallback to webkit specific
@@ -78,7 +78,7 @@ package com.humboldtjs.system
 		 */
 		override public function getStage():Stage
 		{
-			return mStage;
+			return _stage;
 		}
 		
 		/**
@@ -90,21 +90,21 @@ package com.humboldtjs.system
 			
 			// try to figure out whether we're supposed to add ourselves to
 			// a specific parent element or otherwise add to document.body
-			mHJSAppId = window["__hjs"].appId;
+			_HJSAppId = window["__hjs"].appId;
 			_retrieveApplicationRoot();
 			
 			// make sure we have a stage object
-			mStage = Stage.getInstance();
+			_stage = Stage.getInstance();
 			
 			// some default styling - make the app fit to the size of its
 			// container, but clip everything that extends beyond it
-			mElement.style.overflow = "hidden";
+			_element.style.overflow = "hidden";
 			setPercentWidth(100);
 			setPercentHeight(100);
 			
 			// if the DOM is accessible then continue initialization, otherwise
 			// wait for the DOM load event
-			if (mApplicationRoot) {
+			if (_applicationRoot) {
 				_initialize(null);
 			} else {
 				HtmlUtils.addHtmlEventListener(document, "DOMContentLoaded", _initialize);
@@ -116,10 +116,10 @@ package com.humboldtjs.system
 		
 		protected function _retrieveApplicationRoot():void
 		{
-			if (mHJSAppId != -1) {
-				mApplicationRoot = document.getElementById(mHJSAppId);
+			if (_HJSAppId != -1) {
+				_applicationRoot = document.getElementById(_HJSAppId);
 			} else {
-				mApplicationRoot = document.body;
+				_applicationRoot = document.body;
 			}
 		}
 		
@@ -196,7 +196,7 @@ package com.humboldtjs.system
 		 */
 		protected function initialize():void
 		{
-			mApplicationRoot.appendChild(mElement);
+			_applicationRoot.appendChild(_element);
 		}
 		
 		/**
@@ -211,7 +211,7 @@ package com.humboldtjs.system
 				return;
 			
 			HtmlUtils.removeHtmlEventListenerWithVendor(document, "fullscreenchange", onFullScreenChange);
-			mFullScreen = false;
+			_fullScreen = false;
 			
 			// trigger a resize event because the browser will not always trigger this 
 			// event correctly when returning from fullscreen

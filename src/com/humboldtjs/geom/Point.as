@@ -13,19 +13,19 @@ package com.humboldtjs.geom
 	 */ 
 	public class Point
 	{
-		private var mX:Number;
-		private var mY:Number;
+		private var _x:Number;
+		private var _y:Number;
 
-		public function getX():Number				{ return mX; }
-		public function setX(value:Number):void		{ mX = value; }
+		public function getX():Number				{ return _x; }
+		public function setX(value:Number):void		{ _x = value; }
 		
-		public function getY():Number				{ return mY; }
-		public function setY(value:Number):void		{ mY = value; }
+		public function getY():Number				{ return _y; }
+		public function setY(value:Number):void		{ _y = value; }
 
 		public function Point(aX:Number, aY:Number)
 		{
-			mX = aX;
-			mY = aY;
+			_x = aX;
+			_y = aY;
 		}
 			
 		/**
@@ -35,7 +35,7 @@ package com.humboldtjs.geom
 		 */
 		public function length():Number
 		{
-			return Math.sqrt(mX * mX + mY * mY);
+			return Math.sqrt(_x * _x + _y * _y);
 		}
 		
 		/**
@@ -45,7 +45,7 @@ package com.humboldtjs.geom
 		 */
 		public function squaredLength():Number
 		{
-			return mX * mX + mY * mY;
+			return _x * _x + _y * _y;
 		}
 	
 		/**
@@ -57,7 +57,7 @@ package com.humboldtjs.geom
 		 */
 		public function add(aPoint:Point):Point
 		{
-			return new Point(mX + aPoint.getX(), mY + aPoint.getY());
+			return new Point(_x + aPoint.getX(), _y + aPoint.getY());
 		}
 		
 		/**
@@ -69,7 +69,7 @@ package com.humboldtjs.geom
 		 */
 		public function subtract(aPoint:Point):Point 
 		{
-			return new Point(mX - aPoint.getX(), mY - aPoint.getY());
+			return new Point(_x - aPoint.getX(), _y - aPoint.getY());
 		}
 		
 		/**
@@ -79,8 +79,8 @@ package com.humboldtjs.geom
 		 */
 		public function scale(aPoint:Point):void
 		{
-			mX *= aPoint.getX();
-			mY *= aPoint.getY();
+			_x *= aPoint.getX();
+			_y *= aPoint.getY();
 		}
 		
 		/**
@@ -90,8 +90,8 @@ package com.humboldtjs.geom
 		 */
 		public function scaleBy(aScale:Number):void
 		{
-			mX *= aScale;
-			mY *= aScale;
+			_x *= aScale;
+			_y *= aScale;
 		}
 		
 		/**
@@ -107,8 +107,8 @@ package com.humboldtjs.geom
 			
 			var theFactor:Number = aScaleFactor / length(); 
 	
-			mX *= theFactor;
-			mY *= theFactor;
+			_x *= theFactor;
+			_y *= theFactor;
 		}
 		
 		/**
@@ -118,13 +118,13 @@ package com.humboldtjs.geom
 		 */
 		public function offset(aPoint:Point):void
 		{
-			mX += aPoint.getX();
-			mY += aPoint.getY();
+			_x += aPoint.getX();
+			_y += aPoint.getY();
 		}
 		
 		public function clone():Point
 		{
-			return new Point(mX, mY);
+			return new Point(_x, _y);
 		}
 		
 		public function equals(aPoint:Point):Boolean
@@ -132,12 +132,12 @@ package com.humboldtjs.geom
 			if (aPoint == null)
 				return false;
 			
-			return (mX == aPoint.getX()) && (mY == aPoint.getY());
+			return (_x == aPoint.getX()) && (_y == aPoint.getY());
 		}
 		
 		public function toString():String
 		{
-			return "Point(" + mX + "," + mY + ")";
+			return "Point(" + _x + "," + _y + ")";
 		}
 		
 		/**
@@ -150,7 +150,7 @@ package com.humboldtjs.geom
 		public static function distance(aPoint1:Point, aPoint2:Point):Number
 		{
 			var dx:Number = aPoint1.getX() - aPoint2.getX();
-			var dy:Number = aPoint1.mY - aPoint2.mY;
+			var dy:Number = aPoint1._y - aPoint2._y;
 			
 			return Math.sqrt((dx * dx + dy * dy));
 		}
