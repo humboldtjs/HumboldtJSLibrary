@@ -23,6 +23,8 @@ package com.humboldtjs.display
 	 */
 	public class DisplayObject extends EventDispatcher
 	{
+		public static const DEFAULT_DATA_ID_ATTRIBUTE_NAME:String = "data-id";
+		
 		protected var _element:HTMLElement;
 		protected var _classNames:Array = null;
 		protected var _children:Array;
@@ -39,6 +41,8 @@ package com.humboldtjs.display
 		protected var _alpha:Number = 1;
 		protected var _visible:Boolean = true;
 		protected var _parent:DisplayObject = null;
+		protected var _dataIdAttributeName:String = DEFAULT_DATA_ID_ATTRIBUTE_NAME;
+		protected var _dataId:String = "";
 		
 		/**
 		 * Add a classname to the HTML element used to render this displayobject.
@@ -332,6 +336,41 @@ package com.humboldtjs.display
 				_element.style.height = null;
 			else
 				_element.style.height = _percentHeight + "%";
+		}
+		
+		/**
+		 * Get the name of the attribute itself (instead of the value) used on the DOM. 
+		 */
+		public function getDataIdAttributeName():String { return _dataIdAttributeName; }
+		/**
+		 * Set the name of the attribute itself (instead of the value) used on the DOM.
+		 * In case the attribute was already added, the function performs an update. 
+		 */
+		public function setDataIdAttributeName(value:String):void
+		{
+			var theOldDataId:String = getDataId();
+			if (theOldDataId != null && theOldDataId != "") {
+				_element.removeAttribute(_dataIdAttributeName);
+			}
+			
+			_dataIdAttributeName = value;
+			
+			if (theOldDataId != null && theOldDataId != "") {
+				setDataId(theOldDataId);
+			}
+		}
+		
+		/**
+		 * Get the data id name of the element on DOM.
+		 * Returns null or "" when the attribute has not been set.
+		 */
+		public function getDataId():String { return _element.getAttribute(_dataIdAttributeName); }
+		/**
+		 * Set the data id name of the element on DOM.
+		 */
+		public function setDataId(value:String):void
+		{
+			_element.setAttribute(_dataIdAttributeName, value);
 		}
 		
 		/**
