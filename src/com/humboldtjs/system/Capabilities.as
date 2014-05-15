@@ -9,10 +9,10 @@
 package com.humboldtjs.system
 {
 	import dom.document;
-	import dom.domobjects.HTMLElement;
 	import dom.navigator;
 	import dom.screen;
 	import dom.window;
+	import dom.domobjects.HTMLElement;
 
 	/**
 	 * Utility class to detect environment capabilities.
@@ -156,6 +156,22 @@ package com.humboldtjs.system
 		public static function getManufacturer():String
 		{
 			return "HumboldtJS " + getOs();
+		}
+		
+		/**
+		 * Whether the user agent supports device orientation events.
+		 */
+		public static function getHasDeviceOrientation():Boolean
+		{
+			return (window["DeviceOrientationEvent"] !== undefined);  
+		}
+		
+		/**
+		 * Whether the user agent supports device motion events.
+		 */
+		public static function getHasDeviceMotion():Boolean
+		{
+			return (window["DeviceMotionEvent"] !== undefined);  
 		}
 		
 		/**
