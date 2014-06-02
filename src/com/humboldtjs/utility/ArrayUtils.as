@@ -8,6 +8,7 @@ package com.humboldtjs.utility
 		 * array members contain references to objects, equality is base on references
 		 * and not on the actual data within the object.
 		 */
+		[AutoScope=false]
 		public static function areEqual(aArray:Array, aOtherArray:Array):Boolean
 		{
 			if (aArray === aOtherArray) return true;
