@@ -136,7 +136,7 @@ package com.humboldtjs.net
 			// Create the callback on the prefix
 			window[getPrefix()] = doCallback;
 
-			_isLoading = true;
+			PrefixLoader._isLoading = true;
 			
 			// And add the script to the head to start loading
 			var theHead:HTMLElement = document.getElementsByTagName("head")[0];
@@ -157,7 +157,7 @@ package com.humboldtjs.net
 		protected function doCallback(aValue:*):void
 		{
 			unload();
-			_isLoading = false;
+			PrefixLoader._isLoading = false;
 			
 			_content = aValue;
 			
