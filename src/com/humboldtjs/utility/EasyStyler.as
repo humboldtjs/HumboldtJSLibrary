@@ -48,9 +48,10 @@ package com.humboldtjs.utility
 				_fontEmbedList = new Vector.<String>();
 			}
 			if (_fontEmbedStyleSheet == null) {
-				_fontEmbedStyleSheet = document.createElement("style");
-				_fontEmbedStyleSheet.setAttribute("type", "text/css");
-				document.getElementsByTagName("head")[0].appendChild(_fontEmbedStyleSheet);
+				_fontEmbedStyleSheet = document.createElement("div");
+				_fontEmbedStyleSheet.style.position = "absolute";
+				_fontEmbedStyleSheet.style.top = "-3000px";
+				document.body.appendChild(_fontEmbedStyleSheet);
 			}
 			
 			if (_fontEmbedList.indexOf(theValue) == -1) {
@@ -77,14 +78,7 @@ package com.humboldtjs.utility
 					"}";
 			}
 			
-			// Specific IE8 fix to set styles as .innerHTML is read only in IE8 for <style> nodes.
-			// http://www.phpied.com/dynamic-script-and-style-elements-in-ie/
-			// http://msdn.microsoft.com/en-us/library/ms533897%28VS.85%29.aspx
-			if (_fontEmbedStyleSheet["styleSheet"] != null) {
-				_fontEmbedStyleSheet["styleSheet"].cssText = theStyleSheet;
-			} else {
-				_fontEmbedStyleSheet.innerHTML = theStyleSheet;
-			}
+			_fontEmbedStyleSheet.innerHTML = "<style>"+theStyleSheet+"</style>";
 		}
 
 		/**
