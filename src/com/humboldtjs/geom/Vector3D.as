@@ -13,13 +13,44 @@ package com.humboldtjs.geom
 	 */
 	public class Vector3D
 	{
-		private var _x:Number;
-		private var _y:Number;
-		private var _z:Number;
-		private var _w:Number;
-		
 		public static const DEGREES_TO_RADIANS:Number = Math.PI / 180;
 
+		//-----------------------------------------------------------------------------------------
+		/**
+		 * Return the cross-product of two Vector3D's
+		 */
+		[AutoScope=false]
+		public static function crossProduct(aVector1:Vector3D, aVector2:Vector3D):Vector3D
+		{
+			var theVector:Vector3D = new Vector3D(0, 0, 0);
+			theVector._x = aVector1._y * aVector2._z - aVector1._z * aVector2._y;
+			theVector._y = aVector1._z * aVector2._x - aVector1._x * aVector2._z;
+			theVector._z = aVector1._x * aVector2._y - aVector1._y * aVector2._x;
+			
+			return theVector;
+		}
+		
+		/**
+		 * Return the Vector between two Vector3D's
+		 */
+		[AutoScope=false]
+		public static function vector(aVector1:Vector3D, aVector2:Vector3D):Vector3D
+		{
+			var theVector:Vector3D = new Vector3D(0, 0, 0);
+			theVector._x = aVector2._x - aVector1._x;
+			theVector._y = aVector2._y - aVector1._y;
+			theVector._z = aVector2._z - aVector1._z;
+			
+			return theVector;
+		}
+		
+		//-----------------------------------------------------------------------------------------
+		protected var _x:Number;
+		protected var _y:Number;
+		protected var _z:Number;
+		protected var _w:Number;
+		
+		//-----------------------------------------------------------------------------------------
 		public function getX():Number				{ return _x; }
 		public function setX(value:Number):void		{ _x = value; }
 		
@@ -32,6 +63,7 @@ package com.humboldtjs.geom
 		public function getW():Number				{ return _w; }
 		public function setW(value:Number):void		{ _w = value; }
 		
+		//-----------------------------------------------------------------------------------------
 		public function Vector3D(x:Number = 0, y:Number = 0, z:Number = 0, w:Number = 0)
 		{
 			_x = x;
@@ -138,7 +170,7 @@ package com.humboldtjs.geom
 		 */
 		public function rotateByVector(aVector:Vector3D):void
 		{
-			rotate(aVector.getX(), aVector.getY(), aVector.getZ());
+			rotate(aVector._x, aVector._y, aVector._z);
 		}
 
 		/**
@@ -156,7 +188,7 @@ package com.humboldtjs.geom
 		 */
 		public function translateByVector(aVector:Vector3D):void
 		{
-			translate(aVector.getX(), aVector.getY(), aVector.getZ());
+			translate(aVector._x, aVector._y, aVector._z);
 		}
 
 		/**
@@ -174,7 +206,7 @@ package com.humboldtjs.geom
 		 */
 		public function scaleByVector(aVector:Vector3D):void
 		{
-			scale(aVector.getX(), aVector.getY(), aVector.getZ());
+			scale(aVector._x, aVector._y, aVector._z);
 		}
 		
 		/**
@@ -185,32 +217,6 @@ package com.humboldtjs.geom
 			scale(aScale, aScale, aScale); 
 		}
 
-		/**
-		 * Return the cross-product of two Vector3D's
-		 */
-		public static function crossProduct(aVector1:Vector3D, aVector2:Vector3D):Vector3D
-		{
-			var theVector:Vector3D = new Vector3D(0, 0, 0);
-			theVector._x = aVector1._y * aVector2._z - aVector1._z * aVector2._y;
-			theVector._y = aVector1._z * aVector2._x - aVector1._x * aVector2._z;
-			theVector._z = aVector1._x * aVector2._y - aVector1._y * aVector2._x;
-			
-			return theVector;
-		}
-		
-		/**
-		 * Return the Vector between two Vector3D's
-		 */
-		public static function vector(aVector1:Vector3D, aVector2:Vector3D):Vector3D
-		{
-			var theVector:Vector3D = new Vector3D(0, 0, 0);
-			theVector._x = aVector2._x - aVector1._x;
-			theVector._y = aVector2._y - aVector1._y;
-			theVector._z = aVector2._z - aVector1._z;
-			
-			return theVector;
-		}
-		
 		/**
 		 * Set the values of this Vector3D to those of another Vector3D
 		 */

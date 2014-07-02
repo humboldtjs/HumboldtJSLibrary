@@ -13,15 +13,50 @@ package com.humboldtjs.geom
 	 */ 
 	public class Point
 	{
-		private var _x:Number;
-		private var _y:Number;
+		/**
+		 * Returns the distance between pt1 and pt2.
+		 * 
+		 * @param aPoint1
+		 * @param aPoint2
+		 * @return
+		 */
+		[AutoScope=false]
+		public static function distance(aPoint1:Point, aPoint2:Point):Number
+		{
+			var dx:Number = aPoint1._x - aPoint2._x;
+			var dy:Number = aPoint1._y - aPoint2._y;
+			
+			return Math.sqrt((dx * dx + dy * dy));
+		}
+		
+		/**
+		 * Determines the interpolated point between two specified points.
+		 * 
+		 * @param aPoint1	The base point.
+		 * @param aPoint2	The other point.
+		 * @param aFactor	An interpolation factor, 0 returns aPoint1 and 1 returns aPoint2.
+		 * 
+		 * @return Point
+		 */
+		[AutoScope=false]
+		public static function interpolate(aPoint1:Point, aPoint2:Point, aFactor:Number):Point
+		{
+			return new Point(aFactor * (aPoint2._x - aPoint1._x) + aPoint1._x, 
+							 aFactor * (aPoint2._y - aPoint1._y) + aPoint1._y);
+		}
+		
+		//-----------------------------------------------------------------------------------------
+		protected var _x:Number;
+		protected var _y:Number;
 
+		//-----------------------------------------------------------------------------------------
 		public function getX():Number				{ return _x; }
 		public function setX(value:Number):void		{ _x = value; }
 		
 		public function getY():Number				{ return _y; }
 		public function setY(value:Number):void		{ _y = value; }
 
+		//-----------------------------------------------------------------------------------------
 		public function Point(aX:Number, aY:Number)
 		{
 			_x = aX;
@@ -57,7 +92,7 @@ package com.humboldtjs.geom
 		 */
 		public function add(aPoint:Point):Point
 		{
-			return new Point(_x + aPoint.getX(), _y + aPoint.getY());
+			return new Point(_x + aPoint._x, _y + aPoint._y);
 		}
 		
 		/**
@@ -69,7 +104,7 @@ package com.humboldtjs.geom
 		 */
 		public function subtract(aPoint:Point):Point 
 		{
-			return new Point(_x - aPoint.getX(), _y - aPoint.getY());
+			return new Point(_x - aPoint._x, _y - aPoint._y);
 		}
 		
 		/**
@@ -79,8 +114,8 @@ package com.humboldtjs.geom
 		 */
 		public function scale(aPoint:Point):void
 		{
-			_x *= aPoint.getX();
-			_y *= aPoint.getY();
+			_x *= aPoint._x;
+			_y *= aPoint._y;
 		}
 		
 		/**
@@ -118,8 +153,8 @@ package com.humboldtjs.geom
 		 */
 		public function offset(aPoint:Point):void
 		{
-			_x += aPoint.getX();
-			_y += aPoint.getY();
+			_x += aPoint._x;
+			_y += aPoint._y;
 		}
 		
 		public function clone():Point
@@ -132,42 +167,12 @@ package com.humboldtjs.geom
 			if (aPoint == null)
 				return false;
 			
-			return (_x == aPoint.getX()) && (_y == aPoint.getY());
+			return (_x == aPoint._x) && (_y == aPoint._y);
 		}
 		
 		public function toString():String
 		{
 			return "Point(" + _x + "," + _y + ")";
-		}
-		
-		/**
-		 * Returns the distance between pt1 and pt2.
-		 * 
-		 * @param aPoint1
-		 * @param aPoint2
-		 * @return
-		 */
-		public static function distance(aPoint1:Point, aPoint2:Point):Number
-		{
-			var dx:Number = aPoint1.getX() - aPoint2.getX();
-			var dy:Number = aPoint1._y - aPoint2._y;
-			
-			return Math.sqrt((dx * dx + dy * dy));
-		}
-		
-		/**
-		 * Determines the interpolated point between two specified points.
-		 * 
-		 * @param aPoint1	The base point.
-		 * @param aPoint2	The other point.
-		 * @param aFactor	An interpolation factor, 0 returns aPoint1 and 1 returns aPoint2.
-		 * 
-		 * @return Point
-		 */
-		public static function interpolate(aPoint1:Point, aPoint2:Point, aFactor:Number):Point
-		{
-			return new Point(aFactor * (aPoint2.getX() - aPoint1.getX()) + aPoint1.getX(), 
-							 aFactor * (aPoint2.getY() - aPoint1.getY()) + aPoint1.getY());
 		}
 	}
 }

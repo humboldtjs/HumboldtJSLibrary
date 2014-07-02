@@ -27,7 +27,8 @@ package com.humboldtjs.utility
 		
 		protected static var _fontEmbedStyleSheet:HTMLElement;
 		protected static var _fontEmbedList:Vector.<String>;
-
+		protected static var _stylePrefixMap:Object;
+		
 		protected var _styles:Object;
 		
 		/**
@@ -98,18 +99,21 @@ package com.humboldtjs.utility
 		 */
 		public static function applyStyleObject(aElement:HTMLElement, aStyleObject:Object):void
 		{
-			if (aStyleObject) {
+			if (aStyleObject && getInstance()) {
 				var theKey:String = "";
 				for (theKey in aStyleObject) {
 					var theValue:* = aStyleObject[theKey];
 					if (theKey.substr(0, 1) == "-") {
 						theKey = theKey.substr(1);
-						var theUCName:String = theKey.substr(0, 1).toUpperCase() + theKey.substr(1); 
-						aElement.style["Webkit" + theUCName] = theValue;
-						aElement.style["ms" + theUCName] = theValue;
-						aElement.style["Moz" + theUCName] = theValue;
-						aElement.style["O" + theUCName] = theValue;
 					}
+					if (theKey.indexOf("-") != -1) {
+						var theKeyParts:Array = theKey.split("-");
+						for (var i:int = 1; i < theKeyParts.length; i++) {
+							theKeyParts[i] = theKeyParts[i].substr(0, 1).toUpperCase() + theKeyParts[i].substr(1);
+						}
+						theKey = theKeyParts.join("");
+					}
+					if (_stylePrefixMap[theKey]) theKey = _stylePrefixMap[theKey];
 					if (theKey == "fontEmbed") {
 						addFontEmbed(theValue);
 					} else if (theKey == "opacity" || theKey == "autoOpacity" || theKey == "alpha" || theKey == "autoAlpha") {
@@ -157,7 +161,29 @@ package com.humboldtjs.utility
 			}
 			
 			_instance = new EasyStyler();
+			_instance.initialize();
 			return _instance;
+		}
+		
+		protected function initialize():void
+		{
+			var thePrefixes:Array = ["webkit", "ms", "Moz", "o"];
+			EasyStyler._stylePrefixMap = {};
+			var theElement:HTMLElement = document.createElement("div");
+			
+			for (var theKey:String in theElement.style) {
+				for (var i:int = 0; i < thePrefixes.length; i++) {
+					if (theKey.substr(0, thePrefixes[i].length) == thePrefixes[i]) {
+						var theShortKey:String = theKey.substr(thePrefixes[i].length);
+						if (theShortKey.substr(0, 1) == theShortKey.substr(0, 1).toUpperCase()) {
+							theShortKey = theShortKey.substr(0, 1).toLowerCase() + theShortKey.substr(1);
+							if (!theElement.style.hasOwnProperty(theShortKey)) {
+								EasyStyler._stylePrefixMap[theShortKey] = theKey;
+							}
+						}
+					}
+				}
+			}
 		}
 		
 		/**

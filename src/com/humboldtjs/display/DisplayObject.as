@@ -42,7 +42,6 @@ package com.humboldtjs.display
 		protected var _visible:Boolean = true;
 		protected var _parent:DisplayObject = null;
 		protected var _dataIdAttributeName:String = DEFAULT_DATA_ID_ATTRIBUTE_NAME;
-		protected var _dataId:String = "";
 		
 		/**
 		 * Add a classname to the HTML element used to render this displayobject.
