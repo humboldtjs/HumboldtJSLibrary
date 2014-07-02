@@ -171,7 +171,7 @@ package com.humboldtjs.utility
 						var theShortKey:String = theKey.substr(thePrefixes[i].length);
 						if (theShortKey.substr(0, 1) == theShortKey.substr(0, 1).toUpperCase()) {
 							theShortKey = theShortKey.substr(0, 1).toLowerCase() + theShortKey.substr(1);
-							if (theElement.style[theShortKey] != undefined) {
+							if (theElement.style[theShortKey] == undefined) {
 								EasyStyler._stylePrefixMap[theShortKey] = theKey;
 							}
 						}
