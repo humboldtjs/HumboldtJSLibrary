@@ -2,8 +2,16 @@
 <project name="HumboldtJSLibrary" default="main" basedir="..">
 	<description>Compiles the SWC containing the core library of HumboldtJS.</description>
 
-	<property name="FLEX_HOME" location="/Applications/Adobe Flash Builder 4.5/sdks/4.5.0"/>
-		
+	<property name="FLEX_HOME" location="/Applications/Adobe Flash Builder 4.7/sdks/4.6.0"/>
+	
+	<taskdef name="compc"
+	         classname="flex.ant.CompcTask"
+	         classpath="build/flexTasks.jar" />
+	
+	<taskdef name="asdoc"
+	         classname="flex.ant.AsDocTask"
+	         classpath="build/flexTasks.jar" />
+	
 	<target name="main" depends="clean, compile, doc" description="Clean build of HumboldtJSLibrary.swc">
 	</target>
 
@@ -25,7 +33,7 @@
 		    <include-sources dir="${basedir}/dom" includes="**/*.as **/*.mxml"/>
 		    <include-sources dir="${basedir}/src" includes="**/*.as **/*.mxml"/>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-				<include name="player/10.0/playerglobal.swc"/>
+				<include name="player/11.1/playerglobal.swc"/>
 			</external-library-path>
 			<external-library-path dir="${basedir}/lib">
 				<include name="HumboldtJSDOM.swc"/>
@@ -48,7 +56,7 @@
 			<doc-sources path-element="${basedir}/src"/>
 		    <doc-sources path-element="${basedir}/dom"/>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-				<include name="player/10.0/playerglobal.swc"/>
+				<include name="player/11.1/playerglobal.swc"/>
 			</external-library-path>
 			<external-library-path dir="${basedir}/lib">
 				<include name="HumboldtJSDOM.swc"/>

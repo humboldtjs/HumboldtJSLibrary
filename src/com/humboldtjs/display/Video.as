@@ -104,7 +104,9 @@ package com.humboldtjs.display
 				
 				if (Capabilities.getOs() == OperatingSystem.IOS || Capabilities.getOs() == OperatingSystem.ANDROID) {
 					play();
-					window.setTimeout(pause, 1);
+					if (Capabilities.getOs() != OperatingSystem.ANDROID) {
+						window.setTimeout(pause, 1);
+					}
 				}
 
 				clearTimer();
