@@ -16,6 +16,7 @@ package com.humboldtjs.display
 	import com.humboldtjs.utility.EasyStyler;
 	
 	import dom.document;
+	import dom.navigator;
 	import dom.window;
 	import dom.domobjects.Event;
 	
@@ -99,14 +100,12 @@ package com.humboldtjs.display
 				_element.src = value;
 				
 				_tries = 4;
+				HtmlUtils.addHtmlEventListener(_element, "canplay", onCanPlay);
 				HtmlUtils.addHtmlEventListener(_element, "canplaythrough", onLoadedFarEnough);
 				HtmlUtils.addHtmlEventListener(_element, "load", onLoadedFarEnough);
 				
 				if (Capabilities.getOs() == OperatingSystem.IOS || Capabilities.getOs() == OperatingSystem.ANDROID) {
 					play();
-					if (Capabilities.getOs() != OperatingSystem.ANDROID) {
-						window.setTimeout(pause, 1);
-					}
 				}
 
 				clearTimer();
@@ -141,9 +140,22 @@ package com.humboldtjs.display
 			_hasVideo = false;
 			
 			// Clear the src attribute to make sure the video is garbage collected.
-			if (_element != null) _element.src = "";
+			_src = "";
+			if (_element != null) { 
+				if (_element.parentNode) {
+					_element.parentNode.removeChild(_element);
+				}
+				window.setTimeout(removeSrc, 1000);
+			}
 			clearTimer();
 			removeHtmlEventListeners();
+		}
+		
+		public function removeSrc():void
+		{
+			if (_element) {
+				_element.src = "";
+			}
 		}
 		
 		/**
@@ -180,6 +192,7 @@ package com.humboldtjs.display
 		 */ 
 		protected function removeHtmlEventListeners():void
 		{
+			HtmlUtils.removeHtmlEventListener(_element, "canplay", onCanPlay);
 			HtmlUtils.removeHtmlEventListener(_element, "canplaythrough", onLoadedFarEnough);
 			HtmlUtils.removeHtmlEventListener(_element, "load", onLoadedFarEnough);			
 		}
@@ -192,6 +205,13 @@ package com.humboldtjs.display
 			if (_timer != -1) {
 				window.clearTimeout(_timer);
 				_timer = -1;
+			}
+		}
+		
+		protected function onCanPlay(aEvent:Event):void
+		{
+			if (Capabilities.getOs() != OperatingSystem.ANDROID) {
+				pause();
 			}
 		}
 
@@ -289,7 +309,7 @@ package com.humboldtjs.display
 				return;
 			
 			var theBufferedranges:int = typeof _element.buffered !== "undefined" ? _element.buffered.length : 0;
-			if (theBufferedranges == 0 || _element.buffered.end(theBufferedranges - 1) < (_element.duration - DURATION_TIME_FUZZINES)) {
+			if (navigator.appVersion.indexOf("MSIE") == -1 && (theBufferedranges == 0 || _element.buffered.end(theBufferedranges - 1) < (_element.duration - DURATION_TIME_FUZZINES))) {
 				_timer = window.setTimeout(handleLoadComplete, 50);
 				return;
 			}
