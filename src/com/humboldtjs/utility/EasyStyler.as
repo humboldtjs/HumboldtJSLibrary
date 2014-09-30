@@ -131,6 +131,12 @@ package com.humboldtjs.utility
 							} else {
 								aElement.style.display = "block";
 							}
+						} else {
+							if (theValue == 0) {
+								aElement.style.visibility = "hidden";
+							} else {
+								aElement.style.visibility = "visible";
+							}
 						}
 					} else {
 						try {

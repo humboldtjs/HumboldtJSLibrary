@@ -49,6 +49,7 @@ package com.humboldtjs.display
 		protected var _currentTime:Number = 0;
 		protected var _timer:int = -1;
 		protected var _tries:int = 0;
+		protected var _timeout:int = 0;
 		
 		/**
 		 * The original video width
@@ -79,6 +80,8 @@ package com.humboldtjs.display
 			// @see http://stackoverflow.com/questions/3874070/missing-html5-video-ended-event-on-ipad
 			if (value == 0)
 				value = 0.01;
+
+			if (isNaN(_element.duration)) return;
 			_element.currentTime = value;
 		}
 		
@@ -96,6 +99,9 @@ package com.humboldtjs.display
 				_hasVideo = false;
 				_element.autoplay = false;
 				_element.controls = false;
+				_element.setAttribute("webkit-playsinline", 1);
+				_element.setAttribute("playsinline", 1);
+
 				pause();
 				_element.src = value;
 				
@@ -106,6 +112,14 @@ package com.humboldtjs.display
 				
 				if (Capabilities.getOs() == OperatingSystem.IOS || Capabilities.getOs() == OperatingSystem.ANDROID) {
 					play();
+					
+					if (Capabilities.getOs() == OperatingSystem.ANDROID) {
+						// controls must be set to true because otherwise video
+						// will sometimes only show up as a black square (on our
+						// Samsung Galaxy S3). Setting controls to enabled will
+						// make it render properly.
+						_element.controls = true;
+					}
 				}
 
 				clearTimer();
@@ -230,7 +244,7 @@ package com.humboldtjs.display
 		
 		protected function handleLoadedFarEnough():void
 		{
-			_timer = -1;
+			clearTimer();
 			
 			// stop trying to load if we don't have a source
 			if (_src == "")
@@ -270,6 +284,9 @@ package com.humboldtjs.display
 			
 			// Set the playhead time to the start of the video
 			setCurrentTime(0);
+			if (Capabilities.getOs() != OperatingSystem.ANDROID) {
+				pause();
+			}
 			
 			// If we don't have an explicit width & height, then we set the
 			// internal size to the videoWidth and videoHeight (otherwise it
@@ -340,16 +357,35 @@ package com.humboldtjs.display
 			}
 			
 			// If the playback has ended, send an event
-			if (_ended != _element.ended) {
-				_ended = _element.ended;
-				if (_ended)
+			// Our Samsung Galaxy S4 in the stock browser doesn't set the .ended
+			// property, so we also check whether we've reached the end-time of
+			// the video (within 1 frame accurate @25 fps).
+			var isEnded:Boolean = _element.ended || (_element.currentTime > 0 && _element.currentTime > _element.duration - 0.04); 
+			if (_ended != isEnded) {
+				_ended = isEnded;
+				if (_ended) {
+					pause();
 					dispatchEvent(new HJSEvent(EVENT_ENDED));
+				}
 			}
 			
 			// If the currentTime has changed then send an event
-			if (_currentTime != _element.currentTime) {
-				_currentTime = Math.round(_element.currentTime * 25) / 25;
+			var theTime:Number = Math.round(_element.currentTime * 25) / 25;
+			if (_currentTime != theTime) {
+				_timeout = 0;
+				_currentTime = theTime;
 				dispatchEvent(new DataEvent(EVENT_TIME_CHANGED, _currentTime));
+			} else if (!_paused) {
+				_timeout++;
+				// On our Samsung Galaxy S3 sometimes video does not start. When
+				// this happens the currentTime gets stuck at a weird value.
+				// This is to detect whether we should be playing back (!_paused)
+				// and if so and the currentTime doesn't change for too long then
+				// we give the video another kick to start playing.
+				if (_timeout > 10) {
+					_element.play();
+					_timeout = 0;
+				}
 			}
 		}
 	}

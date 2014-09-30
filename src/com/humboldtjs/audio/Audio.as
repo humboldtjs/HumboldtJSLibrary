@@ -16,10 +16,11 @@ package com.humboldtjs.audio
 	import com.humboldtjs.system.Capabilities;
 	import com.humboldtjs.system.HtmlUtils;
 	import com.humboldtjs.system.OperatingSystem;
+	import com.humboldtjs.utility.EasyStyler;
 	
 	import dom.document;
-	import dom.domobjects.Event;
 	import dom.window;
+	import dom.domobjects.Event;
 	
 	/**
 	 * A simple Audio class which deals with some of the weird issues with
@@ -67,6 +68,8 @@ package com.humboldtjs.audio
 			// @see http://stackoverflow.com/questions/3874070/missing-html5-video-ended-event-on-ipad
 			if (value == 0)
 				value = 0.01;
+			
+			if (isNaN(_element.duration)) return;
 			_element.currentTime = value;
 		}
 		
@@ -89,16 +92,17 @@ package com.humboldtjs.audio
 				_element.src = value;
 				
 				_tries = 4;
+				HtmlUtils.addHtmlEventListener(_element, "canplay", onCanPlay);
+				HtmlUtils.addHtmlEventListener(_element, "canplaythrough", onLoadedFarEnough);
 				HtmlUtils.addHtmlEventListener(_element, "load", onLoadedFarEnough);
 				
 				if (Capabilities.getOs() == OperatingSystem.IOS || Capabilities.getOs() == OperatingSystem.ANDROID) {
 					play();
-					window.setTimeout(pause, 1);
 				}
 				
 				clearTimer();
 				
-				onLoadComplete();
+				handleLoadedFarEnough();
 			}
 		}
 		
@@ -114,6 +118,7 @@ package com.humboldtjs.audio
 		{
 			super();
 			
+			EasyStyler.applyStyleObject(_element, {"position":"absolute","top":"-3000px","left":"-3000px"});
 			document.body.appendChild(_element);
 		}
 		
@@ -127,7 +132,12 @@ package com.humboldtjs.audio
 			_hasAudio = false;
 			
 			// Clear the src attribute to make sure the audio is garbage collected.
-			if (_element != null) _element.src = "";
+			if (_element != null) { 
+				if (_element.parentNode) {
+					_element.parentNode.removeChild(_element);
+				}
+				_element.src = "";
+			}
 			clearTimer();
 			removeHtmlEventListeners();
 		}
@@ -166,6 +176,8 @@ package com.humboldtjs.audio
 		 */ 
 		protected function removeHtmlEventListeners():void
 		{
+			HtmlUtils.removeHtmlEventListener(_element, "canplay", onCanPlay);
+			HtmlUtils.removeHtmlEventListener(_element, "canplaythrough", onLoadedFarEnough);
 			HtmlUtils.removeHtmlEventListener(_element, "load", onLoadedFarEnough);			
 		}
 		
@@ -180,12 +192,32 @@ package com.humboldtjs.audio
 			}
 		}
 		
+		protected function onCanPlay(aEvent:Event):void
+		{
+			if (Capabilities.getOs() != OperatingSystem.ANDROID) {
+				pause();
+			}
+		}
+		
+		/**
+		 * onLoadedFarEnough events on iOS devices, wait for these events
+		 * before setting complete in order to not show QT logo
+		 * @param aEvent
+		 * 
+		 */		
+		protected function onLoadedFarEnough(aEvent:Event):void
+		{
+			removeHtmlEventListeners();
+			
+			handleLoadedFarEnough();
+		}
+		
 		/**
 		 * Handle when loading of the video is complete
 		 */
-		protected function onLoadComplete():void
+		protected function handleLoadedFarEnough():void
 		{
-			_timer = -1;
+			clearTimer();
 			
 			// stop trying to load if we don't have a source
 			if (_src == "")
@@ -206,13 +238,13 @@ package com.humboldtjs.audio
 					_element.readyState == 3) &&
 					(_element.networkState == 1 ||
 						_element.networkState == 2))) {
-				_timer = window.setTimeout(onLoadComplete, 100);
+				_timer = window.setTimeout(handleLoadedFarEnough, 100);
 				return;
 			}
 			
 			if (_element.readyState !== 4 && _tries > 0) {
 				_tries--;
-				_timer = window.setTimeout(onLoadComplete, 50);
+				_timer = window.setTimeout(handleLoadedFarEnough, 50);
 				return;
 			}
 			
@@ -236,20 +268,8 @@ package com.humboldtjs.audio
 			}
 			
 			// And we're done!
+			EasyStyler.applyStyleObject(_element, {"top":"0px","left":"0px"});
 			dispatchEvent(new HJSEvent(HJSEvent.COMPLETE));
-		}
-		
-		/**
-		 * onLoadedFarEnough events on iOS devices, wait for these events
-		 * before setting complete in order to not show QT logo
-		 * @param aEvent
-		 * 
-		 */		
-		protected function onLoadedFarEnough(aEvent:Event):void
-		{
-			removeHtmlEventListeners();
-			
-			onLoadComplete();
 		}
 		
 		/**
@@ -282,8 +302,9 @@ package com.humboldtjs.audio
 			}
 			
 			// If the currentTime has changed then send an event
-			if (_currentTime != _element.currentTime) {
-				_currentTime = Math.round(_element.currentTime * 25) / 25;
+			var theTime:Number = Math.round(_element.currentTime * 25) / 25;
+			if (_currentTime != theTime) {
+				_currentTime = theTime;
 				dispatchEvent(new DataEvent(EVENT_TIME_CHANGED, _currentTime));
 			}
 		}
