@@ -360,7 +360,8 @@ package com.humboldtjs.display
 			// Our Samsung Galaxy S4 in the stock browser doesn't set the .ended
 			// property, so we also check whether we've reached the end-time of
 			// the video (within 1 frame accurate @25 fps).
-			var isEnded:Boolean = _element.ended || (_element.currentTime > 0 && _element.currentTime > _element.duration - 0.04); 
+			var isAtEnd:Boolean = (_element.currentTime > 0 && _element.currentTime > _element.duration - 0.12);
+			var isEnded:Boolean = _element.ended || isAtEnd;; 
 			if (_ended != isEnded) {
 				_ended = isEnded;
 				if (_ended) {
@@ -375,7 +376,7 @@ package com.humboldtjs.display
 				_timeout = 0;
 				_currentTime = theTime;
 				dispatchEvent(new DataEvent(EVENT_TIME_CHANGED, _currentTime));
-			} else if (!_paused) {
+			} else if (!_paused && !isAtEnd) {
 				_timeout++;
 				// On our Samsung Galaxy S3 sometimes video does not start. When
 				// this happens the currentTime gets stuck at a weird value.
