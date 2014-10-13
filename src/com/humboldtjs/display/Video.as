@@ -361,7 +361,7 @@ package com.humboldtjs.display
 			// property, so we also check whether we've reached the end-time of
 			// the video (within 1 frame accurate @25 fps).
 			var isAtEnd:Boolean = (_element.currentTime > 0 && _element.currentTime > _element.duration - 0.12);
-			var isEnded:Boolean = _element.ended || isAtEnd;; 
+			var isEnded:Boolean = !_element.loop && (_element.ended || isAtEnd); 
 			if (_ended != isEnded) {
 				_ended = isEnded;
 				if (_ended) {
