@@ -66,15 +66,15 @@ package com.humboldtjs.utility
 			var theStyleSheet:String = "";
 			for (var i:int = 0; i < _fontEmbedList.length; i++) {
 				var theFont:String = _fontEmbedList[i];
-				theStyleSheet += "@font-face {\n" +
-					"\tfont-family:'" + theFont.substr(theFont.lastIndexOf("/") + 1) + "';\n" +
-					"\tsrc:url('" + theFont + ".eot');\n" +
-					"\tsrc:url('" + theFont + ".eot?#iefix') format('embedded-opentype'),\n" +
-					"\turl('" + theFont + ".woff') format('woff'),\n" +
-					"\turl('" + theFont + ".ttf') format('truetype'),\n" +
-					"\turl('" + theFont + ".svg#" + theFont.substr(theFont.lastIndexOf("/") + 1) + "') format('svg');\n" +
-					"\tfont-weight: normal;\n" +
-					"\tfont-style: normal;\n" +
+				theStyleSheet += "@font-face {\r\n" +
+					"\tfont-family:'" + theFont.substr(theFont.lastIndexOf("/") + 1) + "';\r\n" +
+					"\tsrc:url('" + theFont + ".eot');\r\n" +
+					"\tsrc:url('" + theFont + ".eot?#iefix') format('embedded-opentype'),\r\n" +
+					"\turl('" + theFont + ".woff') format('woff'),\r\n" +
+					"\turl('" + theFont + ".ttf') format('truetype'),\r\n" +
+					"\turl('" + theFont + ".svg#" + theFont.substr(theFont.lastIndexOf("/") + 1) + "') format('svg');\r\n" +
+					"\tfont-weight: normal;\r\n" +
+					"\tfont-style: normal;\r\n" +
 					"}";
 			}
 			
@@ -140,6 +140,9 @@ package com.humboldtjs.utility
 						}
 					} else {
 						try {
+							if (theKey == "fontFamily" && theValue.indexOf(",") == -1) {
+								theValue = theValue + ", arial, sans";
+							}
 							aElement.style[theKey] = theValue;
 						} catch (e:Error) {
 							// Try catch because IE throws an error if a value
