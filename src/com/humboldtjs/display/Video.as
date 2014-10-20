@@ -361,7 +361,12 @@ package com.humboldtjs.display
 			// property, so we also check whether we've reached the end-time of
 			// the video (within 1 frame accurate @25 fps).
 			var isAtEnd:Boolean = (_element.currentTime > 0 && _element.currentTime > _element.duration - 0.12);
-			var isEnded:Boolean = !_element.loop && (_element.ended || isAtEnd); 
+			if (isAtEnd && _element.loop) {
+				setCurrentTime(0);
+				_element.play();
+				isAtEnd = false;
+			}
+			var isEnded:Boolean = _element.ended || isAtEnd; 
 			if (_ended != isEnded) {
 				_ended = isEnded;
 				if (_ended) {
@@ -383,7 +388,8 @@ package com.humboldtjs.display
 				// This is to detect whether we should be playing back (!_paused)
 				// and if so and the currentTime doesn't change for too long then
 				// we give the video another kick to start playing.
-				if (_timeout > 10) {
+				if (_timeout > 15) {
+					_element.pause();
 					_element.play();
 					_timeout = 0;
 				}
