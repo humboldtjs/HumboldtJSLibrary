@@ -81,7 +81,9 @@ package com.humboldtjs.display
 			
 			var theFunctions:Array = new Array("requestAnimationFrame", "webkitRequestAnimationFrame", "mozRequestAnimationFrame", "oRequestAnimationFrame", "msRequestAnimationFrame");
 			for (var i:int = 0; i < theFunctions.length; i++) {
-				if (window[theFunctions[i]] != null) _requestAnimationFrame = theFunctions[i];
+				if (window[theFunctions[i]] != null && _requestAnimationFrame == "") {
+					_requestAnimationFrame = theFunctions[i];
+				}
 			}
 
 			// start the frame loop

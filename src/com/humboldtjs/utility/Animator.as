@@ -31,6 +31,16 @@ package com.humboldtjs.utility
 		
 		public var ease:Function;
 		
+		public function getTarget():*
+		{
+			return _object;
+		}
+		
+		public function isAnimating():Boolean
+		{
+			return _animationMap.length > 0;
+		}
+		
 		/**
 		 * @constructor
 		 */
@@ -206,7 +216,7 @@ package com.humboldtjs.utility
 				if (theAnimation.position >= 1) {
 					_animationMap.splice(i, 1);
 					if (theAnimation.complete) {
-						theAnimation.complete();
+						theAnimation.complete(this);
 					}
 				}
 			}
