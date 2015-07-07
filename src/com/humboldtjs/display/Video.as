@@ -360,8 +360,8 @@ package com.humboldtjs.display
 			// Our Samsung Galaxy S4 in the stock browser doesn't set the .ended
 			// property, so we also check whether we've reached the end-time of
 			// the video (within 1 frame accurate @25 fps).
-
-			var isAtEnd:Boolean = (_element.currentTime > 0 && _element.currentTime > _element.duration - 0.12);
+			var theFrameDuration:Number = (Capabilities.getOs() == OperatingSystem.ANDROID) ? 0.12 : 0.04;
+			var isAtEnd:Boolean = (_element.currentTime > 0 && _element.currentTime > _element.duration - theFrameDuration);
 			var isEnded:Boolean = !_element.loop && (_element.ended || isAtEnd);
 			
 			if (Capabilities.getOs() == OperatingSystem.ANDROID) {
