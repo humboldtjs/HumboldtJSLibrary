@@ -36,7 +36,7 @@ package com.humboldtjs.system
 			var theX:Number = aEvent.clientX;
 			var theY:Number = aEvent.clientY;
 			
-			if (typeof aEvent["touches"] !== "undefined") {
+			if (typeof aEvent["touches"] !== "undefined" && aEvent["touches"] != null && aEvent["touches"].length) {
 				theX = aEvent["touches"][0].clientX;
 				theY = aEvent["touches"][0].clientY;
 			}
