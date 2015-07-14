@@ -188,37 +188,38 @@ package com.humboldtjs.utility
 		{
 			// Loop through the current map of running animations
 			for (var i:int = _animationMap.length - 1; i >= 0; i--) {
-				
-				var theAnimation:Object = _animationMap[i];
-				// Increment the time position
-				theAnimation.position = ((new Date()).getTime() / 1000 - theAnimation.time) / theAnimation.duration;
-				if (theAnimation.position < 0) theAnimation.position = 0;
-				if (theAnimation.position > 1) theAnimation.position = 1;
-				
-				// Calculate the new value (using the rounding procedure as
-				// mentioned in the documentation for animatePropertyTo
-				var theValue:* = ease(theAnimation.position, 0.5) * (theAnimation.end - theAnimation.start) + theAnimation.start;
-				theValue = Math.round(theValue * theAnimation.roundFactor) / theAnimation.roundFactor;
-				
-				if (theAnimation.isFunction) {
-					_object[theAnimation.property](theValue);
-				} else {
-					theValue = theAnimation.preFix + theValue.toString() + theAnimation.postFix;
+				if (_animationMap[i] != null) {
+					var theAnimation:Object = _animationMap[i];
+					// Increment the time position
+					theAnimation.position = ((new Date()).getTime() / 1000 - theAnimation.time) / theAnimation.duration;
+					if (theAnimation.position < 0) theAnimation.position = 0;
+					if (theAnimation.position > 1) theAnimation.position = 1;
 					
-					var theObject:Object = {};
-					theObject[theAnimation.property] = theValue;
+					// Calculate the new value (using the rounding procedure as
+					// mentioned in the documentation for animatePropertyTo
+					var theValue:* = ease(theAnimation.position, 0.5) * (theAnimation.end - theAnimation.start) + theAnimation.start;
+					theValue = Math.round(theValue * theAnimation.roundFactor) / theAnimation.roundFactor;
 					
-					EasyStyler.applyStyleObject(_element, theObject);
-				}
-				
-				// If the animation is done, remove it from the list and
-				// call the complete function
-				if (theAnimation.position >= 1) {
-					_animationMap.splice(i, 1);
-					if (theAnimation.complete) {
-						theAnimation.complete(this);
+					if (theAnimation.isFunction) {
+						_object[theAnimation.property](theValue);
+					} else {
+						theValue = theAnimation.preFix + theValue.toString() + theAnimation.postFix;
+						
+						var theObject:Object = {};
+						theObject[theAnimation.property] = theValue;
+						
+						EasyStyler.applyStyleObject(_element, theObject);
 					}
-				}
+					
+					// If the animation is done, remove it from the list and
+					// call the complete function
+					if (theAnimation.position >= 1) {
+						_animationMap.splice(i, 1);
+						if (theAnimation.complete) {
+							theAnimation.complete(this);
+						}
+					}
+				} 
 			}
 			
 			// And if there is anything more to animate call the animation loop
