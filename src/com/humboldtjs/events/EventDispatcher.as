@@ -51,8 +51,8 @@ package com.humboldtjs.events
 				// same values (same object, same method). If so then they count
 				// as being the same.
 				if (theListener.t == aType && 
-					theListener.s == theIn.s &&
-					theListener.f == theIn.f) return;
+					(theListener.s && theListener.s == theIn.s) &&
+					(theListener.f && theListener.f == theIn.f)) return;
 			}
 			
 			// Store the listener that is being registered, so we can remove it

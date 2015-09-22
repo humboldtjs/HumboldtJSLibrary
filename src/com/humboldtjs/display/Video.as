@@ -50,6 +50,7 @@ package com.humboldtjs.display
 		protected var _timer:int = -1;
 		protected var _tries:int = 0;
 		protected var _timeout:int = 0;
+		protected var _useFrameLoop:Boolean = true;
 		
 		/**
 		 * The original video width
@@ -101,7 +102,6 @@ package com.humboldtjs.display
 				_element.controls = false;
 				_element.setAttribute("webkit-playsinline", 1);
 				_element.setAttribute("playsinline", 1);
-
 				pause();
 				_element.src = value;
 				
@@ -125,6 +125,13 @@ package com.humboldtjs.display
 				clearTimer();
 				
 				handleLoadedFarEnough();
+			}
+		}
+		
+		public function setUseFrameLoop(value:Boolean):void {
+			_useFrameLoop = value;
+			if (!value && Stage.getInstance().hasEventListener(HJSEvent.ENTER_FRAME)) {
+				Stage.getInstance().removeEventListener(HJSEvent.ENTER_FRAME, onEventLoop);
 			}
 		}
 		
@@ -197,8 +204,10 @@ package com.humboldtjs.display
 		 */
 		public function pause():void
 		{
-			_element.pause();
-			_paused = true;
+			if (!_paused) {
+				_element.pause();
+				_paused = true;
+			}
 		}
 		
 		/**
@@ -302,7 +311,7 @@ package com.humboldtjs.display
 			// When the video has loaded we'll startup an event loop that will
 			// notify any listeners of TIME_CHANGED events. This can then be
 			// used for example to create custom player controls
-			if (!_loopRunning) {
+			if (!_loopRunning && _useFrameLoop) {
 				_loopRunning = true;
 				Stage.getInstance().addEventListener(HJSEvent.ENTER_FRAME, onEventLoop);
 			}
