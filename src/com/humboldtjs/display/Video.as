@@ -36,6 +36,7 @@ package com.humboldtjs.display
 		
 		public static const EVENT_ENDED:String = "ended";
 		public static const EVENT_TIME_CHANGED:String = "timechanged";
+		public static const EVENT_CAN_PLAY:String = "canplay";
 		
 		// A required fuzz-factor to compare the time of the total video duration and that of the last buffered frame.
 		public static const DURATION_TIME_FUZZINES:int = 0.5 / 25.0;
@@ -79,7 +80,8 @@ package com.humboldtjs.display
 			// later calls to currentTime stop working. This also prevents the
 			// ended event being triggered.
 			// @see http://stackoverflow.com/questions/3874070/missing-html5-video-ended-event-on-ipad
-			if (value == 0)
+			
+			if (value == 0 && Capabilities.getOs() == OperatingSystem.IOS)
 				value = 0.01;
 
 			if (isNaN(_element.duration)) return;
@@ -98,19 +100,15 @@ package com.humboldtjs.display
 			if (_src != value) {
 				_src = value;
 				_hasVideo = false;
-				_element.autoplay = false;
-				_element.controls = false;
-				_element.setAttribute("webkit-playsinline", 1);
-				_element.setAttribute("playsinline", 1);
 				pause();
 				_element.src = value;
-				
 				_tries = 4;
 				HtmlUtils.addHtmlEventListener(_element, "canplay", onCanPlay);
 				HtmlUtils.addHtmlEventListener(_element, "canplaythrough", onLoadedFarEnough);
 				HtmlUtils.addHtmlEventListener(_element, "load", onLoadedFarEnough);
 				
-				if (Capabilities.getOs() == OperatingSystem.IOS || Capabilities.getOs() == OperatingSystem.ANDROID) {
+				// also check for controls, because if they are set to true --> inline player, that means dont play
+				if ((Capabilities.getOs() == OperatingSystem.IOS || Capabilities.getOs() == OperatingSystem.ANDROID) && !_element.controls) {
 					play();
 					
 					if (Capabilities.getOs() == OperatingSystem.ANDROID) {
@@ -154,6 +152,10 @@ package com.humboldtjs.display
 		override protected function initializeElement():void
 		{
 			_element = document.createElement("video");
+			_element.autoplay = false;
+			_element.controls = false;
+			_element.setAttribute("webkit-playsinline", 1);
+			_element.setAttribute("playsinline", 1);
 		}
 		
 		public function dispose():void
@@ -236,6 +238,7 @@ package com.humboldtjs.display
 			if (Capabilities.getOs() != OperatingSystem.ANDROID) {
 				pause();
 			}
+			dispatchEvent(new HJSEvent(EVENT_CAN_PLAY));
 		}
 
 		/**

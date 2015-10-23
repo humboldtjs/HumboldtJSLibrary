@@ -10,11 +10,14 @@ package com.humboldtjs.net
 {
 	import com.humboldtjs.events.EventDispatcher;
 	import com.humboldtjs.events.HJSEvent;
+	import com.humboldtjs.system.OperatingSystem;
 	
+	import dom.window;
+	import dom.domobjects.Event;
 	import dom.domobjects.HTMLElement;
 	import dom.jsobjects.ActiveXObject;
+	import dom.jsobjects.XDomainRequest;
 	import dom.jsobjects.XMLHttpRequest;
-	import dom.window;
 
 	/**
 	 * A simple loader that uses XMLHttpRequests to load either XML or TEXT
@@ -44,6 +47,7 @@ package com.humboldtjs.net
 		protected var _request:XMLHttpRequest;
 		protected var _content:*;
 		protected var _contentType:String = "";
+		protected static var _isLegacyIE:Boolean = false;
 		
 		/**
 		 * Returns a browser-independent XMLHttpRequest object which can be used
@@ -52,26 +56,30 @@ package com.humboldtjs.net
 		public static function getXMLHttpRequestObject():XMLHttpRequest
 		{
 			var theXHR:XMLHttpRequest = null;
-			
-			if(window.XMLHttpRequest && !(window.ActiveXObject)) {
-				try {
-					// If supported use the native XMLHttpRequest functionality
-					theXHR = new XMLHttpRequest();
-				} catch(e:Error) {
-					// We're out of options
-					theXHR = null;
-				}
-			} else if(window.ActiveXObject) {
-				try {
-					// Internet Explorer 7.0 and up use Msxml2 ActiveXObject
-					theXHR = new ActiveXObject("Msxml2.XMLHTTP");
-				} catch(e:Error) {
+			_isLegacyIE = (OperatingSystem.getInternetExplorerVersion() != -1 && OperatingSystem.getInternetExplorerVersion() < 10);
+			if (_isLegacyIE) {
+				theXHR = new XDomainRequest();
+			} else {
+				if(window.XMLHttpRequest && !(window.ActiveXObject)) {
 					try {
-						// Internet Explorer 6.0 uses the old XML ActiveXObject
-						theXHR = new ActiveXObject("Microsoft.XMLHTTP");
+						// If supported use the native XMLHttpRequest functionality
+						theXHR = new XMLHttpRequest();
 					} catch(e:Error) {
 						// We're out of options
 						theXHR = null;
+					}
+				} else if(window.ActiveXObject) {
+					try {
+						// Internet Explorer 7.0 and up use Msxml2 ActiveXObject
+						theXHR = new ActiveXObject("Msxml2.XMLHTTP");
+					} catch(e:Error) {
+						try {
+							// Internet Explorer 6.0 uses the old XML ActiveXObject
+							theXHR = new ActiveXObject("Microsoft.XMLHTTP");
+						} catch(e:Error) {
+							// We're out of options
+							theXHR = null;
+						}
 					}
 				}
 			}
@@ -108,9 +116,17 @@ package com.humboldtjs.net
 		public function load(request:URLRequest):void
 		{
 			_contentType = request.getContentType();
-			_request.open(request.getMethod(), request.getUrl(), true);
-			_request["onreadystatechange"] = onReadyStateChange;
-			_request.send(request.getData());
+			if (_isLegacyIE) {
+				_request.open(request.getMethod(), request.getUrl());
+				_request["onerror"] = onXDomainRequestError;	
+				_request["onload"] = onXDomainRequestLoad;	
+				_request["ontimeout"] = onXDomainRequestError;	
+				_request.send(null);
+			} else {
+				_request.open(request.getMethod(), request.getUrl(), true);
+				_request["onreadystatechange"] = onReadyStateChange;
+				_request.send(request.getData());
+			}
 		}
 		
 		/**
@@ -119,6 +135,16 @@ package com.humboldtjs.net
 		public function unload():void
 		{
 			close();
+		}
+		
+		protected function onXDomainRequestLoad(e:Event = null):void {
+			var theResponseText:String = _request.responseText;
+			_content = theResponseText;
+			dispatchEvent(new HJSEvent(HJSEvent.COMPLETE));
+		}
+		
+		protected function onXDomainRequestError(e:Event = null):void {
+			
 		}
 		
 		protected function onReadyStateChange():void
