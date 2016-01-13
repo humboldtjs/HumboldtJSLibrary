@@ -279,6 +279,16 @@ package com.humboldtjs.display
 					_element.readyState == 3) &&
 					(_element.networkState == 1 ||
 						_element.networkState == 2))) {
+				
+				// Firefox (43) does not change the readyState property 
+				// until the video starts playing (readyState remains 2)
+				// Thats why we play and pause the video to trigger the readyState
+				if (OperatingSystem.getIsFirefox())
+				{
+					_element.play();
+					_element.pause();
+				}
+								
 				_timer = window.setTimeout(handleLoadedFarEnough, 100);
 				return;
 			}

@@ -25,6 +25,11 @@ package com.humboldtjs.system
 		{
 		}
 		
+		public static function getIsFirefox():Boolean
+		{
+			return (window.navigator.userAgent.toLowerCase().indexOf('firefox') > -1);
+		}
+
 		public static function getInternetExplorerVersion():int
 		{ 
 			// Returns the version of Internet Explorer or a -1
